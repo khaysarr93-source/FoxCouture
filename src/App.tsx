@@ -47,6 +47,8 @@ import PosCaisseSection from './components/PosCaisseSection';
 import OnboardingModal from './components/OnboardingModal';
 import FoxLogo from './components/FoxLogo';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
+import NetworkStatusBadge from './components/NetworkStatusBadge';
+
 
 export type ActiveTab = 
   | 'dashboard' 
@@ -267,9 +269,11 @@ function MainAppContent() {
             </div>
           </div>
 
-          {/* Droite : Notifications & Actions système */}
+          {/* Droite : Notifications, Statut Supabase & Actions système */}
           <div className="flex items-center gap-2.5">
-            
+            {/* Statut de synchronisation Supabase */}
+            <NetworkStatusBadge />
+
             {/* Cloche de notifications */}
             <div className="relative">
               <button

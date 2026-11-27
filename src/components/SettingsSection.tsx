@@ -19,8 +19,15 @@ import {
   RotateCcw, 
   Scissors,
   HelpCircle,
-  Store
+  Store,
+  Cloud,
+  ExternalLink,
+  CheckCircle2,
+  RefreshCw
 } from 'lucide-react';
+import { isSupabaseConfigured } from '../lib/supabase';
+import { testSupabaseConnection } from '../lib/sync';
+
 
 export default function SettingsSection() {
   const { 
@@ -40,6 +47,32 @@ export default function SettingsSection() {
 
   // Workflow step creation state
   const [newWorkflowStep, setNewWorkflowStep] = useState('');
+
+  // Supabase test state
+  const [supabaseStatus, setSupabaseStatus] = useState<{ testing: boolean; message: string | null; success: boolean | null }>({
+    testing: false,
+    message: null,
+    success: null
+  });
+
+  const handleTestSupabaseConn = async () => {
+    setSupabaseStatus({ testing: true, message: null, success: null });
+    try {
+      const res = await testSupabaseConnection();
+      setSupabaseStatus({
+        testing: false,
+        message: res.message,
+        success: res.connected
+      });
+    } catch (e: any) {
+      setSupabaseStatus({
+        testing: false,
+        message: e.message || 'Erreur inconnue',
+        success: false
+      });
+    }
+  };
+
 
   const handleFieldChange = (key: keyof AppSettings, value: any) => {
     setFormState(prev => ({
@@ -760,14 +793,73 @@ export default function SettingsSection() {
             {/* SUBTAB: DATABASE UTILITIES */}
             {activeSubTab === 'database' && (
               <div className="space-y-4">
-                <div className="border-b-2 border-black pb-2 mb-4">
-                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-900 flex items-center gap-2">
-                    <Database className="h-4.5 w-4.5 text-atelier-gold" /> Sauvegarde & Maintenance des Données
+                <div className="border-b border-stone-200/80 pb-3 mb-4">
+                  <h3 className="text-sm font-bold text-stone-900 flex items-center gap-2">
+                    <Database className="h-4.5 w-4.5 text-[#F05A22]" /> Sauvegarde & Synchronisation Cloud
                   </h3>
-                  <p className="text-[10px] font-serif text-slate-500 mt-0.5">Gérez la sécurité de votre base de données locale (exportations sécurisées, réinitialisations).</p>
+                  <p className="text-xs text-stone-500 mt-1">Gérez la synchronisation Supabase Cloud et la sécurité de votre base de données locale.</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* SUPABASE CLOUD CARD */}
+                <div className="p-5 border border-emerald-200/80 bg-emerald-50/40 rounded-2xl space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                        <Cloud className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h4 className="text-xs font-bold text-stone-900">Supabase Cloud</h4>
+                          {isSupabaseConfigured ? (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                              Configuré & Actif
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-stone-100 text-stone-600 border border-stone-200">
+                              Mode Local
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-stone-600 mt-0.5">
+                          Projet : <code className="font-mono text-[11px] text-emerald-900 font-bold">https://ttctagiehgusgoksctxv.supabase.co</code>
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleTestSupabaseConn}
+                      disabled={supabaseStatus.testing}
+                      className="px-4 py-2 bg-emerald-700 text-white rounded-xl text-xs font-semibold hover:bg-emerald-800 transition flex items-center justify-center gap-2 cursor-pointer shadow-xs disabled:opacity-50"
+                    >
+                      {supabaseStatus.testing ? (
+                        <>
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                          <span>Test en cours...</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <span>Tester la connexion</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {supabaseStatus.message && (
+                    <div className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+                      supabaseStatus.success
+                        ? 'bg-emerald-100/90 text-emerald-800 border border-emerald-200'
+                        : 'bg-rose-100 text-rose-800 border border-rose-200'
+                    }`}>
+                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                      <span>{supabaseStatus.message}</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+
                   
                   {/* Export */}
                   <div className="p-5 border border-stone-200/80 bg-[#FBF8F3] rounded-2xl flex flex-col justify-between space-y-4">

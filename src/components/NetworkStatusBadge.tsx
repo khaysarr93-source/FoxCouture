@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Wifi, WifiOff, Cloud, RefreshCw } from 'lucide-react';
+import { Wifi, WifiOff, Cloud, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { isSupabaseConfigured } from '../lib/supabase';
+import { testSupabaseConnection } from '../lib/sync';
 
 export const NetworkStatusBadge: React.FC = () => {
   const [isOnline, setIsOnline] = useState<boolean>(
     typeof navigator !== 'undefined' ? navigator.onLine : true
   );
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
-  const [lastSyncTime, setLastSyncTime] = useState<Date>(new Date());
+  const [syncStatus, setSyncStatus] = useState<string>('');
 
   useEffect(() => {
     const handleOnline = () => {
@@ -22,19 +23,31 @@ export const NetworkStatusBadge: React.FC = () => {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
 
+    // Initial test if Supabase is configured
+    if (isSupabaseConfigured) {
+      testSupabaseConnection().then(res => {
+        setSyncStatus(res.connected ? 'Connecté' : 'Hors-ligne');
+      });
+    }
+
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
   }, []);
 
-  const triggerSync = () => {
+  const triggerSync = async () => {
     setIsSyncing(true);
-    // Simulation de synchronisation ou déclenchement réel
-    setTimeout(() => {
-      setIsSyncing(false);
-      setLastSyncTime(new Date());
-    }, 1200);
+    try {
+      const res = await testSupabaseConnection();
+      setSyncStatus(res.connected ? 'Connecté' : 'Erreur');
+    } catch {
+      setSyncStatus('Erreur');
+    } finally {
+      setTimeout(() => {
+        setIsSyncing(false);
+      }, 800);
+    }
   };
 
   return (
@@ -44,27 +57,36 @@ export const NetworkStatusBadge: React.FC = () => {
           onClick={triggerSync}
           title={
             isSupabaseConfigured
-              ? `Connecté à Supabase Cloud (Dernière sync : ${lastSyncTime.toLocaleTimeString()})`
-              : 'Mode Local / Démo (Hors Supabase Cloud)'
+              ? 'Connecté à Supabase Cloud. Cliquez pour synchroniser.'
+              : 'Mode Local / Démo'
           }
-          className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-bold border border-black dark:border-zinc-700 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 transition hover:bg-emerald-100 cursor-pointer"
+          className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full border transition cursor-pointer ${
+            isSupabaseConfigured
+              ? 'bg-emerald-50/80 border-emerald-200 text-emerald-800 hover:bg-emerald-100/80'
+              : 'bg-stone-100 border-stone-200 text-stone-600 hover:bg-stone-200'
+          }`}
         >
           {isSyncing ? (
-            <RefreshCw className="h-3.5 w-3.5 animate-spin text-emerald-600 dark:text-emerald-400" />
+            <RefreshCw className="h-3.5 w-3.5 animate-spin text-emerald-600" />
+          ) : isSupabaseConfigured ? (
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
           ) : (
-            <Wifi className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+            <Wifi className="h-3.5 w-3.5 text-stone-500" />
           )}
           <span className="hidden sm:inline">
-            {isSyncing ? 'Sync...' : isSupabaseConfigured ? 'Supabase En Ligne' : 'Mode Local'}
+            {isSyncing ? 'Sync...' : isSupabaseConfigured ? 'Supabase Connecté' : 'Mode Local'}
           </span>
         </button>
       ) : (
         <div 
-          title="Pas de connexion internet. Toutes vos modifications sont enregistrées localement et seront synchronisées au retour du réseau."
-          className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-bold border-2 border-amber-600 bg-amber-50 text-amber-900 animate-pulse"
+          title="Pas de connexion internet."
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-full border border-amber-300 bg-amber-50 text-amber-800"
         >
           <WifiOff className="h-3.5 w-3.5 text-amber-600" />
-          <span className="hidden sm:inline">Mode Hors Ligne</span>
+          <span className="hidden sm:inline">Hors-Ligne</span>
         </div>
       )}
     </div>
@@ -72,3 +94,4 @@ export const NetworkStatusBadge: React.FC = () => {
 };
 
 export default NetworkStatusBadge;
+
