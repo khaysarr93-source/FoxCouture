@@ -15,7 +15,11 @@ import {
   Sparkles, 
   CheckCircle,
   TrendingDown,
-  ChevronLeft
+  ChevronLeft,
+  Coins,
+  AlertCircle,
+  ShoppingBag,
+  Truck
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -46,12 +50,35 @@ export default function Dashboard({ setActiveTab, setSelectedId }: DashboardProp
 
   const activeOrdersCount = commandes.filter(c => c.statut !== 'livre' && c.statut !== 'annule').length;
   
+  // Dettes clients (Impayés totaux - CDC 4.6)
+  const totalDettesClients = commandes
+    .filter(c => c.statut !== 'annule')
+    .reduce((sum, c) => sum + (c.soldeDu || 0), 0);
+
+  // Commandes en retard (CDC 4.6)
+  const lateOrders = commandes.filter(c => {
+    if (c.statut === 'livre' || c.statut === 'annule') return false;
+    if (!c.delaiLivraison) return false;
+    return new Date(c.delaiLivraison) < new Date();
+  });
+  const lateOrdersCount = lateOrders.length;
+
+  // Métriques "Aujourd'hui" (CDC 4.6)
+  const todayDateStr = new Date().toISOString().split('T')[0];
+  const commandesAujourdhui = commandes.filter(c => c.dateCommande === todayDateStr).length;
+  const livraisonsAujourdhui = commandes.filter(c => c.delaiLivraison === todayDateStr && c.statut !== 'livre').length;
+  const encaissementsAujourdhui = factures.reduce((sum, f) => {
+    const todayReglements = f.reglements.filter(r => r.date === todayDateStr);
+    return sum + todayReglements.reduce((rSum, r) => rSum + r.montant, 0);
+  }, 0);
+
   // High fidelity calculations for on-time delivery
   const finishedOrders = commandes.filter(c => c.statut === 'pret' || c.statut === 'livre');
-  const onTimeCount = finishedOrders.length; // Simplified for demo
+  const onTimeCount = finishedOrders.length;
   const onTimeRate = finishedOrders.length > 0 ? Math.round((onTimeCount / finishedOrders.length) * 100) : 98;
 
   const lowStockCount = tissus.filter(t => t.quantiteDisponible <= t.seuilAlerte).length;
+  const totalAlertes = lateOrdersCount + lowStockCount;
 
   // Upcoming appointments
   const todayStr = new Date().toISOString().split('T')[0];
@@ -171,9 +198,59 @@ export default function Dashboard({ setActiveTab, setSelectedId }: DashboardProp
         </div>
       </div>
 
-      {/* KPI Cards Grid */}
+      {/* SECTION CDC 4.6 : AUJOURD'HUI À L'ATELIER */}
+      <div className="bg-white border-2 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div className="flex items-center justify-between mb-3 border-b-2 border-black pb-2">
+          <span className="text-xs font-black uppercase tracking-widest text-slate-950 flex items-center gap-2">
+            <Clock className="h-4 w-4 text-atelier-gold-dark" /> Aujourd'hui à l'Atelier
+          </span>
+          <span className="text-[10px] font-mono font-bold text-slate-500 uppercase">
+            {new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(new Date())}
+          </span>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div 
+            onClick={() => setActiveTab('commandes')}
+            className="p-3 bg-slate-50 border border-black hover:bg-atelier-gold/20 transition cursor-pointer"
+          >
+            <span className="text-[9px] font-black uppercase text-slate-500 block">Commandes du Jour</span>
+            <span className="text-xl font-black text-slate-950 font-mono mt-1 block">{commandesAujourdhui}</span>
+          </div>
+
+          <div 
+            onClick={() => setActiveTab('commandes')}
+            className="p-3 bg-slate-50 border border-black hover:bg-emerald-50 transition cursor-pointer"
+          >
+            <span className="text-[9px] font-black uppercase text-slate-500 block">Livraisons Prévues</span>
+            <span className="text-xl font-black text-emerald-800 font-mono mt-1 block">{livraisonsAujourdhui}</span>
+          </div>
+
+          <div 
+            onClick={() => setActiveTab('factures')}
+            className="p-3 bg-slate-50 border border-black hover:bg-emerald-50 transition cursor-pointer"
+          >
+            <span className="text-[9px] font-black uppercase text-slate-500 block">Encaissements Jour</span>
+            <span className="text-xl font-black text-emerald-800 font-mono mt-1 block">{formatMoney(encaissementsAujourdhui)}</span>
+          </div>
+
+          <div 
+            onClick={() => setActiveTab(lateOrdersCount > 0 ? 'commandes' : 'stocks')}
+            className={`p-3 border transition cursor-pointer ${
+              totalAlertes > 0 ? 'bg-rose-50 border-rose-600 text-rose-900' : 'bg-slate-50 border-black text-slate-950'
+            }`}
+          >
+            <span className="text-[9px] font-black uppercase block">Alertes Actives</span>
+            <span className="text-xl font-black font-mono mt-1 block flex items-center gap-1.5">
+              {totalAlertes > 0 && <AlertCircle className="h-4 w-4 text-rose-600 animate-pulse" />}
+              {totalAlertes} {totalAlertes > 0 ? `(${lateOrdersCount} retards)` : ''}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* KPI Cards Grid — Conforme CDC 4.6 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* KPI 1 */}
+        {/* KPI 1 : CA */}
         <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform duration-200">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Chiffre d'Affaires</span>
@@ -192,11 +269,35 @@ export default function Dashboard({ setActiveTab, setSelectedId }: DashboardProp
           </div>
         </div>
 
-        {/* KPI 2 */}
-        <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform duration-200">
+        {/* KPI 2 : Dettes Clients (CDC 4.6) */}
+        <div 
+          onClick={() => setActiveTab('factures')}
+          className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform duration-200 cursor-pointer"
+        >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Commandes Actives</span>
-            <div className="p-2 bg-indigo-100 text-indigo-800 border border-black font-black text-xs">
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Dettes Clients</span>
+            <div className={`p-2 border border-black font-black text-xs ${totalDettesClients > 0 ? 'bg-amber-100 text-amber-900' : 'bg-slate-100 text-slate-800'}`}>
+              <Coins className="h-4 w-4" />
+            </div>
+          </div>
+          <div className="mt-4">
+            <span className={`text-3xl font-black uppercase tracking-tighter ${totalDettesClients > 0 ? 'text-amber-600' : 'text-slate-950'}`}>
+              {formatMoney(totalDettesClients)}
+            </span>
+            <div className="mt-2 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-amber-700">
+              <span>{commandes.filter(c => c.soldeDu > 0).length} impayés à relancer</span>
+            </div>
+          </div>
+        </div>
+
+        {/* KPI 3 : Commandes & Retards (CDC 4.6) */}
+        <div 
+          onClick={() => setActiveTab('commandes')}
+          className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform duration-200 cursor-pointer"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Commandes & Délais</span>
+            <div className={`p-2 border border-black font-black text-xs ${lateOrdersCount > 0 ? 'bg-rose-100 text-rose-800' : 'bg-indigo-100 text-indigo-800'}`}>
               CMD
             </div>
           </div>
@@ -204,37 +305,26 @@ export default function Dashboard({ setActiveTab, setSelectedId }: DashboardProp
             <span className="text-3xl font-black text-slate-950 uppercase tracking-tighter">
               {activeOrdersCount}
             </span>
-            <div className="mt-2 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-indigo-600">
-              <span>{commandes.filter(c => c.statut === 'attente').length} en attente</span>
-              <span className="text-slate-400">• {commandes.filter(c => c.statut === 'production').length} en cours</span>
+            <div className="mt-2 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest">
+              {lateOrdersCount > 0 ? (
+                <span className="text-rose-600 font-black animate-pulse flex items-center gap-0.5">
+                  <AlertCircle className="h-3 w-3 inline" /> {lateOrdersCount} en retard
+                </span>
+              ) : (
+                <span className="text-emerald-600">Toutes à l'heure (100%)</span>
+              )}
             </div>
           </div>
         </div>
 
-        {/* KPI 3 */}
-        <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform duration-200">
+        {/* KPI 4 : Stock Bas (CDC 4.6) */}
+        <div 
+          onClick={() => setActiveTab('stocks')}
+          className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform duration-200 cursor-pointer"
+        >
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Livraison à Temps</span>
-            <div className="p-2 bg-amber-100 text-amber-800 border border-black font-black text-xs">
-              LIV
-            </div>
-          </div>
-          <div className="mt-4">
-            <span className="text-3xl font-black text-slate-950 uppercase tracking-tighter">
-              {onTimeRate}%
-            </span>
-            <div className="mt-2 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-amber-600">
-              <span>Objectif : 95%</span>
-              <span className="text-slate-400">• excellent</span>
-            </div>
-          </div>
-        </div>
-
-        {/* KPI 4 */}
-        <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-transform duration-200">
-          <div className="flex items-center justify-between">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Alerte Stock Bas</span>
-            <div className="p-2 bg-rose-100 text-rose-800 border border-black font-black text-xs">
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Alertes Stock Bas</span>
+            <div className={`p-2 border border-black font-black text-xs ${lowStockCount > 0 ? 'bg-rose-100 text-rose-800' : 'bg-slate-100 text-slate-800'}`}>
               STK
             </div>
           </div>
@@ -243,7 +333,7 @@ export default function Dashboard({ setActiveTab, setSelectedId }: DashboardProp
               {lowStockCount}
             </span>
             <div className="mt-2 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400">
-              <span>{tissus.length} tissus au catalogue</span>
+              <span>{tissus.length} références au catalogue</span>
             </div>
           </div>
         </div>
