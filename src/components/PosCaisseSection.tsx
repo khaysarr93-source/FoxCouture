@@ -886,39 +886,39 @@ export default function PosCaisseSection() {
   return (
     <div className="space-y-6" id="pos_caisse_workspace">
       {/* Visual Workspace Hero Banner */}
-      <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="card-fox p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-center gap-4">
-          <div className="p-3 bg-black text-atelier-gold border-2 border-black">
-            <Store className="h-6 w-6" />
+          <div className="w-12 h-12 rounded-2xl bg-stone-900 text-white flex items-center justify-center shrink-0">
+            <Store className="h-6 w-6 text-[#F05A22]" />
           </div>
           <div>
-            <h2 className="font-display font-black text-xl lg:text-2xl uppercase tracking-tight text-slate-950 dark:text-white">
+            <h2 className="text-xl lg:text-2xl font-bold text-stone-900 tracking-tight">
               Caisse & Point de Vente (POS)
             </h2>
-            <p className="font-serif text-xs text-slate-500 mt-1">
-              Gérez efficacement les encaissements au comptoir, l'émission de tickets, les dépenses courantes et les rapports Z de clôture.
+            <p className="text-xs text-stone-500 mt-0.5">
+              Encaissements au comptoir, tickets de caisse, dépenses et rapports de clôture.
             </p>
           </div>
         </div>
 
         {/* Tab Selector */}
-        <div className="flex bg-slate-100 dark:bg-zinc-800 p-1 border border-black max-w-xs shrink-0 self-start md:self-center">
+        <div className="flex bg-[#EDE8E0] p-1 rounded-full shrink-0 self-start md:self-center">
           <button
             onClick={() => setSubTab('active')}
-            className={`flex-1 py-1.5 px-3 text-xs font-black uppercase tracking-wider text-center transition cursor-pointer ${
+            className={`py-1.5 px-4 text-xs font-semibold rounded-full transition cursor-pointer ${
               subTab === 'active'
-                ? 'bg-black text-white dark:bg-white dark:text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
-                : 'text-slate-600 hover:text-black dark:text-zinc-400'
+                ? 'bg-[#191716] text-white shadow-xs'
+                : 'text-stone-700 hover:text-stone-900'
             }`}
           >
-            Session Active
+            Session active
           </button>
           <button
             onClick={() => setSubTab('history')}
-            className={`flex-1 py-1.5 px-3 text-xs font-black uppercase tracking-wider text-center transition cursor-pointer ${
+            className={`py-1.5 px-4 text-xs font-semibold rounded-full transition cursor-pointer ${
               subTab === 'history'
-                ? 'bg-black text-white dark:bg-white dark:text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
-                : 'text-slate-600 hover:text-black dark:text-zinc-400'
+                ? 'bg-[#191716] text-white shadow-xs'
+                : 'text-stone-700 hover:text-stone-900'
             }`}
           >
             Historique & rapports
@@ -928,61 +928,61 @@ export default function PosCaisseSection() {
 
       {subTab === 'active' && (
         !sessionCaisseActive ? (
-          <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-md mx-auto text-center my-10">
-            <div className="inline-flex p-4 bg-rose-50 dark:bg-rose-950/20 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800 mb-4 rounded-none">
-              <Lock className="h-10 w-10 animate-bounce" />
+          <div className="card-fox p-8 max-w-md mx-auto text-center my-10 space-y-4">
+            <div className="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 border border-rose-200/80 mx-auto flex items-center justify-center">
+              <Lock className="h-7 w-7" />
             </div>
-            <h4 className="font-display font-black text-slate-950 dark:text-white uppercase text-base tracking-wider">Session de caisse fermée</h4>
-            <p className="text-xs text-slate-500 font-serif mt-2 max-w-sm mx-auto leading-relaxed">
-              Une session de caisse doit être obligatoirement ouverte au démarrage de l'activité pour encaisser des tickets comptoir, utiliser le Point de Vente tactile ou enregistrer des dépenses.
+            <h4 className="text-base font-bold text-stone-900">Session de caisse fermée</h4>
+            <p className="text-xs text-stone-500 max-w-sm mx-auto leading-relaxed">
+              Ouvrez une session de caisse pour commencer les encaissements au comptoir, utiliser le Point de Vente tactile ou enregistrer des dépenses.
             </p>
             
             <button
               onClick={() => setIsOpeningModalOpen(true)}
-              className="mt-6 w-full py-2.5 bg-atelier-gold hover:bg-black text-slate-950 hover:text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] cursor-pointer transition flex items-center justify-center gap-2"
+              className="btn-fox-primary !w-full !py-2.5 flex items-center justify-center gap-2"
             >
               <Unlock className="h-4 w-4" /> Ouvrir la session de caisse
             </button>
           </div>
         ) : (
           <div className="space-y-6">
-            {/* Top Touch POS Header Bar - Replicating User Screenshot */}
-            <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Top Touch POS Header Bar */}
+            <div className="card-fox p-4 flex flex-col md:flex-row items-center justify-between gap-4">
               {/* Left Tabs & Controls */}
               <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                <div className="flex bg-slate-100 dark:bg-zinc-800 p-1 border border-black rounded-none">
+                <div className="flex bg-[#EDE8E0] p-1 rounded-full">
                   <button
                     onClick={() => setPosMode('tactile')}
-                    className={`py-1.5 px-4 text-xs font-black uppercase tracking-wider transition cursor-pointer flex items-center gap-1.5 ${
+                    className={`py-1.5 px-4 text-xs font-semibold rounded-full transition cursor-pointer flex items-center gap-1.5 ${
                       posMode === 'tactile'
-                        ? 'bg-slate-900 text-white dark:bg-white dark:text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
-                        : 'text-slate-600 hover:text-black dark:text-zinc-400'
+                        ? 'bg-[#191716] text-white shadow-xs'
+                        : 'text-stone-700 hover:text-stone-900'
                     }`}
                   >
-                    <ShoppingBag className="h-3.5 w-3.5" /> Caisse (Tactile)
+                    <ShoppingBag className="h-3.5 w-3.5" /> Caisse tactile
                   </button>
                   <button
                     onClick={() => setPosMode('invoices')}
-                    className={`py-1.5 px-4 text-xs font-black uppercase tracking-wider transition cursor-pointer flex items-center gap-1.5 ${
+                    className={`py-1.5 px-4 text-xs font-semibold rounded-full transition cursor-pointer flex items-center gap-1.5 ${
                       posMode === 'invoices'
-                        ? 'bg-slate-900 text-white dark:bg-white dark:text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]'
-                        : 'text-slate-600 hover:text-black dark:text-zinc-400'
+                        ? 'bg-[#191716] text-white shadow-xs'
+                        : 'text-stone-700 hover:text-stone-900'
                     }`}
                   >
-                    <FileText className="h-3.5 w-3.5" /> Commandes / Factures
+                    <FileText className="h-3.5 w-3.5" /> Commandes & factures
                   </button>
                 </div>
 
                 <button
                   onClick={handleClearCart}
-                  className="p-2 bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 border border-slate-300 hover:border-rose-300 transition cursor-pointer"
+                  className="p-2 bg-stone-100 hover:bg-rose-50 text-stone-700 hover:text-rose-600 rounded-xl transition cursor-pointer"
                   title="Réinitialiser / Nouveau Ticket"
                 >
                   <Plus className="h-4 w-4" />
                 </button>
 
-                <div className="px-3 py-1.5 bg-[#E6FFFA] text-[#006D5B] border border-[#00A389]/20 font-mono font-black text-xs uppercase tracking-widest">
-                  Table / Ticket #1005
+                <div className="px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full font-mono text-xs font-semibold border border-emerald-200">
+                  Ticket #1005
                 </div>
               </div>
 
@@ -990,7 +990,7 @@ export default function PosCaisseSection() {
               <div className="flex items-center gap-3 w-full md:w-auto justify-end">
                 {posMode === 'tactile' && (
                   <div className="relative max-w-xs w-full sm:w-60">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-stone-400">
                       <Search className="h-4 w-4" />
                     </span>
                     <input
@@ -998,34 +998,34 @@ export default function PosCaisseSection() {
                       value={posSearchTerm}
                       onChange={(e) => setPosSearchTerm(e.target.value)}
                       placeholder="Rechercher des produits..."
-                      className="w-full pl-9 pr-4 py-1.5 text-xs bg-slate-50 dark:bg-zinc-950 border border-black focus:outline-hidden"
+                      className="w-full pl-9 pr-4 py-2 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     />
                   </div>
                 )}
 
-                <div className="p-1.5 bg-slate-100 dark:bg-zinc-800 border border-black hover:bg-slate-200 transition cursor-pointer" title="Lecteur Code Barre Simulé">
-                  <Barcode className="h-4 w-4 text-black dark:text-white" />
+                <div className="p-2 bg-stone-100 rounded-xl hover:bg-stone-200 transition cursor-pointer text-stone-700" title="Lecteur Code Barre Simulé">
+                  <Barcode className="h-4 w-4" />
                 </div>
 
                 {/* Session Manager Mini control */}
-                <div className="flex items-center gap-1">
-                  <div className="hidden lg:flex flex-col text-right pr-2 border-r border-dashed border-black/20">
-                    <span className="text-[8px] font-black uppercase text-slate-400">Solde Caisse</span>
-                    <strong className="text-xs font-mono font-black text-emerald-600">{formatPrice(sessionTotals.total)}</strong>
+                <div className="flex items-center gap-2">
+                  <div className="hidden lg:flex flex-col text-right pr-2 border-r border-stone-200">
+                    <span className="text-[10px] text-stone-400 font-medium">Solde caisse</span>
+                    <strong className="text-xs font-mono font-bold text-emerald-700">{formatPrice(sessionTotals.total)}</strong>
                   </div>
                   <button
                     onClick={() => {
                       setActualCashCounted(sessionTotals.total);
                       setIsClosingModalOpen(true);
                     }}
-                    className="p-1.5 bg-zinc-950 hover:bg-rose-600 text-white transition flex items-center gap-1 text-[10px] uppercase font-black tracking-widest border border-black cursor-pointer"
+                    className="px-3 py-2 bg-stone-900 hover:bg-rose-600 text-white rounded-xl transition flex items-center gap-1.5 text-xs font-semibold cursor-pointer"
                     title="Clôturer la journée"
                   >
-                    <Lock className="h-3.5 w-3.5 text-atelier-gold" /> Fermer Session
+                    <Lock className="h-3.5 w-3.5 text-[#F05A22]" /> Fermer session
                   </button>
                   <button
                     onClick={() => setIsOutflowModalOpen(true)}
-                    className="p-1.5 bg-slate-100 text-black hover:bg-black hover:text-white transition flex items-center gap-1 text-[10px] uppercase font-black tracking-widest border border-black cursor-pointer"
+                    className="px-3 py-2 bg-white border border-stone-200 text-stone-700 hover:bg-stone-50 rounded-xl transition flex items-center gap-1.5 text-xs font-semibold cursor-pointer shadow-xs"
                     title="Enregistrer une dépense courante"
                   >
                     <MinusCircle className="h-3.5 w-3.5 text-rose-500" /> Dépense
@@ -1038,12 +1038,12 @@ export default function PosCaisseSection() {
               /* MODERN TACTILE POS VIEW MODE */
               <div className="space-y-4">
                 {/* Mobile Tab Selector (only visible below lg) */}
-                <div className="flex lg:hidden border-2 border-black">
+                <div className="flex lg:hidden bg-[#EDE8E0] p-1 rounded-2xl">
                   <button
                     type="button"
                     onClick={() => setMobilePosTab('catalog')}
-                    className={`flex-1 py-2.5 text-xs font-black uppercase tracking-widest text-center transition cursor-pointer ${
-                      mobilePosTab === 'catalog' ? 'bg-black text-white' : 'bg-white text-black dark:bg-zinc-900 dark:text-zinc-100'
+                    className={`flex-1 py-2 text-xs font-semibold rounded-xl text-center transition cursor-pointer ${
+                      mobilePosTab === 'catalog' ? 'bg-[#191716] text-white shadow-xs' : 'text-stone-700'
                     }`}
                   >
                     🛍️ Catalogue
@@ -1051,8 +1051,8 @@ export default function PosCaisseSection() {
                   <button
                     type="button"
                     onClick={() => setMobilePosTab('cart')}
-                    className={`flex-1 py-2.5 text-xs font-black uppercase tracking-widest text-center transition border-l border-black cursor-pointer ${
-                      mobilePosTab === 'cart' ? 'bg-black text-white' : 'bg-white text-black dark:bg-zinc-900 dark:text-zinc-100'
+                    className={`flex-1 py-2 text-xs font-semibold rounded-xl text-center transition cursor-pointer ${
+                      mobilePosTab === 'cart' ? 'bg-[#191716] text-white shadow-xs' : 'text-stone-700'
                     }`}
                   >
                     📋 Panier ({cart.reduce((sum, item) => sum + item.quantity, 0)})
@@ -1061,7 +1061,7 @@ export default function PosCaisseSection() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                   {/* LEFT COLUMN: THE SHOPPING CART (cols 4) */}
-                  <div className={`lg:col-span-4 bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between min-h-[620px] ${
+                  <div className={`lg:col-span-4 card-fox p-5 flex flex-col justify-between min-h-[620px] ${
                     mobilePosTab === 'cart' ? 'flex' : 'hidden lg:flex'
                   }`}>
                     <div>
@@ -1138,19 +1138,19 @@ export default function PosCaisseSection() {
                   </div>
 
                   {/* Actions & Checkouts on Left Sidebar Bottom */}
-                  <div className="pt-4 border-t border-black/10 space-y-3 mt-4 bg-slate-50 dark:bg-zinc-950 p-3 border border-black/5">
+                  <div className="pt-4 border-t border-stone-100 space-y-3 mt-4 bg-[#FBF8F3] p-4 rounded-2xl border border-stone-200/80">
                     {/* Client Selection in Cart */}
                     <div>
-                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-500 block mb-1">Rattacher Client</label>
+                      <label className="text-[11px] font-semibold text-stone-600 block mb-1">Rattacher un client</label>
                       <select
                         value={cartClientId}
                         onChange={(e) => setCartClientId(e.target.value)}
-                        className="w-full p-1.5 text-xs bg-white dark:bg-zinc-900 border border-black rounded-none font-bold uppercase focus:outline-hidden"
+                        className="w-full p-2 text-xs bg-white border border-stone-200/80 rounded-xl font-medium text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                       >
-                        <option value="">👤 CLIENT VENT DIRECT (PASSAGE)</option>
+                        <option value="">👤 Client direct (comptoir)</option>
                         {clients.map(c => (
                           <option key={c.id} value={c.id}>
-                            👤 {c.prenom.toUpperCase()} {c.nom.toUpperCase()} ({c.telephone})
+                            👤 {c.prenom} {c.nom} ({c.telephone})
                           </option>
                         ))}
                       </select>
@@ -1163,7 +1163,7 @@ export default function PosCaisseSection() {
                         value={cartNote}
                         onChange={(e) => setCartNote(e.target.value)}
                         placeholder="Consignes, taille ou remarque (ex: À emporter...)"
-                        className="w-full p-1.5 text-xs bg-white dark:bg-zinc-900 border border-black focus:outline-hidden"
+                        className="w-full p-2 text-xs bg-white border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                       />
                     </div>
 
@@ -1174,16 +1174,16 @@ export default function PosCaisseSection() {
                         setCustomItemPrice(0);
                         setIsCustomItemModalOpen(true);
                       }}
-                      className="w-full py-1 bg-white hover:bg-slate-100 text-slate-950 text-[10px] font-black uppercase tracking-wider border border-black transition flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-2 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
                     >
-                      <Plus className="h-3.5 w-3.5" /> Ajouter un Article personnalisé
+                      <Plus className="h-3.5 w-3.5 text-[#F05A22]" /> Article personnalisé
                     </button>
 
                     {/* Subtotals & Actions */}
-                    <div className="pt-2 border-t border-dashed border-black/10 space-y-2">
+                    <div className="pt-3 border-t border-dashed border-stone-200 space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-[10px] font-black uppercase tracking-wider text-slate-500">Montant Total à Payer :</span>
-                        <strong className="text-xl font-mono font-black text-slate-950 dark:text-white">
+                        <span className="text-xs font-semibold text-stone-600">Total à payer :</span>
+                        <strong className="text-xl font-semibold text-stone-900">
                           {formatPrice(cartTotal)}
                         </strong>
                       </div>
@@ -1192,25 +1192,18 @@ export default function PosCaisseSection() {
                         {/* Clear Cart */}
                         <button
                           onClick={handleClearCart}
-                          className="p-2.5 bg-slate-100 hover:bg-rose-50 text-slate-800 hover:text-rose-600 border border-slate-300 hover:border-rose-300 flex items-center justify-center cursor-pointer"
+                          className="p-2.5 bg-white hover:bg-rose-50 text-stone-500 hover:text-rose-600 border border-stone-200/80 rounded-xl flex items-center justify-center cursor-pointer transition shadow-xs"
                           title="Vider le panier"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
-                        {/* Note Toggle Icon (just cosmetic helper) */}
+                        {/* Note Toggle */}
                         <button
                           onClick={() => setCartNote('À Emporter')}
-                          className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 flex items-center justify-center cursor-pointer"
-                          title="Mettre en Note Rapide: À Emporter"
+                          className="p-2.5 bg-white hover:bg-stone-50 text-stone-600 border border-stone-200/80 rounded-xl flex items-center justify-center cursor-pointer transition shadow-xs"
+                          title="Note rapide : À Emporter"
                         >
                           <Upload className="h-4 w-4" />
-                        </button>
-                        <button
-                          onClick={() => setCartNote('Urgent! couture / retouche')}
-                          className="p-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 flex items-center justify-center cursor-pointer"
-                          title="Plus d'options"
-                        >
-                          <MoreVertical className="h-4 w-4" />
                         </button>
 
                         {/* Big pay button */}
@@ -1223,13 +1216,13 @@ export default function PosCaisseSection() {
                             setMixedElectronic(cartTotal - half);
                             setIsTactileCheckoutOpen(true);
                           }}
-                          className={`flex-1 py-2 text-xs font-black uppercase tracking-widest text-center border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition flex items-center justify-center gap-1.5 ${
+                          className={`flex-1 py-2.5 px-4 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-1.5 ${
                             cart.length === 0
-                              ? 'bg-slate-200 text-slate-400 border-slate-300 cursor-not-allowed shadow-none'
-                              : 'bg-atelier-gold text-slate-950 hover:bg-black hover:text-white cursor-pointer'
+                              ? 'bg-stone-200 text-stone-400 cursor-not-allowed'
+                              : 'btn-fox-primary'
                           }`}
                         >
-                          <CheckCircle className="h-4 w-4" /> Payer ({formatPrice(cartTotal)})
+                          <CheckCircle className="h-4 w-4" /> Encaisser ({formatPrice(cartTotal)})
                         </button>
                       </div>
                     </div>
@@ -1238,10 +1231,10 @@ export default function PosCaisseSection() {
 
                 {/* RIGHT COLUMN: CATEGORY SELECTION & PRODUCT GRID (cols 8) */}
                 <div className={`lg:col-span-8 space-y-6 ${mobilePosTab === 'catalog' ? 'block' : 'hidden lg:block'}`}>
-                  {/* Category Grid from screenshot */}
-                  <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                    <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-2.5">Catégories d'articles</span>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2">
+                  {/* Category Grid */}
+                  <div className="card-fox rounded-3xl p-5 shadow-card">
+                    <span className="text-xs font-semibold text-stone-500 block mb-3">Catégories d'articles</span>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2.5">
                       {POS_CATEGORIES.map((cat) => {
                         const isActive = selectedCategory === cat.id;
                         return (
@@ -1249,21 +1242,21 @@ export default function PosCaisseSection() {
                             key={cat.id}
                             onClick={() => {
                               setSelectedCategory(cat.id);
-                              setPosSearchTerm(''); // Clear search on category click to show products
+                              setPosSearchTerm('');
                             }}
-                            className={`flex items-center gap-2 p-1.5 transition text-left cursor-pointer border ${cat.bg} ${cat.text} ${
+                            className={`flex items-center gap-2 p-2 rounded-2xl transition text-left cursor-pointer border ${
                               isActive
-                                ? 'border-2 border-black ring-2 ring-black font-black scale-102 shadow-sm'
-                                : 'border-black/20 font-medium hover:scale-101 hover:border-black'
+                                ? 'border-[#F05A22] bg-[#FDF4EE] text-[#F05A22] font-semibold shadow-xs'
+                                : 'border-stone-200/70 bg-white hover:border-stone-300 text-stone-700'
                             }`}
                           >
                             <img
                               src={cat.img}
                               alt={cat.label}
                               referrerPolicy="no-referrer"
-                              className="h-7 w-7 rounded-sm object-cover border border-black/10 shrink-0"
+                              className="h-8 w-8 rounded-xl object-cover shrink-0"
                             />
-                            <span className="text-[8px] uppercase tracking-wider font-extrabold truncate leading-tight">
+                            <span className="text-[11px] font-semibold truncate leading-tight">
                               {cat.label}
                             </span>
                           </button>
@@ -1273,19 +1266,19 @@ export default function PosCaisseSection() {
                   </div>
 
                   {/* Products Grid */}
-                  <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                    <div className="flex justify-between items-center pb-3 border-b border-black/10 mb-5">
-                      <h4 className="font-display font-black text-xs uppercase tracking-widest text-slate-500">
-                        Articles : {POS_CATEGORIES.find(c => c.id === selectedCategory)?.label || 'RECHERCHE'}
+                  <div className="card-fox rounded-3xl p-6 shadow-card">
+                    <div className="flex justify-between items-center pb-3 border-b border-stone-100 mb-5">
+                      <h4 className="text-sm font-semibold text-stone-800">
+                        Articles : {POS_CATEGORIES.find(c => c.id === selectedCategory)?.label || 'Recherche'}
                       </h4>
-                      <span className="text-[10px] text-slate-400 font-mono">
-                        {filteredPOSProducts.length} référence(s) disponible(s)
+                      <span className="text-xs text-stone-500 font-medium">
+                        {filteredPOSProducts.length} référence(s)
                       </span>
                     </div>
 
                     {filteredPOSProducts.length === 0 ? (
-                      <div className="text-center py-20">
-                        <p className="text-xs font-serif text-slate-400">Aucun produit ne correspond à la recherche ou à cette catégorie.</p>
+                      <div className="text-center py-16">
+                        <p className="text-xs text-stone-400">Aucun produit ne correspond à cette recherche ou catégorie.</p>
                       </div>
                     ) : (
                       <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -1294,9 +1287,9 @@ export default function PosCaisseSection() {
                             key={p.id}
                             whileHover={{ y: -2 }}
                             onClick={() => handleAddToCart(p)}
-                            className="bg-white dark:bg-zinc-950 border border-black/20 hover:border-black p-2 shadow-xs hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.15)] flex flex-col justify-between cursor-pointer group transition-all rounded-none"
+                            className="bg-white rounded-2xl border border-stone-200/80 hover:border-[#F05A22]/50 p-2.5 shadow-xs hover:shadow-card flex flex-col justify-between cursor-pointer group transition-all"
                           >
-                            <div className="relative aspect-square overflow-hidden mb-2 bg-slate-100">
+                            <div className="relative aspect-square rounded-xl overflow-hidden mb-2.5 bg-stone-100">
                               <img
                                 src={p.image}
                                 alt={p.name}
@@ -1304,16 +1297,16 @@ export default function PosCaisseSection() {
                                 className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                               />
                             </div>
-                            <div className="space-y-1">
-                              <span className="text-[9px] font-black block uppercase tracking-tight truncate text-slate-900 dark:text-zinc-100">
+                            <div className="space-y-1.5">
+                              <span className="text-xs font-semibold block truncate text-stone-800">
                                 {p.name}
                               </span>
-                              <div className="flex justify-between items-center pt-1 border-t border-dashed border-black/10">
-                                <span className="font-mono font-black text-[11px] text-emerald-600">
+                              <div className="flex justify-between items-center pt-1.5 border-t border-dashed border-stone-100">
+                                <span className="font-semibold text-xs text-emerald-600">
                                   {formatPrice(p.price)}
                                 </span>
-                                <span className="text-[8px] bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 px-1 py-0.2 uppercase font-mono">
-                                  + VENDRE
+                                <span className="text-[10px] bg-[#FDF4EE] text-[#F05A22] font-semibold px-2 py-0.5 rounded-full">
+                                  + Vendre
                                 </span>
                               </div>
                             </div>
@@ -1332,71 +1325,71 @@ export default function PosCaisseSection() {
                 <div className="lg:col-span-4 space-y-6">
             
             {/* Session Card */}
-            <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-              <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-2">Statut de la caisse</span>
+            <div className="card-fox rounded-3xl p-5 shadow-card">
+              <span className="text-xs font-semibold text-stone-500 block mb-3">Statut de la caisse</span>
               
               {sessionCaisseActive ? (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="relative flex h-3 w-3">
+                      <span className="relative flex h-2.5 w-2.5">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                       </span>
-                      <span className="font-black text-emerald-600 text-xs uppercase tracking-wider">Session Active</span>
+                      <span className="font-semibold text-emerald-600 text-xs">Session active</span>
                     </div>
-                    <span className="text-[10px] font-mono text-slate-500 bg-slate-50 px-2 py-0.5 border border-slate-200">
+                    <span className="text-[11px] font-medium text-stone-500 bg-[#FBF8F3] px-2.5 py-0.5 rounded-full border border-stone-200/80">
                       ID: {sessionCaisseActive.id.slice(-6).toUpperCase()}
                     </span>
                   </div>
 
-                  <div className="pt-2 border-t border-dashed border-black/10">
-                    <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Fond initial</div>
-                    <div className="text-xl font-black text-slate-950 dark:text-white font-mono mt-0.5">
+                  <div className="pt-2 border-t border-stone-100">
+                    <div className="text-xs text-stone-500 font-medium">Fond initial</div>
+                    <div className="text-xl font-bold text-stone-900 mt-0.5">
                       {formatPrice(sessionCaisseActive.fondInitial)}
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="bg-slate-50 dark:bg-zinc-950 p-2 border border-slate-200 dark:border-zinc-800">
-                      <div className="text-[9px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1">
-                        <PlusCircle className="h-3 w-3 text-emerald-500" /> Ventes (Espèces)
+                  <div className="grid grid-cols-2 gap-3 pt-1">
+                    <div className="bg-[#FBF8F3] p-3 rounded-2xl border border-stone-200/60">
+                      <div className="text-[11px] font-medium text-stone-500 flex items-center gap-1.5">
+                        <PlusCircle className="h-3.5 w-3.5 text-emerald-500" /> Espèces
                       </div>
-                      <div className="text-sm font-black text-slate-950 dark:text-white font-mono mt-1">
+                      <div className="text-sm font-bold text-stone-900 mt-1">
                         {formatPrice(sessionTotals.cash)}
                       </div>
                     </div>
-                    <div className="bg-slate-50 dark:bg-zinc-950 p-2 border border-slate-200 dark:border-zinc-800">
-                      <div className="text-[9px] font-black uppercase tracking-wider text-slate-400 flex items-center gap-1">
-                        <MinusCircle className="h-3 w-3 text-rose-500" /> Sorties (Espèces)
+                    <div className="bg-[#FBF8F3] p-3 rounded-2xl border border-stone-200/60">
+                      <div className="text-[11px] font-medium text-stone-500 flex items-center gap-1.5">
+                        <MinusCircle className="h-3.5 w-3.5 text-rose-500" /> Sorties
                       </div>
-                      <div className="text-sm font-black text-slate-950 dark:text-white font-mono mt-1">
+                      <div className="text-sm font-bold text-stone-900 mt-1">
                         {formatPrice(sessionTotals.outflow)}
                       </div>
                     </div>
                   </div>
 
                   <div className="pt-2">
-                    <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wide">Flux électronique (Wave/CB/Vir)</div>
-                    <div className="text-base font-black text-slate-950 dark:text-white font-mono mt-0.5">
+                    <div className="text-xs text-stone-500 font-medium">Flux électronique (Wave, OM, CB)</div>
+                    <div className="text-base font-semibold text-stone-800 mt-0.5">
                       {formatPrice(sessionTotals.electronic)}
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-black/20">
-                    <div className="text-[10px] font-black text-slate-500 uppercase tracking-wider">SOLDE ESPÈCES THÉORIQUE</div>
-                    <div className="text-2xl font-black text-slate-950 dark:text-white font-mono mt-0.5">
+                  <div className="pt-3 border-t border-stone-100">
+                    <div className="text-xs font-semibold text-stone-500">Solde espèces théorique</div>
+                    <div className="text-2xl font-bold text-[#F05A22] mt-0.5">
                       {formatPrice(sessionTotals.total)}
                     </div>
                   </div>
 
                   {/* Actions inside Session */}
-                  <div className="pt-4 space-y-2 border-t border-dashed border-black/10">
+                  <div className="pt-3 space-y-2 border-t border-stone-100">
                     <button
                       onClick={() => setIsOutflowModalOpen(true)}
-                      className="w-full py-2 bg-white hover:bg-slate-50 text-slate-950 text-xs font-black uppercase tracking-widest border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] cursor-pointer transition flex items-center justify-center gap-2"
+                      className="w-full py-2.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 cursor-pointer transition flex items-center justify-center gap-2 shadow-xs"
                     >
-                      <MinusCircle className="h-4 w-4 text-rose-500" /> Saisir Dépense
+                      <MinusCircle className="h-4 w-4 text-rose-500" /> Saisir une dépense
                     </button>
                     
                     <button
@@ -1404,27 +1397,27 @@ export default function PosCaisseSection() {
                         setActualCashCounted(sessionTotals.total);
                         setIsClosingModalOpen(true);
                       }}
-                      className="w-full py-2 bg-black hover:bg-zinc-900 text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] cursor-pointer transition flex items-center justify-center gap-2"
+                      className="w-full py-2.5 bg-[#161412] hover:bg-stone-800 text-white text-xs font-semibold rounded-xl cursor-pointer transition flex items-center justify-center gap-2 shadow-xs"
                     >
-                      <Lock className="h-4 w-4 text-atelier-gold" /> Clôturer la Session
+                      <Lock className="h-4 w-4 text-[#F05A22]" /> Clôturer la session
                     </button>
                   </div>
                 </div>
               ) : (
-                <div className="space-y-4 py-3 text-center">
-                  <div className="inline-flex p-4 rounded-none bg-rose-50 text-rose-600 border border-rose-200">
-                    <Lock className="h-8 w-8" />
+                <div className="space-y-4 py-4 text-center">
+                  <div className="inline-flex p-4 rounded-2xl bg-amber-50 text-[#F05A22] border border-amber-200/50">
+                    <Lock className="h-7 w-7" />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-950 dark:text-white uppercase text-sm tracking-wider">Session de caisse fermée</h4>
-                    <p className="text-xs text-slate-500 font-serif mt-1 max-w-xs mx-auto">
-                      Une session de caisse doit être obligatoirement ouverte au démarrage de l'activité pour encaisser des tickets comptoir ou enregistrer des dépenses.
+                    <h4 className="font-semibold text-stone-900 text-sm">Session de caisse fermée</h4>
+                    <p className="text-xs text-stone-500 mt-1 max-w-xs mx-auto">
+                      Une session de caisse doit être ouverte pour encaisser des tickets comptoir ou enregistrer des dépenses.
                     </p>
                   </div>
                   
                   <button
                     onClick={() => setIsOpeningModalOpen(true)}
-                    className="mt-2 w-full py-2.5 bg-atelier-gold hover:bg-black text-slate-950 hover:text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] cursor-pointer transition flex items-center justify-center gap-2"
+                    className="mt-2 w-full py-2.5 btn-fox-primary text-xs font-semibold rounded-xl cursor-pointer transition flex items-center justify-center gap-2"
                   >
                     <Unlock className="h-4 w-4" /> Ouvrir la caisse
                   </button>
@@ -1434,40 +1427,40 @@ export default function PosCaisseSection() {
 
             {/* Quick stats on active session */}
             {sessionCaisseActive && (
-              <div className="bg-slate-950 text-white border-2 border-black p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <div className="bg-[#161412] text-white rounded-3xl p-5 shadow-card">
                 <div className="flex justify-between items-center mb-3">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-zinc-500 block">Derniers mouvements</span>
-                  <span className="text-[9px] font-mono font-black uppercase text-atelier-gold bg-zinc-900 px-2 py-0.5 border border-zinc-800">
+                  <span className="text-xs font-semibold text-stone-400 block">Derniers mouvements</span>
+                  <span className="text-[11px] font-semibold text-[#F05A22] bg-[#221F1D] px-2.5 py-0.5 rounded-full border border-stone-800">
                     {activeSessionTickets.length} transaction{activeSessionTickets.length > 1 ? 's' : ''}
                   </span>
                 </div>
                 
                 {activeSessionTickets.length === 0 && activeSessionOutflows.length === 0 ? (
-                  <p className="text-xs text-zinc-400 font-serif py-2">Aucun mouvement enregistré pour le moment.</p>
+                  <p className="text-xs text-stone-400 py-3">Aucun mouvement enregistré pour le moment.</p>
                 ) : (
-                  <div className="space-y-3.5 max-h-60 overflow-y-auto sidebar-scroll pr-1">
+                  <div className="space-y-3 max-h-60 overflow-y-auto sidebar-scroll pr-1">
                     {[...activeSessionTickets, ...activeSessionOutflows]
                       .sort((a, b) => b.dateHeure.localeCompare(a.dateHeure))
                       .slice(0, 5)
                       .map((item, idx) => {
                         const isTicket = 'numero' in item;
                         return (
-                          <div key={idx} className="flex justify-between items-start gap-2 text-xs">
+                          <div key={idx} className="flex justify-between items-start gap-2 text-xs border-b border-stone-800/60 pb-2">
                             <div>
-                              <span className="font-black text-[10px] block font-mono text-zinc-300">
-                                {isTicket ? item.numero : 'DÉPENSE'}
+                              <span className="font-semibold text-[11px] block text-stone-200">
+                                {isTicket ? item.numero : 'Dépense'}
                               </span>
-                              <span className="text-[10px] text-zinc-400 block truncate max-w-[160px] font-serif">
+                              <span className="text-[11px] text-stone-400 block truncate max-w-[160px]">
                                 {isTicket 
-                                  ? (item.typeVente === 'vente_libre' ? item.descriptionLibre : `Règlement Facture #${item.factureId?.slice(-6).toUpperCase()}`)
+                                  ? (item.typeVente === 'vente_libre' ? item.descriptionLibre : `Facture #${item.factureId?.slice(-6).toUpperCase()}`)
                                   : item.motif}
                               </span>
                             </div>
                             <div className="text-right">
-                              <span className={`font-mono font-bold block ${!isTicket ? 'text-rose-400' : (item.statut === 'annule' ? 'text-zinc-500 line-through' : 'text-emerald-400')}`}>
+                              <span className={`font-semibold block ${!isTicket ? 'text-rose-400' : (item.statut === 'annule' ? 'text-stone-500 line-through' : 'text-emerald-400')}`}>
                                 {isTicket ? '+' : '-'}{formatPrice(item.montant)}
                               </span>
-                              <span className="text-[9px] text-zinc-500 block font-mono">
+                              <span className="text-[10px] text-stone-500 block">
                                 {new Date(item.dateHeure).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                               </span>
                             </div>
@@ -1484,100 +1477,100 @@ export default function PosCaisseSection() {
           <div className="lg:col-span-8 space-y-6">
             
             {/* Facturation / POS Section */}
-            <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <div className="card-fox rounded-3xl p-6 shadow-card">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
-                  <h3 className="font-display font-black text-base uppercase tracking-tight text-slate-950 dark:text-white">
-                    Vente Comptoir & Encaissements
+                  <h3 className="text-base font-semibold text-stone-900">
+                    Vente comptoir & encaissements
                   </h3>
-                  <p className="text-xs font-serif text-slate-500 mt-0.5">
-                    Sélectionnez une facture en attente pour encaisser un acompte/solde, ou réalisez une vente libre d'accessoire.
+                  <p className="text-xs text-stone-500 mt-0.5">
+                    Sélectionnez une facture en attente pour encaisser un solde, ou réalisez une vente directe.
                   </p>
                 </div>
 
                 <button
                   disabled={!sessionCaisseActive}
                   onClick={() => handleOpenTicketModal()}
-                  className={`py-1.5 px-4 text-xs font-black uppercase tracking-wider border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition inline-flex items-center gap-1.5 ${
+                  className={`py-2 px-4 text-xs font-semibold rounded-xl transition inline-flex items-center gap-1.5 ${
                     sessionCaisseActive
-                      ? 'bg-atelier-gold text-slate-950 hover:bg-black hover:text-white cursor-pointer'
-                      : 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
+                      ? 'btn-fox-primary cursor-pointer'
+                      : 'bg-stone-200 text-stone-400 cursor-not-allowed'
                   }`}
                   title={!sessionCaisseActive ? "Veuillez d'abord ouvrir la caisse" : "Nouvelle vente de comptoir"}
                 >
-                  <PlusCircle className="h-4 w-4" /> Vente Comptoir Directe
+                  <PlusCircle className="h-4 w-4" /> Vente comptoir directe
                 </button>
               </div>
 
               {/* Outstanding Invoices Table to collect quickly */}
               <div className="space-y-4">
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-stone-400">
                     <Search className="h-4 w-4" />
                   </span>
                   <input
                     type="text"
                     value={searchFactureTerm}
                     onChange={(e) => setSearchFactureTerm(e.target.value)}
-                    placeholder="Rechercher une facture impayée (Numéro, client, modèle...)"
-                    className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black dark:border-zinc-800 focus:outline-hidden focus:bg-white"
+                    placeholder="Rechercher une facture (Numéro, client, modèle...)"
+                    className="w-full pl-10 pr-4 py-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                   />
                 </div>
 
                 {filteredUnpaidInvoices.length === 0 ? (
-                  <div className="text-center py-8 border-2 border-dashed border-black/10">
+                  <div className="text-center py-12 rounded-2xl border border-dashed border-stone-200 bg-[#FBF8F3]">
                     <CheckCircle className="h-10 w-10 text-emerald-500 mx-auto mb-2" />
-                    <p className="text-xs font-black text-slate-900 uppercase">Toutes les factures sont soldées ! 🎉</p>
-                    <p className="text-[11px] text-slate-500 font-serif mt-1">Aucun encaissement en attente sur commande.</p>
+                    <p className="text-xs font-semibold text-stone-800">Toutes les factures sont soldées ! 🎉</p>
+                    <p className="text-xs text-stone-500 mt-1">Aucun encaissement en attente sur commande.</p>
                   </div>
                 ) : (
-                  <div className="border-2 border-black dark:border-zinc-800 overflow-x-auto">
+                  <div className="rounded-2xl border border-stone-200/80 overflow-hidden bg-white">
                     <table className="w-full text-left text-xs">
-                      <thead className="bg-slate-100 dark:bg-zinc-800 uppercase text-[9px] font-black tracking-wider border-b-2 border-black">
+                      <thead className="bg-[#FBF8F3] text-stone-500 font-semibold text-[11px] border-b border-stone-200/80">
                         <tr>
-                          <th className="p-3">Facture</th>
-                          <th className="p-3">Client</th>
-                          <th className="p-3">Commande / Modèle</th>
-                          <th className="p-3 text-right">Montant Total</th>
-                          <th className="p-3 text-right">Reste à Payer (Solde)</th>
-                          <th className="p-3 text-center">Action</th>
+                          <th className="p-3.5">Facture</th>
+                          <th className="p-3.5">Client</th>
+                          <th className="p-3.5">Commande / Modèle</th>
+                          <th className="p-3.5 text-right">Montant Total</th>
+                          <th className="p-3.5 text-right">Reste à Payer</th>
+                          <th className="p-3.5 text-center">Action</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-black/10">
+                      <tbody className="divide-y divide-stone-100">
                         {filteredUnpaidInvoices.map((f) => {
                           const client = clients.find(c => c.id === f.clientId);
                           const order = f.commandeId ? commandes.find(c => c.id === f.commandeId) : null;
                           return (
-                            <tr key={f.id} className="hover:bg-slate-50 dark:hover:bg-zinc-800/50">
-                              <td className="p-3 font-mono font-bold text-slate-950 dark:text-white">
-                                {f.numero}
+                            <tr key={f.id} className="hover:bg-stone-50/70 transition">
+                              <td className="p-3.5 font-semibold text-stone-900">
+                                #{f.numero}
                               </td>
-                              <td className="p-3">
-                                {client ? `${client.prenom} ${client.nom}`.toUpperCase() : 'INCONNU'}
+                              <td className="p-3.5 font-medium text-stone-800">
+                                {client ? `${client.prenom} ${client.nom}` : 'Client Inconnu'}
                               </td>
-                              <td className="p-3 font-serif">
+                              <td className="p-3.5 text-stone-600">
                                 {order ? (
-                                  <span className="flex items-center gap-1">
-                                    <Scissors className="h-3.5 w-3.5 text-rose-500" /> {order.nomModele}
+                                  <span className="flex items-center gap-1.5 font-medium text-stone-800">
+                                    <Scissors className="h-3.5 w-3.5 text-[#F05A22]" /> {order.nomModele}
                                   </span>
                                 ) : (
-                                  <span className="text-slate-400 italic">{f.designationDirecte || 'Vente libre'}</span>
+                                  <span className="text-stone-400 italic">{f.designationDirecte || 'Vente directe'}</span>
                                 )}
                               </td>
-                              <td className="p-3 text-right font-mono font-bold">
+                              <td className="p-3.5 text-right font-medium text-stone-700">
                                 {formatPrice(f.montantTotal)}
                               </td>
-                              <td className="p-3 text-right font-mono font-bold text-rose-600 bg-rose-50/40 dark:bg-rose-950/20">
+                              <td className="p-3.5 text-right font-semibold text-[#F05A22]">
                                 {formatPrice(f.soldeDu)}
                               </td>
-                              <td className="p-3 text-center">
+                              <td className="p-3.5 text-center">
                                 <button
                                   disabled={!sessionCaisseActive}
                                   onClick={() => handleOpenTicketModal(f)}
-                                  className={`py-1 px-2.5 text-[10px] font-black uppercase tracking-wider border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition ${
+                                  className={`py-1.5 px-3 text-[11px] font-semibold rounded-lg transition ${
                                     sessionCaisseActive
-                                      ? 'bg-black text-white hover:bg-atelier-gold hover:text-black cursor-pointer'
-                                      : 'bg-slate-100 text-slate-400 cursor-not-allowed shadow-none border-slate-300'
+                                      ? 'btn-fox-primary cursor-pointer'
+                                      : 'bg-stone-100 text-stone-400 cursor-not-allowed border border-stone-200'
                                   }`}
                                   title={!sessionCaisseActive ? 'Ouvrir la caisse d\'abord' : 'Enregistrer le règlement'}
                                 >
@@ -1596,19 +1589,19 @@ export default function PosCaisseSection() {
 
             {/* List of transactions in active session */}
             {sessionCaisseActive && (
-              <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <div className="card-fox rounded-3xl p-6 shadow-card">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                   <div>
-                    <h3 className="font-display font-black text-base uppercase tracking-tight text-slate-950 dark:text-white">
-                      Journal des Ventes de la Session
+                    <h3 className="text-base font-semibold text-stone-900">
+                      Journal des ventes de la session
                     </h3>
-                    <p className="text-xs font-serif text-slate-500 mt-0.5">
+                    <p className="text-xs text-stone-500 mt-0.5">
                       Historique chronologique des tickets édités durant cette session.
                     </p>
                   </div>
                   
                   <div className="relative max-w-xs w-full sm:w-64">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-stone-400">
                       <Search className="h-4 w-4" />
                     </span>
                     <input
@@ -1616,83 +1609,87 @@ export default function PosCaisseSection() {
                       value={searchTicketTerm}
                       onChange={(e) => setSearchTicketTerm(e.target.value)}
                       placeholder="Filtrer les tickets..."
-                      className="w-full pl-9 pr-4 py-1.5 text-xs bg-slate-50 dark:bg-zinc-950 border border-black focus:outline-hidden"
+                      className="w-full pl-9 pr-4 py-2 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                     />
                   </div>
                 </div>
 
                 {filteredActiveTickets.length === 0 ? (
-                  <p className="text-xs text-slate-500 font-serif py-6 text-center border-2 border-dashed border-black/10">
+                  <p className="text-xs text-stone-400 py-8 text-center rounded-2xl border border-dashed border-stone-200 bg-[#FBF8F3]">
                     Aucun ticket de caisse émis pour le moment.
                   </p>
                 ) : (
-                  <div className="border border-black dark:border-zinc-800 overflow-x-auto">
+                  <div className="rounded-2xl border border-stone-200/80 overflow-hidden bg-white">
                     <table className="w-full text-left text-xs">
-                      <thead className="bg-slate-100 dark:bg-zinc-800 uppercase text-[9px] font-black tracking-wider border-b border-black">
+                      <thead className="bg-[#FBF8F3] text-stone-500 font-semibold text-[11px] border-b border-stone-200/80">
                         <tr>
-                          <th className="p-3">Numéro</th>
-                          <th className="p-3">Heure</th>
-                          <th className="p-3">Type Vente</th>
-                          <th className="p-3">Client lié</th>
-                          <th className="p-3">Mode Paiement</th>
-                          <th className="p-3 text-right">Montant</th>
-                          <th className="p-3 text-center">Actions</th>
+                          <th className="p-3.5">Numéro</th>
+                          <th className="p-3.5">Heure</th>
+                          <th className="p-3.5">Type de vente</th>
+                          <th className="p-3.5">Client</th>
+                          <th className="p-3.5">Mode de paiement</th>
+                          <th className="p-3.5 text-right">Montant</th>
+                          <th className="p-3.5 text-center">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-black/10">
+                      <tbody className="divide-y divide-stone-100">
                         {filteredActiveTickets.map((t) => {
                           const client = t.factureId 
                             ? clients.find(c => c.id === (factures.find(f => f.id === t.factureId)?.clientId))
                             : null;
                           return (
-                            <tr key={t.id} className={`hover:bg-slate-50 dark:hover:bg-zinc-800/50 ${t.statut === 'annule' ? 'opacity-50 bg-slate-100/40' : ''}`}>
-                              <td className="p-3 font-mono font-bold">
-                                {t.numero}
+                            <tr key={t.id} className={`hover:bg-stone-50/70 transition ${t.statut === 'annule' ? 'opacity-50 bg-stone-50' : ''}`}>
+                              <td className="p-3.5 font-semibold text-stone-900">
+                                #{t.numero}
                                 {t.statut === 'annule' && (
-                                  <span className="ml-2 px-1.5 py-0.5 bg-rose-100 text-rose-700 border border-rose-300 font-bold uppercase text-[7px] tracking-wider rounded-sm">
+                                  <span className="ml-2 px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 font-semibold text-[10px] rounded-full">
                                     Annulé
                                   </span>
                                 )}
                               </td>
-                              <td className="p-3 font-mono text-[10px]">
+                              <td className="p-3.5 text-stone-500">
                                 {new Date(t.dateHeure).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                               </td>
-                              <td className="p-3 uppercase text-[9px] font-black tracking-wider">
-                                {t.typeVente === 'commande_acompte' ? 'Acompte' : t.typeVente === 'commande_solde' ? 'Solde' : t.typeVente === 'retouche' ? 'Retouche' : 'Vente Libre'}
+                              <td className="p-3.5 font-medium text-stone-700">
+                                {t.typeVente === 'commande_acompte' ? 'Acompte' : t.typeVente === 'commande_solde' ? 'Solde' : t.typeVente === 'retouche' ? 'Retouche' : 'Vente directe'}
                               </td>
-                              <td className="p-3 truncate max-w-[120px]">
-                                {client ? `${client.prenom} ${client.nom}`.toUpperCase() : 'CLIENT VENT DIRECT'}
+                              <td className="p-3.5 text-stone-800 truncate max-w-[140px]">
+                                {client ? `${client.prenom} ${client.nom}` : 'Client comptoir'}
                               </td>
-                              <td className="p-3 uppercase text-[9px] font-black font-mono">
+                              <td className="p-3.5">
                                 {t.detailsMode ? (
-                                  <span className="text-amber-600 font-bold" title={`Espèces: ${t.detailsMode.especes}, Électro: ${t.montant - (t.detailsMode.especes || 0)}`}>
-                                    Mixed ⚡
+                                  <span className="text-amber-700 font-medium bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60 text-[11px]" title={`Espèces: ${t.detailsMode.especes}, Électro: ${t.montant - (t.detailsMode.especes || 0)}`}>
+                                    Mixte ⚡
                                   </span>
                                 ) : (
-                                  t.modePaiement === 'especes' ? '💵 ESPÈCES' : t.modePaiement === 'mobile_money' ? '📱 MOBILE MONEY' : t.modePaiement === 'carte' ? '💳 CARTE' : '🏦 VIREMENT'
+                                  <span className="text-stone-600 font-medium text-[11px]">
+                                    {t.modePaiement === 'especes' ? '💵 Espèces' : t.modePaiement === 'mobile_money' ? '📱 Mobile Money' : t.modePaiement === 'carte' ? '💳 Carte' : '🏦 Virement'}
+                                  </span>
                                 )}
                               </td>
-                              <td className="p-3 text-right font-mono font-bold">
+                              <td className="p-3.5 text-right font-semibold text-stone-900">
                                 {formatPrice(t.montant)}
                               </td>
-                              <td className="p-3 text-center flex items-center justify-center gap-1.5">
-                                <button
-                                  onClick={() => setSelectedTicketToPrint(t)}
-                                  className="p-1 text-slate-700 hover:text-black hover:bg-slate-100 cursor-pointer border border-transparent hover:border-black transition"
-                                  title="Imprimer / Télécharger le Ticket"
-                                >
-                                  <Printer className="h-4 w-4" />
-                                </button>
-                                
-                                {t.statut === 'valide' && (
+                              <td className="p-3.5 text-center">
+                                <div className="flex items-center justify-center gap-1">
                                   <button
-                                    onClick={() => handleCancelTicketClick(t.id)}
-                                    className="p-1 text-rose-600 hover:text-rose-800 hover:bg-rose-50 cursor-pointer border border-transparent hover:border-rose-300 transition"
-                                    title="Annuler le Ticket"
+                                    onClick={() => setSelectedTicketToPrint(t)}
+                                    className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded-lg cursor-pointer transition"
+                                    title="Imprimer / Télécharger le Ticket"
                                   >
-                                    <Ban className="h-4 w-4" />
+                                    <Printer className="h-4 w-4" />
                                   </button>
-                                )}
+                                  
+                                  {t.statut === 'valide' && (
+                                    <button
+                                      onClick={() => handleCancelTicketClick(t.id)}
+                                      className="p-1.5 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer transition"
+                                      title="Annuler le Ticket"
+                                    >
+                                      <Ban className="h-4 w-4" />
+                                    </button>
+                                  )}
+                                </div>
                               </td>
                             </tr>
                           );
@@ -1711,19 +1708,19 @@ export default function PosCaisseSection() {
 )}
 
       {subTab === 'history' && (
-        <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+        <div className="card-fox rounded-3xl p-6 shadow-card">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h3 className="font-display font-black text-lg uppercase tracking-tight text-slate-950 dark:text-white">
-                Historique des Sessions & rapports Z
+              <h3 className="text-lg font-semibold text-stone-900">
+                Historique des sessions & rapports Z
               </h3>
-              <p className="text-xs font-serif text-slate-500 mt-0.5">
-                Rapports financiers non modifiables horodatés générés à la clôture de chaque journée ou service.
+              <p className="text-xs text-stone-500 mt-0.5">
+                Rapports financiers horodatés générés à la clôture de chaque service.
               </p>
             </div>
             
             <div className="relative max-w-xs w-full sm:w-72">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-stone-400">
                 <Search className="h-4 w-4" />
               </span>
               <input
@@ -1731,67 +1728,67 @@ export default function PosCaisseSection() {
                 value={searchHistoryTerm}
                 onChange={(e) => setSearchHistoryTerm(e.target.value)}
                 placeholder="Filtrer l'historique par date, statut..."
-                className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black focus:outline-hidden"
+                className="w-full pl-10 pr-4 py-2 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
               />
             </div>
           </div>
 
-          <div className="border border-black dark:border-zinc-800 overflow-x-auto">
+          <div className="rounded-2xl border border-stone-200/80 overflow-hidden bg-white">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-100 dark:bg-zinc-800 uppercase text-[9px] font-black tracking-wider border-b-2 border-black">
+              <thead className="bg-[#FBF8F3] text-stone-500 font-semibold text-[11px] border-b border-stone-200/80">
                 <tr>
-                  <th className="p-3">Session</th>
-                  <th className="p-3">Ouverture</th>
-                  <th className="p-3">Clôture</th>
-                  <th className="p-3 text-right">Fond Initial</th>
-                  <th className="p-3 text-right">Solde Théorique</th>
-                  <th className="p-3 text-right">Solde Compté</th>
-                  <th className="p-3 text-right">Écart</th>
-                  <th className="p-3 text-center">Statut</th>
-                  <th className="p-3 text-center">Rapport Z</th>
+                  <th className="p-3.5">Session</th>
+                  <th className="p-3.5">Ouverture</th>
+                  <th className="p-3.5">Clôture</th>
+                  <th className="p-3.5 text-right">Fond Initial</th>
+                  <th className="p-3.5 text-right">Solde Théorique</th>
+                  <th className="p-3.5 text-right">Solde Compté</th>
+                  <th className="p-3.5 text-right">Écart</th>
+                  <th className="p-3.5 text-center">Statut</th>
+                  <th className="p-3.5 text-center">Rapport Z</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-black/10 font-mono">
+              <tbody className="divide-y divide-stone-100">
                 {filteredSessionHistory.map((s) => {
                   const hasEcart = s.ecart !== undefined && s.ecart !== 0;
                   return (
-                    <tr key={s.id} className="hover:bg-slate-50 dark:hover:bg-zinc-800/50">
-                      <td className="p-3 font-bold text-slate-950 dark:text-white">
-                        {s.id.toUpperCase()}
+                    <tr key={s.id} className="hover:bg-stone-50/70 transition">
+                      <td className="p-3.5 font-semibold text-stone-900">
+                        #{s.id.slice(-6).toUpperCase()}
                       </td>
-                      <td className="p-3 text-[10px] font-serif">
+                      <td className="p-3.5 text-stone-600">
                         {new Date(s.dateOuverture).toLocaleString('fr-FR')}
                       </td>
-                      <td className="p-3 text-[10px] font-serif">
+                      <td className="p-3.5 text-stone-600">
                         {s.dateCloture ? new Date(s.dateCloture).toLocaleString('fr-FR') : '—'}
                       </td>
-                      <td className="p-3 text-right">
+                      <td className="p-3.5 text-right text-stone-700">
                         {formatPrice(s.fondInitial)}
                       </td>
-                      <td className="p-3 text-right">
+                      <td className="p-3.5 text-right text-stone-700">
                         {formatPrice(s.montantTheorique)}
                       </td>
-                      <td className="p-3 text-right font-bold">
+                      <td className="p-3.5 text-right font-semibold text-stone-900">
                         {s.montantCompte !== undefined ? formatPrice(s.montantCompte) : '—'}
                       </td>
-                      <td className={`p-3 text-right font-bold ${hasEcart ? (s.ecart! < 0 ? 'text-rose-600 bg-rose-50' : 'text-emerald-600 bg-emerald-50') : 'text-slate-500'}`}>
+                      <td className={`p-3.5 text-right font-semibold ${hasEcart ? (s.ecart! < 0 ? 'text-rose-600' : 'text-emerald-600') : 'text-stone-400'}`}>
                         {s.ecart !== undefined ? (s.ecart === 0 ? '0' : (s.ecart > 0 ? `+${formatPrice(s.ecart)}` : formatPrice(s.ecart))) : '—'}
                       </td>
-                      <td className="p-3 text-center">
-                        <span className={`px-2 py-0.5 rounded-sm font-bold text-[8px] uppercase tracking-wider border ${
+                      <td className="p-3.5 text-center">
+                        <span className={`px-2.5 py-1 rounded-full font-semibold text-[10px] border ${
                           s.statut === 'ouverte'
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-300 animate-pulse'
-                            : 'bg-zinc-100 text-zinc-700 border-zinc-300'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                            : 'bg-stone-100 text-stone-600 border-stone-200'
                         }`}>
                           {s.statut === 'ouverte' ? 'Ouverte' : 'Clôturée'}
                         </span>
                       </td>
-                      <td className="p-3 text-center">
+                      <td className="p-3.5 text-center">
                         <button
                           onClick={() => setSelectedZReport(s)}
-                          className="px-2 py-1 bg-white hover:bg-black text-slate-950 hover:text-white text-[10px] font-black uppercase tracking-wider border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition cursor-pointer inline-flex items-center gap-1"
+                          className="px-3 py-1 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold border border-stone-200/80 rounded-xl transition cursor-pointer inline-flex items-center gap-1.5 shadow-xs"
                         >
-                          <FileText className="h-3.5 w-3.5" /> Voir Z
+                          <FileText className="h-3.5 w-3.5 text-[#F05A22]" /> Rapport Z
                         </button>
                       </td>
                     </tr>
@@ -1808,46 +1805,46 @@ export default function PosCaisseSection() {
       {/* 1. Opening Session Modal */}
       <AnimatePresence>
         {isOpeningModalOpen && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white dark:bg-zinc-900 border-2 border-black max-w-sm w-full p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="card-fox rounded-3xl border border-stone-200/80 max-w-sm w-full p-6 shadow-2xl"
             >
-              <h4 className="font-display font-black text-base uppercase tracking-tight text-slate-950 dark:text-white mb-2 flex items-center gap-2">
-                <Unlock className="h-5 w-5 text-atelier-gold" /> Ouverture de Session Caisse
+              <h4 className="text-base font-semibold text-stone-900 mb-1 flex items-center gap-2">
+                <Unlock className="h-5 w-5 text-[#F05A22]" /> Ouverture de session de caisse
               </h4>
-              <p className="text-xs font-serif text-slate-500 mb-4 leading-relaxed">
-                Veuillez saisir le montant physique en espèces présent dans le tiroir-caisse pour démarrer la session (fond de caisse).
+              <p className="text-xs text-stone-500 mb-5 leading-relaxed">
+                Saisissez le montant physique en espèces présent dans le tiroir-caisse pour démarrer la session (fond de caisse).
               </p>
 
               <form onSubmit={handleOpenCaisse} className="space-y-4">
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Fond de Caisse Initial ( espèces )</label>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">Fond de caisse initial (espèces)</label>
                   <div className="relative">
                     <input
                       type="number"
                       required
                       value={initialFund}
                       onChange={(e) => setInitialFund(Number(e.target.value))}
-                      className="w-full p-2 text-sm bg-slate-50 dark:bg-zinc-950 border-2 border-black font-mono font-bold"
+                      className="w-full p-2.5 text-sm bg-[#FBF8F3] border border-stone-200/80 rounded-xl font-semibold text-stone-900 focus:outline-hidden focus:border-[#F05A22]"
                     />
-                    <span className="absolute right-3 top-2.5 font-mono text-xs font-black">{settings.devise}</span>
+                    <span className="absolute right-3.5 top-2.5 text-xs font-semibold text-stone-500">{settings.devise}</span>
                   </div>
                 </div>
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-2.5 pt-2">
                   <button
                     type="button"
                     onClick={() => setIsOpeningModalOpen(false)}
-                    className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-widest border border-slate-300 transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 transition cursor-pointer"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-atelier-gold hover:bg-black text-slate-950 hover:text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition cursor-pointer"
+                    className="flex-1 py-2.5 btn-fox-primary text-xs font-semibold rounded-xl cursor-pointer"
                   >
                     Confirmer l'ouverture
                   </button>
@@ -1861,62 +1858,62 @@ export default function PosCaisseSection() {
       {/* 2. Closing Session Modal */}
       <AnimatePresence>
         {isClosingModalOpen && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white dark:bg-zinc-900 border-2 border-black max-w-sm w-full p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="card-fox rounded-3xl border border-stone-200/80 max-w-sm w-full p-6 shadow-2xl"
             >
-              <h4 className="font-display font-black text-base uppercase tracking-tight text-slate-950 dark:text-white mb-2 flex items-center gap-2">
-                <Lock className="h-5 w-5 text-atelier-gold" /> Clôture de Session Caisse
+              <h4 className="text-base font-semibold text-stone-900 mb-1 flex items-center gap-2">
+                <Lock className="h-5 w-5 text-[#F05A22]" /> Clôture de session de caisse
               </h4>
-              <p className="text-xs font-serif text-slate-500 mb-4 leading-relaxed">
-                Veuillez compter physiquement les espèces présentes dans le tiroir-caisse et saisir le montant total ci-dessous. Le système calculera l'écart.
+              <p className="text-xs text-stone-500 mb-4 leading-relaxed">
+                Comptez les espèces présentes dans le tiroir-caisse et saisissez le montant total.
               </p>
 
               <form onSubmit={handleCloseCaisse} className="space-y-4">
-                <div className="p-3 bg-slate-50 dark:bg-zinc-950 border border-black/10 space-y-1.5 text-xs">
+                <div className="p-3 bg-[#FBF8F3] rounded-2xl border border-stone-200/60 space-y-1.5 text-xs">
                   <div className="flex justify-between">
-                    <span className="text-slate-500 uppercase text-[9px] font-black">Solde théorique attendu:</span>
-                    <strong className="font-mono font-black">{formatPrice(sessionTotals.total)}</strong>
+                    <span className="text-stone-500 font-medium">Solde théorique attendu:</span>
+                    <strong className="font-semibold text-stone-900">{formatPrice(sessionTotals.total)}</strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500 uppercase text-[9px] font-black">Fond de démarrage initial:</span>
-                    <span className="font-mono">{formatPrice(sessionCaisseActive?.fondInitial || 0)}</span>
+                    <span className="text-stone-500 font-medium">Fond de démarrage:</span>
+                    <span className="text-stone-700">{formatPrice(sessionCaisseActive?.fondInitial || 0)}</span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Montant Réel Compté ( espèces )</label>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">Montant réel compté (espèces)</label>
                   <div className="relative">
                     <input
                       type="number"
                       required
                       value={actualCashCounted}
                       onChange={(e) => setActualCashCounted(Number(e.target.value))}
-                      className="w-full p-2 text-sm bg-slate-50 dark:bg-zinc-950 border-2 border-black font-mono font-bold"
+                      className="w-full p-2.5 text-sm bg-[#FBF8F3] border border-stone-200/80 rounded-xl font-semibold text-stone-900 focus:outline-hidden focus:border-[#F05A22]"
                     />
-                    <span className="absolute right-3 top-2.5 font-mono text-xs font-black">{settings.devise}</span>
+                    <span className="absolute right-3.5 top-2.5 text-xs font-semibold text-stone-500">{settings.devise}</span>
                   </div>
                   {actualCashCounted - sessionTotals.total !== 0 && (
-                    <span className={`text-[10px] font-black block mt-1 uppercase ${actualCashCounted - sessionTotals.total < 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                    <span className={`text-[11px] font-semibold block mt-1.5 ${actualCashCounted - sessionTotals.total < 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
                       Écart estimé : {actualCashCounted - sessionTotals.total < 0 ? 'Manquant ' : 'Surplus '}{formatPrice(Math.abs(actualCashCounted - sessionTotals.total))}
                     </span>
                   )}
                 </div>
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-2.5 pt-2">
                   <button
                     type="button"
                     onClick={() => setIsClosingModalOpen(false)}
-                    className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-widest border border-slate-300 transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 transition cursor-pointer"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-black hover:bg-zinc-900 text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-[#161412] hover:bg-stone-800 text-white text-xs font-semibold rounded-xl transition cursor-pointer shadow-xs"
                   >
                     Valider la clôture
                   </button>
@@ -1930,23 +1927,23 @@ export default function PosCaisseSection() {
       {/* 3. Outflow Modal (Sortie de caisse) */}
       <AnimatePresence>
         {isOutflowModalOpen && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white dark:bg-zinc-900 border-2 border-black max-w-sm w-full p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="card-fox rounded-3xl border border-stone-200/80 max-w-sm w-full p-6 shadow-2xl"
             >
-              <h4 className="font-display font-black text-base uppercase tracking-tight text-slate-950 dark:text-white mb-2 flex items-center gap-2">
-                <MinusCircle className="h-5 w-5 text-rose-500" /> Enregistrer une Sortie de Caisse
+              <h4 className="text-base font-semibold text-stone-900 mb-1 flex items-center gap-2">
+                <MinusCircle className="h-5 w-5 text-rose-500" /> Sortie de caisse (Dépense)
               </h4>
-              <p className="text-xs font-serif text-slate-500 mb-4 leading-relaxed">
-                Pour l'achat de petites fournitures urgentes ou menues dépenses d'atelier. Cette somme sera déduite du théorique d'espèces.
+              <p className="text-xs text-stone-500 mb-4 leading-relaxed">
+                Achat de fournitures urgentes ou dépenses de fonctionnement. Cette somme sera déduite du solde d'espèces.
               </p>
 
               <form onSubmit={handleAddOutflow} className="space-y-4">
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Montant à retirer ( espèces )</label>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">Montant à retirer ({settings.devise})</label>
                   <div className="relative">
                     <input
                       type="number"
@@ -1954,46 +1951,46 @@ export default function PosCaisseSection() {
                       min="1"
                       value={outflowAmount}
                       onChange={(e) => setOutflowAmount(Number(e.target.value))}
-                      className="w-full p-2 text-sm bg-slate-50 dark:bg-zinc-950 border-2 border-black font-mono font-bold"
+                      className="w-full p-2.5 text-sm bg-[#FBF8F3] border border-stone-200/80 rounded-xl font-semibold text-stone-900 focus:outline-hidden focus:border-[#F05A22]"
                     />
-                    <span className="absolute right-3 top-2.5 font-mono text-xs font-black">{settings.devise}</span>
+                    <span className="absolute right-3.5 top-2.5 text-xs font-semibold text-stone-500">{settings.devise}</span>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Motif de la dépense *</label>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">Motif de la dépense *</label>
                   <input
                     type="text"
                     required
-                    placeholder="Ex: Achat de boutons de rechange et fil doré"
+                    placeholder="Ex: Achat de fils dorés et boutons"
                     value={outflowMotif}
                     onChange={(e) => setOutflowMotif(e.target.value)}
-                    className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black"
+                    className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Référence du justificatif ( optionnel )</label>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">Référence du justificatif (optionnel)</label>
                   <input
                     type="text"
-                    placeholder="Ex: Facture #QT-2947"
+                    placeholder="Ex: Reçu #2947"
                     value={outflowJustif}
                     onChange={(e) => setOutflowJustif(e.target.value)}
-                    className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border border-black"
+                    className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                   />
                 </div>
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-2.5 pt-2">
                   <button
                     type="button"
                     onClick={() => setIsOutflowModalOpen(false)}
-                    className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-widest border border-slate-300 transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 transition cursor-pointer"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-rose-600 hover:bg-black text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-xl transition cursor-pointer shadow-xs"
                   >
                     Confirmer la sortie
                   </button>
@@ -2007,23 +2004,23 @@ export default function PosCaisseSection() {
       {/* 4. Ticket Generator / POS Modal */}
       <AnimatePresence>
         {isTicketModalOpen && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white dark:bg-zinc-900 border-2 border-black max-w-md w-full p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[90vh] overflow-y-auto sidebar-scroll"
+              className="card-fox rounded-3xl border border-stone-200/80 max-w-md w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto sidebar-scroll"
             >
-              <h4 className="font-display font-black text-base uppercase tracking-tight text-slate-950 dark:text-white mb-2 flex items-center gap-2">
-                <Store className="h-5 w-5 text-atelier-gold" /> Enregistrer une Vente / Émettre Ticket
+              <h4 className="text-base font-semibold text-stone-900 mb-1 flex items-center gap-2">
+                <Store className="h-5 w-5 text-[#F05A22]" /> Enregistrer une vente / Ticket
               </h4>
-              <p className="text-xs font-serif text-slate-500 mb-4">
-                Une fois enregistré, un ticket séquentiel sera créé et le document de facturation lié sera instantanément mis à jour.
+              <p className="text-xs text-stone-500 mb-4">
+                Un ticket sera généré et le document de facturation lié sera instantanément mis à jour.
               </p>
 
               <form onSubmit={handleCreateTicket} className="space-y-4">
                 {/* Sale Type Selector */}
-                <div className="grid grid-cols-3 gap-1 p-1 bg-slate-100 dark:bg-zinc-800 border border-black">
+                <div className="grid grid-cols-3 gap-1 p-1 bg-[#FBF8F3] rounded-2xl border border-stone-200/80">
                   <button
                     type="button"
                     onClick={() => {
@@ -2031,11 +2028,11 @@ export default function PosCaisseSection() {
                       setSelectedFactureId('');
                       setTicketAmount(0);
                     }}
-                    className={`py-1.5 text-[10px] font-black uppercase tracking-wider text-center transition ${
-                      ticketType === 'invoice' ? 'bg-black text-white dark:bg-white dark:text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]' : 'text-slate-600 dark:text-zinc-400'
+                    className={`py-2 text-xs font-semibold rounded-xl text-center transition cursor-pointer ${
+                      ticketType === 'invoice' ? 'bg-[#161412] text-white shadow-xs' : 'text-stone-600 hover:text-stone-900'
                     }`}
                   >
-                    Facture Unique
+                    Facture unique
                   </button>
                   <button
                     type="button"
@@ -2045,11 +2042,11 @@ export default function PosCaisseSection() {
                         handleGroupedClientChange(clients[0].id);
                       }
                     }}
-                    className={`py-1.5 text-[10px] font-black uppercase tracking-wider text-center transition ${
-                      ticketType === 'grouped' ? 'bg-black text-white dark:bg-white dark:text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]' : 'text-slate-600 dark:text-zinc-400'
+                    className={`py-2 text-xs font-semibold rounded-xl text-center transition cursor-pointer ${
+                      ticketType === 'grouped' ? 'bg-[#161412] text-white shadow-xs' : 'text-stone-600 hover:text-stone-900'
                     }`}
                   >
-                    Règl. Groupé
+                    Règlement groupé
                   </button>
                   <button
                     type="button"
@@ -2057,32 +2054,32 @@ export default function PosCaisseSection() {
                       setTicketType('free');
                       setTicketAmount(0);
                     }}
-                    className={`py-1.5 text-[10px] font-black uppercase tracking-wider text-center transition ${
-                      ticketType === 'free' ? 'bg-black text-white dark:bg-white dark:text-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]' : 'text-slate-600 dark:text-zinc-400'
+                    className={`py-2 text-xs font-semibold rounded-xl text-center transition cursor-pointer ${
+                      ticketType === 'free' ? 'bg-[#161412] text-white shadow-xs' : 'text-stone-600 hover:text-stone-900'
                     }`}
                   >
-                    Vente Libre
+                    Vente libre
                   </button>
                 </div>
 
                 {ticketType === 'invoice' && (
                   <>
                     <div>
-                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Sélectionner la facture *</label>
+                      <label className="text-xs font-semibold text-stone-700 block mb-1">Sélectionner la facture *</label>
                       <select
                         required
                         value={selectedFactureId}
                         onChange={(e) => handleFactureSelectionChange(e.target.value)}
-                        className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black focus:outline-hidden"
+                        className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                       >
-                        <option value="">-- Choisir une Facture --</option>
+                        <option value="">-- Choisir une facture --</option>
                         {unpaidInvoices.map((f) => {
                           const cl = clients.find(c => c.id === f.clientId);
                           const clientName = cl ? `${cl.prenom} ${cl.nom}` : 'Client Inconnu';
-                          const detailsStr = f.commandeId ? `Facture #${f.numero} (Commande, Reste: ${formatPrice(f.soldeDu)})` : `Facture #${f.numero} (Directe, Reste: ${formatPrice(f.soldeDu)})`;
+                          const detailsStr = f.commandeId ? `Facture #${f.numero} (Reste: ${formatPrice(f.soldeDu)})` : `Facture #${f.numero} (Directe, Reste: ${formatPrice(f.soldeDu)})`;
                           return (
                             <option key={f.id} value={f.id}>
-                              {clientName.toUpperCase()} — {detailsStr}
+                              {clientName} — {detailsStr}
                             </option>
                           );
                         })}
@@ -2091,7 +2088,7 @@ export default function PosCaisseSection() {
 
                     {selectedFactureId && (
                       <div>
-                        <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Montant à Encaisser ({settings.devise})</label>
+                        <label className="text-xs font-semibold text-stone-700 block mb-1">Montant à encaisser ({settings.devise})</label>
                         <div className="relative">
                           <input
                             type="number"
@@ -2099,7 +2096,7 @@ export default function PosCaisseSection() {
                             min="1"
                             value={ticketAmount}
                             onChange={(e) => setTicketAmount(Number(e.target.value))}
-                            className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black font-mono font-bold"
+                            className="w-full p-2.5 text-sm bg-[#FBF8F3] border border-stone-200/80 rounded-xl font-semibold text-stone-900 focus:outline-hidden focus:border-[#F05A22]"
                           />
                         </div>
                       </div>
@@ -2110,19 +2107,19 @@ export default function PosCaisseSection() {
                 {ticketType === 'grouped' && (
                   <>
                     <div>
-                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Sélectionner le Client *</label>
+                      <label className="text-xs font-semibold text-stone-700 block mb-1">Sélectionner le client *</label>
                       <select
                         required
                         value={groupedClientId}
                         onChange={(e) => handleGroupedClientChange(e.target.value)}
-                        className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black focus:outline-hidden"
+                        className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                       >
-                        <option value="">-- Choisir un Client --</option>
+                        <option value="">-- Choisir un client --</option>
                         {clients.map((c) => {
                           const unpaidCount = factures.filter(f => f.clientId === c.id && f.statut !== 'paye').length;
                           return (
                             <option key={c.id} value={c.id}>
-                              {c.prenom.toUpperCase()} {c.nom.toUpperCase()} ({unpaidCount} facture(s) en attente)
+                              {c.prenom} {c.nom} ({unpaidCount} facture(s) en attente)
                             </option>
                           );
                         })}
@@ -2131,25 +2128,25 @@ export default function PosCaisseSection() {
 
                     {groupedClientId && (
                       <div className="space-y-3">
-                        <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block">
-                          Allocation des Montants par Facture :
+                        <label className="text-xs font-semibold text-stone-700 block">
+                          Allocation des montants par facture :
                         </label>
                         
                         {factures.filter(f => f.clientId === groupedClientId && f.statut !== 'paye').length === 0 ? (
-                          <div className="p-3 bg-slate-50 border border-slate-200 text-center text-xs text-slate-500 font-serif">
-                            Aucune facture impayée ou partielle pour ce client.
+                          <div className="p-3 bg-[#FBF8F3] rounded-xl border border-stone-200/80 text-center text-xs text-stone-500">
+                            Aucune facture impayée pour ce client.
                           </div>
                         ) : (
-                          <div className="space-y-2 border border-black/10 p-2 max-h-48 overflow-y-auto sidebar-scroll bg-slate-50 dark:bg-zinc-950">
+                          <div className="space-y-2 border border-stone-200/80 rounded-2xl p-2.5 max-h-48 overflow-y-auto sidebar-scroll bg-[#FBF8F3]">
                             {factures
                               .filter(f => f.clientId === groupedClientId && f.statut !== 'paye')
                               .map(f => {
                                 const allocated = groupedAllocations[f.id] !== undefined ? groupedAllocations[f.id] : 0;
                                 return (
-                                  <div key={f.id} className="p-2 bg-white dark:bg-zinc-900 border border-black/5 flex flex-col gap-1">
-                                    <div className="flex justify-between items-center text-[10px]">
-                                      <span className="font-bold">Facture #{f.numero}</span>
-                                      <span className="text-slate-500">Reste dû: <strong className="font-bold text-black dark:text-white">{formatPrice(f.soldeDu)}</strong></span>
+                                  <div key={f.id} className="p-2.5 bg-white rounded-xl border border-stone-200/60 flex flex-col gap-1.5 shadow-xs">
+                                    <div className="flex justify-between items-center text-xs">
+                                      <span className="font-semibold text-stone-800">Facture #{f.numero}</span>
+                                      <span className="text-stone-500">Reste dû: <strong className="font-semibold text-[#F05A22]">{formatPrice(f.soldeDu)}</strong></span>
                                     </div>
                                     <div className="flex gap-2 items-center">
                                       <input
@@ -2158,19 +2155,19 @@ export default function PosCaisseSection() {
                                         max={f.soldeDu}
                                         value={allocated}
                                         onChange={(e) => handleAllocationChange(f.id, Number(e.target.value))}
-                                        className="w-full p-1 bg-white dark:bg-zinc-900 border border-black text-xs font-mono font-bold"
+                                        className="w-full p-2 bg-[#FBF8F3] rounded-lg border border-stone-200/80 text-xs font-semibold text-stone-900"
                                       />
                                       <button
                                         type="button"
                                         onClick={() => handleAllocationChange(f.id, f.soldeDu)}
-                                        className="px-2 py-1 bg-slate-900 hover:bg-black text-white text-[9px] font-black uppercase tracking-wider animate-pulse"
+                                        className="px-2.5 py-1.5 bg-[#161412] hover:bg-stone-800 text-white text-[10px] font-semibold rounded-lg transition"
                                       >
                                         Max
                                       </button>
                                       <button
                                         type="button"
                                         onClick={() => handleAllocationChange(f.id, 0)}
-                                        className="px-2 py-1 bg-rose-600 hover:bg-rose-700 text-white text-[9px] font-black uppercase tracking-wider"
+                                        className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 text-[10px] font-semibold rounded-lg transition"
                                       >
                                         Vider
                                       </button>
@@ -2181,9 +2178,9 @@ export default function PosCaisseSection() {
                           </div>
                         )}
 
-                        <div className="p-3 bg-amber-500/10 border border-black flex justify-between items-center">
-                          <span className="text-[10px] font-black uppercase tracking-wider text-slate-700">Total Encaissé Groupé :</span>
-                          <span className="font-mono text-base font-black text-slate-900 dark:text-amber-500">{formatPrice(ticketAmount)}</span>
+                        <div className="p-3 bg-[#FDF4EE] rounded-xl border border-[#F05A22]/20 flex justify-between items-center">
+                          <span className="text-xs font-semibold text-stone-700">Total encaissé groupé :</span>
+                          <span className="text-base font-bold text-[#F05A22]">{formatPrice(ticketAmount)}</span>
                         </div>
                       </div>
                     )}
@@ -2193,35 +2190,35 @@ export default function PosCaisseSection() {
                 {ticketType === 'free' && (
                   <>
                     <div>
-                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Client pour la vente libre *</label>
+                      <label className="text-xs font-semibold text-stone-700 block mb-1">Client pour la vente libre *</label>
                       <select
                         required
                         value={freeSaleClient}
                         onChange={(e) => setFreeSaleClient(e.target.value)}
-                        className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black focus:outline-hidden"
+                        className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                       >
                         {clients.map((c) => (
                           <option key={c.id} value={c.id}>
-                            {c.prenom.toUpperCase()} {c.nom.toUpperCase()} ({c.telephone})
+                            {c.prenom} {c.nom} ({c.telephone})
                           </option>
                         ))}
                       </select>
                     </div>
 
                     <div>
-                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Description / Désignation des Articles *</label>
+                      <label className="text-xs font-semibold text-stone-700 block mb-1">Description des articles *</label>
                       <input
                         type="text"
                         required
                         placeholder="Ex: Tissu Brocard 5 mètres, boutons argentés..."
                         value={freeSaleDescription}
                         onChange={(e) => setFreeSaleDescription(e.target.value)}
-                        className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black"
+                        className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                       />
                     </div>
 
                     <div>
-                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Montant Total de la Vente *</label>
+                      <label className="text-xs font-semibold text-stone-700 block mb-1">Montant total de la vente *</label>
                       <div className="relative">
                         <input
                           type="number"
@@ -2232,19 +2229,19 @@ export default function PosCaisseSection() {
                             setFreeSaleAmount(Number(e.target.value));
                             setTicketAmount(Number(e.target.value));
                           }}
-                          className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black font-mono font-bold"
+                          className="w-full p-2.5 text-sm bg-[#FBF8F3] border border-stone-200/80 rounded-xl font-semibold text-stone-900 focus:outline-hidden focus:border-[#F05A22]"
                         />
-                        <span className="absolute right-3 top-2 font-mono text-xs font-black">{settings.devise}</span>
+                        <span className="absolute right-3.5 top-2.5 text-xs font-semibold text-stone-500">{settings.devise}</span>
                       </div>
                     </div>
                   </>
                 )}
 
                 {/* Mixed Payment Toggle */}
-                <div className="p-3 bg-slate-50 dark:bg-zinc-950 border border-black/10 rounded-none flex items-center justify-between">
+                <div className="p-3 bg-[#FBF8F3] rounded-2xl border border-stone-200/80 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 block">Paiement Mixte (Mixte espèces + électronique)</span>
-                    <span className="text-[9px] text-slate-500 font-serif">Permet de payer une moitié en espèces et l'autre via Wave/Orange money.</span>
+                    <span className="text-xs font-semibold text-stone-800 block">Paiement mixte (Espèces + Électronique)</span>
+                    <span className="text-[11px] text-stone-500">Payer une partie en cash et le reste via Wave/OM/Carte.</span>
                   </div>
                   <input
                     type="checkbox"
@@ -2257,14 +2254,14 @@ export default function PosCaisseSection() {
                         setMixedElectronic(ticketAmount - half);
                       }
                     }}
-                    className="w-4 h-4 text-atelier-gold cursor-pointer"
+                    className="w-4 h-4 text-[#F05A22] accent-[#F05A22] cursor-pointer"
                   />
                 </div>
 
                 {isMixedPayment ? (
-                  <div className="grid grid-cols-2 gap-3 p-3 bg-amber-500/10 border border-amber-500 text-xs">
+                  <div className="grid grid-cols-2 gap-3 p-3.5 bg-[#FDF4EE] rounded-2xl border border-[#F05A22]/20 text-xs">
                     <div>
-                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-600 block mb-1">Part en Espèces ({settings.devise})</label>
+                      <label className="text-[11px] font-semibold text-stone-700 block mb-1">Part en espèces ({settings.devise})</label>
                       <input
                         type="number"
                         required
@@ -2274,11 +2271,11 @@ export default function PosCaisseSection() {
                           setMixedEspeces(val);
                           setMixedElectronic(Math.max(0, ticketAmount - val));
                         }}
-                        className="w-full p-1.5 bg-white border border-black text-xs font-mono font-black"
+                        className="w-full p-2 bg-white rounded-xl border border-stone-200/80 text-xs font-semibold text-stone-900"
                       />
                     </div>
                     <div>
-                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-600 block mb-1">Part Électronique ({settings.devise})</label>
+                      <label className="text-[11px] font-semibold text-stone-700 block mb-1">Part électronique ({settings.devise})</label>
                       <input
                         type="number"
                         required
@@ -2288,16 +2285,16 @@ export default function PosCaisseSection() {
                           setMixedElectronic(val);
                           setMixedEspeces(Math.max(0, ticketAmount - val));
                         }}
-                        className="w-full p-1.5 bg-white border border-black text-xs font-mono font-black animate-pulse"
+                        className="w-full p-2 bg-white rounded-xl border border-stone-200/80 text-xs font-semibold text-[#F05A22]"
                       />
                     </div>
                     
                     <div className="col-span-2">
-                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-600 block mb-1">Mode de règlement de la part électronique</label>
+                      <label className="text-[11px] font-semibold text-stone-700 block mb-1">Moyen de règlement électronique</label>
                       <select
                         value={paymentMode}
                         onChange={(e) => setPaymentMode(e.target.value as ModePaiement)}
-                        className="w-full p-1.5 bg-white border border-black text-xs"
+                        className="w-full p-2 bg-white rounded-xl border border-stone-200/80 text-xs text-stone-800"
                       >
                         {(settings.posModesPaiementActifs?.mobile_money ?? true) && (
                           <option value="mobile_money">📱 Mobile Money (Wave, Orange Money)</option>
@@ -2313,11 +2310,11 @@ export default function PosCaisseSection() {
                   </div>
                 ) : (
                   <div>
-                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Mode de Règlement Unique *</label>
+                    <label className="text-xs font-semibold text-stone-700 block mb-1">Mode de règlement *</label>
                     <select
                       value={paymentMode}
                       onChange={(e) => setPaymentMode(e.target.value as ModePaiement)}
-                      className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black"
+                      className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800"
                     >
                       {(settings.posModesPaiementActifs?.especes ?? true) && (
                         <option value="especes">💵 Espèces (Cash)</option>
@@ -2326,7 +2323,7 @@ export default function PosCaisseSection() {
                         <option value="mobile_money">📱 Mobile Money (Wave, Orange Money)</option>
                       )}
                       {(settings.posModesPaiementActifs?.carte ?? true) && (
-                        <option value="carte">💳 Carte bancaire (CB)</option>
+                        <option value="carte">💳 Carte bancaire</option>
                       )}
                       {(settings.posModesPaiementActifs?.virement ?? true) && (
                         <option value="virement">🏦 Virement bancaire</option>
@@ -2335,17 +2332,17 @@ export default function PosCaisseSection() {
                   </div>
                 )}
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-2.5 pt-2">
                   <button
                     type="button"
                     onClick={() => setIsTicketModalOpen(false)}
-                    className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-widest border border-slate-300 transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 transition cursor-pointer"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-black hover:bg-zinc-900 text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition cursor-pointer"
+                    className="flex-1 py-2.5 btn-fox-primary text-xs font-semibold rounded-xl cursor-pointer"
                   >
                     Générer & Encaisser
                   </button>
@@ -2359,18 +2356,18 @@ export default function PosCaisseSection() {
       {/* Tactile POS Checkout Modal */}
       <AnimatePresence>
         {isTactileCheckoutOpen && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white dark:bg-zinc-900 border-2 border-black max-w-md w-full p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-h-[90vh] overflow-y-auto sidebar-scroll"
+              className="card-fox rounded-3xl border border-stone-200/80 max-w-md w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto sidebar-scroll"
             >
-              <h4 className="font-display font-black text-base uppercase tracking-tight text-slate-950 dark:text-white mb-2 flex items-center gap-2">
-                <CheckCircle className="h-5 w-5 text-atelier-gold" /> Finaliser la Vente Tactile
+              <h4 className="text-base font-semibold text-stone-900 mb-1 flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-[#F05A22]" /> Finaliser la vente tactile
               </h4>
-              <p className="text-xs font-serif text-slate-500 mb-4">
-                Veuillez sélectionner le mode de règlement pour encaisser le ticket et mettre à jour la caisse.
+              <p className="text-xs text-stone-500 mb-4">
+                Sélectionnez le mode de règlement pour encaisser le panier.
               </p>
 
               <form 
@@ -2381,33 +2378,33 @@ export default function PosCaisseSection() {
                 className="space-y-4"
               >
                 {/* Cart summary */}
-                <div className="p-3 bg-slate-50 dark:bg-zinc-950 border border-black/10 space-y-1.5 text-xs">
+                <div className="p-3.5 bg-[#FBF8F3] rounded-2xl border border-stone-200/60 space-y-2 text-xs">
                   <div className="flex justify-between">
-                    <span className="text-slate-500 uppercase text-[9px] font-black">Client :</span>
-                    <span className="font-bold">
+                    <span className="text-stone-500 font-medium">Client :</span>
+                    <span className="font-semibold text-stone-900">
                       {(() => {
                         const cl = clients.find(c => c.id === cartClientId);
-                        return cl ? `${cl.prenom} ${cl.nom}`.toUpperCase() : 'CLIENT DIRECT (PASSAGE)';
+                        return cl ? `${cl.prenom} ${cl.nom}` : 'Client direct (comptoir)';
                       })()}
                     </span>
                   </div>
                   {cartNote && (
                     <div className="flex justify-between">
-                      <span className="text-slate-500 uppercase text-[9px] font-black">Note :</span>
-                      <span className="italic">« {cartNote} »</span>
+                      <span className="text-stone-500 font-medium">Note :</span>
+                      <span className="italic text-stone-700">« {cartNote} »</span>
                     </div>
                   )}
-                  <div className="border-t border-dashed border-black/10 pt-1.5 flex justify-between font-black text-sm text-slate-950 dark:text-white">
-                    <span>TOTAL À PAYER :</span>
-                    <span className="font-mono">{formatPrice(cartTotal)}</span>
+                  <div className="border-t border-dashed border-stone-200 pt-2 flex justify-between font-bold text-sm text-stone-900">
+                    <span>Total à payer :</span>
+                    <span className="text-[#F05A22]">{formatPrice(cartTotal)}</span>
                   </div>
                 </div>
 
                 {/* Mixed Payment Toggle */}
-                <div className="p-3 bg-slate-50 dark:bg-zinc-950 border border-black/10 rounded-none flex items-center justify-between">
+                <div className="p-3 bg-[#FBF8F3] rounded-2xl border border-stone-200/80 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 block">Paiement Mixte (Espèces + Électronique)</span>
-                    <span className="text-[9px] text-slate-500 font-serif">Payer une partie en cash et le reste via Mobile Money/Carte.</span>
+                    <span className="text-xs font-semibold text-stone-800 block">Paiement mixte (Espèces + Électronique)</span>
+                    <span className="text-[11px] text-stone-500">Payer une partie en cash et le reste via Mobile Money/Carte.</span>
                   </div>
                   <input
                     type="checkbox"
@@ -2420,14 +2417,14 @@ export default function PosCaisseSection() {
                         setMixedElectronic(cartTotal - half);
                       }
                     }}
-                    className="w-4 h-4 text-atelier-gold cursor-pointer"
+                    className="w-4 h-4 text-[#F05A22] accent-[#F05A22] cursor-pointer"
                   />
                 </div>
 
                 {isMixedPayment ? (
-                  <div className="grid grid-cols-2 gap-3 p-3 bg-amber-500/10 border border-amber-500 text-xs">
+                  <div className="grid grid-cols-2 gap-3 p-3.5 bg-[#FDF4EE] rounded-2xl border border-[#F05A22]/20 text-xs">
                     <div>
-                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-600 block mb-1">Part en Espèces ({settings.devise})</label>
+                      <label className="text-[11px] font-semibold text-stone-700 block mb-1">Part en espèces ({settings.devise})</label>
                       <input
                         type="number"
                         required
@@ -2439,11 +2436,11 @@ export default function PosCaisseSection() {
                           setMixedEspeces(val);
                           setMixedElectronic(Math.max(0, cartTotal - val));
                         }}
-                        className="w-full p-1.5 bg-white dark:bg-zinc-900 border border-black text-xs font-mono font-black text-slate-950 dark:text-zinc-100 focus:outline-none"
+                        className="w-full p-2 bg-white rounded-xl border border-stone-200/80 text-xs font-semibold text-stone-900 focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-600 block mb-1">Part Électronique ({settings.devise})</label>
+                      <label className="text-[11px] font-semibold text-stone-700 block mb-1">Part électronique ({settings.devise})</label>
                       <input
                         type="number"
                         required
@@ -2455,16 +2452,16 @@ export default function PosCaisseSection() {
                           setMixedElectronic(val);
                           setMixedEspeces(Math.max(0, cartTotal - val));
                         }}
-                        className="w-full p-1.5 bg-white dark:bg-zinc-900 border border-black text-xs font-mono font-black text-slate-950 dark:text-zinc-100 focus:outline-none"
+                        className="w-full p-2 bg-white rounded-xl border border-stone-200/80 text-xs font-semibold text-[#F05A22] focus:outline-none"
                       />
                     </div>
                     
                     <div className="col-span-2">
-                      <label className="text-[9px] font-black uppercase tracking-wider text-slate-600 block mb-1">Mode de règlement de la part électronique</label>
+                      <label className="text-[11px] font-semibold text-stone-700 block mb-1">Mode de règlement de la part électronique</label>
                       <select
                         value={paymentMode}
                         onChange={(e) => setPaymentMode(e.target.value as ModePaiement)}
-                        className="w-full p-1.5 bg-white dark:bg-zinc-900 border border-black text-xs text-slate-950 dark:text-zinc-100"
+                        className="w-full p-2 bg-white rounded-xl border border-stone-200/80 text-xs text-stone-800"
                       >
                         {(settings.posModesPaiementActifs?.mobile_money ?? true) && (
                           <option value="mobile_money">📱 Mobile Money (Wave, Orange Money)</option>
@@ -2480,11 +2477,11 @@ export default function PosCaisseSection() {
                   </div>
                 ) : (
                   <div>
-                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Mode de Règlement Unique *</label>
+                    <label className="text-xs font-semibold text-stone-700 block mb-1">Mode de règlement *</label>
                     <select
                       value={paymentMode}
                       onChange={(e) => setPaymentMode(e.target.value as ModePaiement)}
-                      className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black text-slate-950 dark:text-zinc-100"
+                      className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800"
                     >
                       {(settings.posModesPaiementActifs?.especes ?? true) && (
                         <option value="especes">💵 Espèces (Cash)</option>
@@ -2502,19 +2499,19 @@ export default function PosCaisseSection() {
                   </div>
                 )}
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-2.5 pt-2">
                   <button
                     type="button"
                     onClick={() => setIsTactileCheckoutOpen(false)}
-                    className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-widest border border-slate-300 transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 transition cursor-pointer"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-black hover:bg-zinc-900 text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition cursor-pointer"
+                    className="flex-1 py-2.5 btn-fox-primary text-xs font-semibold rounded-xl cursor-pointer"
                   >
-                    Confirmer le Paiement
+                    Confirmer le paiement
                   </button>
                 </div>
               </form>
@@ -2526,35 +2523,35 @@ export default function PosCaisseSection() {
       {/* Custom Item Modal */}
       <AnimatePresence>
         {isCustomItemModalOpen && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white dark:bg-zinc-900 border-2 border-black max-w-sm w-full p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="card-fox rounded-3xl border border-stone-200/80 max-w-sm w-full p-6 shadow-2xl"
             >
-              <h4 className="font-display font-black text-base uppercase tracking-tight text-slate-950 dark:text-white mb-2 flex items-center gap-2">
-                <PlusCircle className="h-5 w-5 text-atelier-gold" /> Ajouter un Article Personnalisé
+              <h4 className="text-base font-semibold text-stone-900 mb-1 flex items-center gap-2">
+                <PlusCircle className="h-5 w-5 text-[#F05A22]" /> Article personnalisé
               </h4>
-              <p className="text-xs font-serif text-slate-500 mb-4 leading-relaxed">
-                Saisissez un nom d'article et son prix unitaire en FCFA pour l'ajouter au panier courant.
+              <p className="text-xs text-stone-500 mb-4 leading-relaxed">
+                Saisissez un nom d'article et son prix unitaire en FCFA pour l'ajouter au panier.
               </p>
 
               <form onSubmit={handleAddCustomItem} className="space-y-4">
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Nom de l'article *</label>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">Nom de l'article *</label>
                   <input
                     type="text"
                     required
                     placeholder="Ex: Tissu Wax client (4 mètres)"
                     value={customItemName}
                     onChange={(e) => setCustomItemName(e.target.value)}
-                    className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black text-slate-950 dark:text-zinc-100 focus:outline-none"
+                    className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-[#F05A22]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-600 block mb-1">Prix unitaire ({settings.devise}) *</label>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">Prix unitaire ({settings.devise}) *</label>
                   <div className="relative">
                     <input
                       type="number"
@@ -2563,23 +2560,23 @@ export default function PosCaisseSection() {
                       placeholder="Ex: 15000"
                       value={customItemPrice || ''}
                       onChange={(e) => setCustomItemPrice(Number(e.target.value) || 0)}
-                      className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black text-slate-950 dark:text-zinc-100 font-mono font-bold focus:outline-none"
+                      className="w-full p-2.5 text-sm bg-[#FBF8F3] border border-stone-200/80 rounded-xl font-semibold text-stone-900 focus:outline-hidden focus:border-[#F05A22]"
                     />
-                    <span className="absolute right-3 top-2 font-mono text-xs font-black">{settings.devise}</span>
+                    <span className="absolute right-3.5 top-2.5 text-xs font-semibold text-stone-500">{settings.devise}</span>
                   </div>
                 </div>
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-2.5 pt-2">
                   <button
                     type="button"
                     onClick={() => setIsCustomItemModalOpen(false)}
-                    className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-widest border border-slate-300 transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 transition cursor-pointer"
                   >
                     Annuler
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-black hover:bg-zinc-900 text-white text-xs font-black uppercase tracking-widest border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition cursor-pointer"
+                    className="flex-1 py-2.5 btn-fox-primary text-xs font-semibold rounded-xl cursor-pointer"
                   >
                     Ajouter au panier
                   </button>
@@ -2593,44 +2590,44 @@ export default function PosCaisseSection() {
       {/* 5. Ticket Cancellation Confirmation Modal */}
       <AnimatePresence>
         {cancellingTicketId !== null && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white dark:bg-zinc-900 border-2 border-black max-w-sm w-full p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]"
+              className="card-fox rounded-3xl border border-stone-200/80 max-w-sm w-full p-6 shadow-2xl"
             >
-              <h4 className="font-display font-black text-base uppercase tracking-tight text-rose-600 mb-2 flex items-center gap-2">
-                <Ban className="h-5 w-5" /> Annulation d'un Ticket de Caisse
+              <h4 className="text-base font-semibold text-rose-600 mb-1 flex items-center gap-2">
+                <Ban className="h-5 w-5" /> Annulation d'un ticket de caisse
               </h4>
-              <p className="text-xs font-serif text-slate-500 mb-4 leading-relaxed">
-                Cette opération va annuler la transaction financière, recréditer le reste à payer sur la facture correspondante et ajuster le solde de caisse.
+              <p className="text-xs text-stone-500 mb-4 leading-relaxed">
+                Cette opération va annuler la transaction financière, recréditer le reste à payer sur la facture liée et déduire le montant du solde de caisse.
               </p>
 
               <form onSubmit={handleConfirmCancellation} className="space-y-4">
                 <div>
-                  <label className="text-[10px] font-black uppercase tracking-wider text-rose-600 block mb-1">Motif d'annulation obligatoire *</label>
+                  <label className="text-xs font-semibold text-rose-600 block mb-1">Motif d'annulation *</label>
                   <textarea
                     required
-                    placeholder="Saisissez la raison légitime de l'annulation (erreur saisie, modification client, etc.)"
+                    placeholder="Saisissez la raison de l'annulation (ex: erreur de saisie, désistement client...)"
                     value={cancellationMotif}
                     onChange={(e) => setCancellationMotif(e.target.value)}
                     rows={3}
-                    className="w-full p-2 text-xs bg-slate-50 dark:bg-zinc-950 border-2 border-black focus:outline-hidden"
+                    className="w-full p-2.5 text-xs bg-[#FBF8F3] border border-stone-200/80 rounded-xl text-stone-800 focus:outline-hidden focus:border-rose-500"
                   />
                 </div>
 
-                <div className="flex gap-3 pt-2">
+                <div className="flex gap-2.5 pt-2">
                   <button
                     type="button"
                     onClick={() => setCancellingTicketId(null)}
-                    className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-widest border border-slate-300 transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 transition cursor-pointer"
                   >
                     Retour
                   </button>
                   <button
                     type="submit"
-                    className="flex-1 py-2 bg-rose-600 hover:bg-rose-700 text-white text-xs font-black uppercase tracking-widest border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition cursor-pointer"
+                    className="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-xl transition cursor-pointer shadow-xs"
                   >
                     Valider l'annulation
                   </button>
@@ -2644,142 +2641,138 @@ export default function PosCaisseSection() {
       {/* 6. Ticket Thermal Print Modal */}
       <AnimatePresence>
         {selectedTicketToPrint && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className={`bg-white text-black w-full border-4 border-black font-mono relative shadow-[8px_8px_0px_0px_rgba(0,0,0,0.4)] ${
-                settings.ticketLargeur === '58mm' ? 'max-w-[290px] p-3 text-[10px]' : 'max-w-sm p-5 text-xs'
+              className={`bg-white rounded-3xl border border-stone-200/80 font-mono relative shadow-2xl ${
+                settings.ticketLargeur === '58mm' ? 'max-w-[320px] p-5 text-[11px]' : 'max-w-sm p-6 text-xs'
               }`}
             >
               <button
                 onClick={() => setSelectedTicketToPrint(null)}
-                className="absolute right-4 top-4 font-black p-1 bg-black text-white cursor-pointer border border-black"
+                className="absolute right-4 top-4 text-stone-400 hover:text-stone-700 p-1.5 rounded-full hover:bg-stone-100 transition cursor-pointer"
               >
                 ✕
               </button>
 
               {/* Thermal Receipt Visual Template styling */}
-              <div className="border-b-2 border-dashed border-black pb-4 text-center space-y-1">
+              <div className="border-b border-dashed border-stone-300 pb-4 text-center space-y-1">
                 {settings.ticketEnTete && (
-                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 bg-slate-100 px-2 py-0.5 border border-slate-300 inline-block mb-1">
+                  <span className="text-[10px] font-semibold text-stone-500 bg-[#FBF8F3] px-2.5 py-0.5 rounded-full border border-stone-200 inline-block mb-1">
                     {settings.ticketEnTete}
                   </span>
                 )}
-                <h2 className="font-black text-base tracking-tight uppercase">{settings.raisonSociale}</h2>
+                <h2 className="font-bold text-base tracking-tight text-stone-900">{settings.raisonSociale}</h2>
                 {(settings.ticketAfficherSlogan ?? true) && settings.slogan && (
-                  <p className="text-[9px] mt-0.5 uppercase tracking-wider text-slate-700">{settings.slogan}</p>
+                  <p className="text-[10px] text-stone-600">{settings.slogan}</p>
                 )}
-                <p className="text-[9px] text-slate-600 mt-1">{settings.adresse}</p>
-                <p className="text-[9px] text-slate-600">Tél: {settings.telephone}</p>
+                <p className="text-[10px] text-stone-500 mt-1">{settings.adresse}</p>
+                <p className="text-[10px] text-stone-500">Tél: {settings.telephone}</p>
                 {(settings.ticketAfficherNinea ?? true) && settings.ninea && (
-                  <p className="text-[9px] text-slate-600">Ninea: {settings.ninea}</p>
+                  <p className="text-[10px] text-stone-500">Ninea: {settings.ninea}</p>
                 )}
               </div>
 
-              <div className="py-4 space-y-2 text-xs border-b-2 border-dashed border-black">
+              <div className="py-3.5 space-y-1.5 text-xs border-b border-dashed border-stone-300">
                 <div className="flex justify-between">
-                  <span>TICKET N°:</span>
-                  <span className="font-bold">{selectedTicketToPrint.numero}</span>
+                  <span className="text-stone-500">Ticket n°:</span>
+                  <span className="font-bold text-stone-900">#{selectedTicketToPrint.numero}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>DATE/HEURE:</span>
-                  <span>{new Date(selectedTicketToPrint.dateHeure).toLocaleString('fr-FR')}</span>
+                  <span className="text-stone-500">Date/Heure:</span>
+                  <span className="text-stone-700">{new Date(selectedTicketToPrint.dateHeure).toLocaleString('fr-FR')}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>CAISSIER:</span>
-                  <span>RESPONSABLE POS</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>STATUT:</span>
-                  <span className="font-bold uppercase text-emerald-700">
-                    {selectedTicketToPrint.statut === 'valide' ? 'VALIDÉ / PAYÉ' : 'ANNULÉ'}
+                  <span className="text-stone-500">Statut:</span>
+                  <span className={`font-semibold ${selectedTicketToPrint.statut === 'valide' ? 'text-emerald-600' : 'text-rose-600'}`}>
+                    {selectedTicketToPrint.statut === 'valide' ? 'Payé' : 'Annulé'}
                   </span>
                 </div>
                 {selectedTicketToPrint.motifAnnulation && (
-                  <div className="bg-rose-50 p-2 border border-rose-300 text-[10px] mt-1 text-rose-800">
-                    Motif Annulation: {selectedTicketToPrint.motifAnnulation}
+                  <div className="bg-rose-50 p-2 rounded-lg border border-rose-200 text-[10px] mt-1 text-rose-700">
+                    Motif: {selectedTicketToPrint.motifAnnulation}
                   </div>
                 )}
               </div>
 
-              <div className="py-4 space-y-2 border-b-2 border-dashed border-black">
-                <div className="text-xs font-black uppercase">Détails transaction</div>
+              <div className="py-3.5 space-y-1.5 border-b border-dashed border-stone-300">
+                <div className="text-[11px] font-semibold text-stone-500">Détails de la vente</div>
                 <div className="flex justify-between text-xs">
-                  <span className="font-bold">
+                  <span className="font-semibold text-stone-900">
                     {selectedTicketToPrint.typeVente === 'commande_acompte' 
-                      ? 'ACOMPTE SUR COMMANDE' 
+                      ? 'Acompte commande' 
                       : selectedTicketToPrint.typeVente === 'commande_solde' 
-                      ? 'SOLDE DE COMMANDE' 
+                      ? 'Solde commande' 
                       : selectedTicketToPrint.typeVente === 'retouche' 
-                      ? 'SAV / RETOUCHE' 
-                      : `VENTE DIRECTE COMPTOIR`}
+                      ? 'Retouche' 
+                      : 'Vente directe'}
                   </span>
-                  <span>1x</span>
+                  <span className="text-stone-500">1x</span>
                 </div>
                 {selectedTicketToPrint.descriptionLibre && (
-                  <p className="text-[10px] text-slate-600 italic leading-relaxed">
+                  <p className="text-[11px] text-stone-600 italic">
                     « {selectedTicketToPrint.descriptionLibre} »
                   </p>
                 )}
                 {selectedTicketToPrint.factureId && (
-                  <p className="text-[10px] text-slate-500 uppercase">
-                    Rattaché à la Facture #{selectedTicketToPrint.factureId.slice(-6).toUpperCase()}
+                  <p className="text-[10px] text-stone-400">
+                    Facture #{selectedTicketToPrint.factureId.slice(-6).toUpperCase()}
                   </p>
                 )}
               </div>
 
-              <div className="py-4 space-y-1 text-xs">
-                <div className="flex justify-between font-black text-sm">
-                  <span>NET À PAYER :</span>
-                  <span>{formatPrice(selectedTicketToPrint.montant)}</span>
+              <div className="py-3.5 space-y-1 text-xs">
+                <div className="flex justify-between font-bold text-sm text-stone-900">
+                  <span>Net à payer :</span>
+                  <span className="text-[#F05A22]">{formatPrice(selectedTicketToPrint.montant)}</span>
                 </div>
-                <div className="flex justify-between text-[11px] text-slate-600">
-                  <span>MODE RÈGLEMENT:</span>
-                  <span className="font-bold uppercase">
-                    {selectedTicketToPrint.detailsMode ? 'PAIEMENT MIXTE' : selectedTicketToPrint.modePaiement}
+                <div className="flex justify-between text-[11px] text-stone-500">
+                  <span>Règlement :</span>
+                  <span className="font-semibold text-stone-700">
+                    {selectedTicketToPrint.detailsMode ? 'Paiement mixte' : selectedTicketToPrint.modePaiement}
                   </span>
                 </div>
                 
                 {selectedTicketToPrint.detailsMode && (
-                  <div className="bg-slate-50 p-2 border border-black/10 text-[10px] mt-2 space-y-1">
-                    <div className="flex justify-between text-slate-600">
-                      <span>• Espèces reçues:</span>
+                  <div className="bg-[#FBF8F3] p-2 rounded-xl border border-stone-200/80 text-[10px] mt-2 space-y-1">
+                    <div className="flex justify-between text-stone-600">
+                      <span>Espèces :</span>
                       <span>{formatPrice(selectedTicketToPrint.detailsMode.especes || 0)}</span>
                     </div>
-                    <div className="flex justify-between text-slate-600">
-                      <span>• Part électronique:</span>
+                    <div className="flex justify-between text-stone-600">
+                      <span>Électronique :</span>
                       <span>{formatPrice(selectedTicketToPrint.montant - (selectedTicketToPrint.detailsMode.especes || 0))}</span>
                     </div>
                   </div>
                 )}
               </div>
 
-              <div className="pt-4 border-t-2 border-dashed border-black text-center text-[9px] text-slate-600 space-y-1">
-                <p className="font-black text-black uppercase">{settings.ticketRemerciement || 'MERCI DE VOTRE CONFIANCE !'}</p>
+              <div className="pt-3 border-t border-dashed border-stone-300 text-center text-[10px] text-stone-500 space-y-1">
+                <p className="font-semibold text-stone-800">{settings.ticketRemerciement || 'Merci de votre confiance !'}</p>
                 {settings.ticketBasPage && <p className="italic">{settings.ticketBasPage}</p>}
-                <p className="text-[8px] text-slate-400">Logiciel Foxfy Services v2.1</p>
+                <p className="text-[9px] text-stone-400">Fox Couture Atelier</p>
               </div>
 
-              <div className="mt-5 flex flex-col sm:flex-row gap-2">
+              <div className="mt-5 flex gap-2">
                 <button
                   onClick={() => {
                     printThermalTicketDirectly(selectedTicketToPrint);
                   }}
-                  className="flex-1 py-1.5 bg-black hover:bg-slate-800 text-white text-xs font-black uppercase tracking-wider cursor-pointer border border-black flex items-center justify-center gap-1.5"
+                  className="flex-1 py-2.5 bg-[#161412] hover:bg-stone-800 text-white text-xs font-semibold rounded-xl cursor-pointer transition flex items-center justify-center gap-1.5 shadow-xs"
                 >
                   <Printer className="h-4 w-4" /> Imprimer
                 </button>
                 <button
                   onClick={() => handleWhatsAppTicket(selectedTicketToPrint)}
-                  className="flex-1 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-wider cursor-pointer border border-black flex items-center justify-center gap-1.5"
+                  className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl cursor-pointer transition flex items-center justify-center gap-1.5 shadow-xs"
                 >
                   <Smartphone className="h-4 w-4" /> WhatsApp
                 </button>
                 <button
                   onClick={() => setSelectedTicketToPrint(null)}
-                  className="py-1.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-wider cursor-pointer border border-slate-300"
+                  className="py-2.5 px-3.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 cursor-pointer transition"
                 >
                   Fermer
                 </button>
@@ -2792,106 +2785,102 @@ export default function PosCaisseSection() {
       {/* 7. Z-Report Modal */}
       <AnimatePresence>
         {selectedZReport && (
-          <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white text-black max-w-md w-full p-6 border-4 border-black font-mono relative shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]"
+              className="bg-white rounded-3xl border border-stone-200/80 max-w-md w-full p-6 shadow-2xl relative"
             >
               <button
                 onClick={() => setSelectedZReport(null)}
-                className="absolute right-4 top-4 font-black p-1 bg-black text-white cursor-pointer border border-black"
+                className="absolute right-4 top-4 text-stone-400 hover:text-stone-700 p-1.5 rounded-full hover:bg-stone-100 transition cursor-pointer"
               >
                 ✕
               </button>
 
-              <div className="border-b-2 border-dashed border-black pb-3 text-center">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 bg-slate-100 px-2.5 py-1 border border-slate-300 mb-2 inline-block">
-                  RAPPORT Z DE CAISSE (COMPTABLE)
+              <div className="border-b border-stone-200 pb-3 text-center">
+                <span className="text-[10px] font-semibold text-stone-600 bg-[#FBF8F3] px-3 py-1 rounded-full border border-stone-200 mb-2 inline-block">
+                  Rapport Z de caisse (Comptable)
                 </span>
-                <h3 className="font-black text-base uppercase mt-1">{settings.raisonSociale}</h3>
-                <p className="text-[9px] text-slate-600">ID Session: {selectedZReport.id.toUpperCase()}</p>
+                <h3 className="font-semibold text-base text-stone-900 mt-1">{settings.raisonSociale}</h3>
+                <p className="text-[10px] text-stone-400">ID Session: #{selectedZReport.id.slice(-6).toUpperCase()}</p>
               </div>
 
-              <div className="py-4 space-y-2 text-xs border-b border-black/10">
+              <div className="py-3.5 space-y-1.5 text-xs border-b border-stone-100">
                 <div className="flex justify-between">
-                  <span>OUVERTURE:</span>
-                  <span>{new Date(selectedZReport.dateOuverture).toLocaleString('fr-FR')}</span>
+                  <span className="text-stone-500">Ouverture :</span>
+                  <span className="text-stone-800">{new Date(selectedZReport.dateOuverture).toLocaleString('fr-FR')}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>CLÔTURE:</span>
-                  <span>{selectedZReport.dateCloture ? new Date(selectedZReport.dateCloture).toLocaleString('fr-FR') : 'SESSION TOUJOURS OUVERTE'}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>RESPONSABLE:</span>
-                  <span>GÉRANT CAISSE</span>
+                  <span className="text-stone-500">Clôture :</span>
+                  <span className="text-stone-800">{selectedZReport.dateCloture ? new Date(selectedZReport.dateCloture).toLocaleString('fr-FR') : 'Session toujours ouverte'}</span>
                 </div>
               </div>
 
-              <div className="py-4 space-y-2 text-xs border-b-2 border-dashed border-black">
+              <div className="py-3.5 space-y-2 text-xs border-b border-stone-100">
                 <div className="flex justify-between">
-                  <span>FOND INITIAL DE DÉMARRAGE:</span>
-                  <span className="font-bold">{formatPrice(selectedZReport.fondInitial)}</span>
+                  <span className="text-stone-600">Fond initial :</span>
+                  <span className="font-semibold text-stone-900">{formatPrice(selectedZReport.fondInitial)}</span>
                 </div>
                 
                 {/* Mode distribution if closed */}
                 {selectedZReport.recapModes && (
-                  <div className="bg-slate-50 p-2.5 border border-black/10 text-[10px] space-y-1.5">
-                    <div className="text-[9px] font-black uppercase text-slate-400 block mb-1">RÉCAPITULATIF DES ENCAISSEMENTS</div>
-                    <div className="flex justify-between text-slate-600">
-                      <span>💵 TOTAL ESPÈCES :</span>
-                      <strong className="font-bold text-black">{formatPrice(selectedZReport.recapModes.especes)}</strong>
+                  <div className="bg-[#FBF8F3] p-3 rounded-2xl border border-stone-200/80 text-xs space-y-1.5">
+                    <div className="text-[10px] font-semibold text-stone-500 block mb-1">Récapitulatif des encaissements</div>
+                    <div className="flex justify-between text-stone-600">
+                      <span>💵 Espèces :</span>
+                      <strong className="font-semibold text-stone-900">{formatPrice(selectedZReport.recapModes.especes)}</strong>
                     </div>
-                    <div className="flex justify-between text-slate-600">
-                      <span>📱 MOBILE MONEY (WAVE/OM) :</span>
-                      <strong className="font-bold text-black">{formatPrice(selectedZReport.recapModes.mobile_money)}</strong>
+                    <div className="flex justify-between text-stone-600">
+                      <span>📱 Mobile Money :</span>
+                      <strong className="font-semibold text-stone-900">{formatPrice(selectedZReport.recapModes.mobile_money)}</strong>
                     </div>
-                    <div className="flex justify-between text-slate-600">
-                      <span>💳 CARTES BANCAIRES :</span>
-                      <strong className="font-bold text-black">{formatPrice(selectedZReport.recapModes.carte)}</strong>
+                    <div className="flex justify-between text-stone-600">
+                      <span>💳 Carte bancaire :</span>
+                      <strong className="font-semibold text-stone-900">{formatPrice(selectedZReport.recapModes.carte)}</strong>
                     </div>
-                    <div className="flex justify-between text-slate-600">
-                      <span>🏦 VIREMENTS REÇUS :</span>
-                      <strong className="font-bold text-black">{formatPrice(selectedZReport.recapModes.virement)}</strong>
+                    <div className="flex justify-between text-stone-600">
+                      <span>🏦 Virement :</span>
+                      <strong className="font-semibold text-stone-900">{formatPrice(selectedZReport.recapModes.virement)}</strong>
                     </div>
                   </div>
                 )}
 
                 {/* Cash outflows summary */}
-                <div className="flex justify-between text-rose-600">
-                  <span>SORTIES DE CAISSE (DÉPENSES) :</span>
-                  <span className="font-bold">- {formatPrice(
+                <div className="flex justify-between text-rose-600 font-medium">
+                  <span>Dépenses / Sorties :</span>
+                  <span>- {formatPrice(
                     sortiesCaisse.filter(o => o.sessionId === selectedZReport.id).reduce((acc, o) => acc + o.montant, 0)
                   )}</span>
                 </div>
               </div>
 
-              <div className="py-4 space-y-2 text-xs">
-                <div className="flex justify-between font-bold text-slate-600">
-                  <span>SOLDE THÉORIQUE ATTENDU:</span>
-                  <span className="font-mono">{formatPrice(selectedZReport.montantTheorique)}</span>
+              <div className="py-3.5 space-y-2 text-xs">
+                <div className="flex justify-between text-stone-600 font-medium">
+                  <span>Solde théorique attendu :</span>
+                  <span className="font-semibold text-stone-800">{formatPrice(selectedZReport.montantTheorique)}</span>
                 </div>
                 
-                <div className="flex justify-between font-black text-sm text-slate-900">
-                  <span>SOLDE PHYSIQUE COMPTÉ:</span>
-                  <span className="font-mono">{selectedZReport.montantCompte !== undefined ? formatPrice(selectedZReport.montantCompte) : 'NON CLÔTURÉE'}</span>
+                <div className="flex justify-between font-bold text-sm text-stone-900">
+                  <span>Solde réel compté :</span>
+                  <span className="text-[#F05A22]">{selectedZReport.montantCompte !== undefined ? formatPrice(selectedZReport.montantCompte) : 'Non clôturée'}</span>
                 </div>
 
                 {selectedZReport.ecart !== undefined && (
-                  <div className={`p-3 border-2 text-center text-xs font-black uppercase flex items-center justify-center gap-2 ${
+                  <div className={`p-3 rounded-xl border text-center text-xs font-semibold flex items-center justify-center gap-2 ${
                     selectedZReport.ecart === 0 
-                      ? 'bg-emerald-50 text-emerald-700 border-emerald-400' 
-                      : 'bg-rose-50 text-rose-700 border-rose-400 animate-pulse'
+                      ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
+                      : 'bg-rose-50 text-rose-700 border-rose-200'
                   }`}>
                     {selectedZReport.ecart === 0 ? (
                       <>
-                        <CheckCircle className="h-4 w-4" /> ÉCART DE CAISSE : PARFAIT (0)
+                        <CheckCircle className="h-4 w-4" /> Écart de caisse : Parfait (0 FCFA)
                       </>
                     ) : (
                       <>
                         <AlertCircle className="h-4 w-4" /> 
-                        {selectedZReport.ecart < 0 ? `MANQUANT DE CAISSE : ` : `SURPLUS DE CAISSE : `}
+                        {selectedZReport.ecart < 0 ? `Manquant : ` : `Surplus : `}
                         {formatPrice(Math.abs(selectedZReport.ecart))}
                       </>
                     )}
@@ -2899,26 +2888,22 @@ export default function PosCaisseSection() {
                 )}
               </div>
 
-              <p className="text-[8px] text-center text-slate-400 pt-3 border-t border-dashed border-black">
-                Rapport financier cryptographique certifié Fox Couture - Certificat #Z-{selectedZReport.id.toUpperCase()}
-              </p>
-
               <div className="mt-5 flex gap-2">
                 <button
                   onClick={() => window.print()}
-                  className="flex-1 py-1.5 bg-black hover:bg-slate-800 text-white text-xs font-black uppercase tracking-wider cursor-pointer border border-black flex items-center justify-center gap-1.5"
+                  className="flex-1 py-2.5 bg-[#161412] hover:bg-stone-800 text-white text-xs font-semibold rounded-xl cursor-pointer transition flex items-center justify-center gap-1.5 shadow-xs"
                 >
                   <Printer className="h-4 w-4" /> Imprimer
                 </button>
                 <button
                   onClick={() => exportZReportToCSV(selectedZReport)}
-                  className="flex-1 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black uppercase tracking-wider cursor-pointer border border-black flex items-center justify-center gap-1.5"
+                  className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl cursor-pointer transition flex items-center justify-center gap-1.5 shadow-xs"
                 >
                   Exporter CSV
                 </button>
                 <button
                   onClick={() => setSelectedZReport(null)}
-                  className="py-1.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-950 text-xs font-black uppercase tracking-wider cursor-pointer border border-slate-300"
+                  className="py-2.5 px-3.5 bg-white hover:bg-stone-50 text-stone-700 text-xs font-semibold rounded-xl border border-stone-200/80 cursor-pointer transition"
                 >
                   Fermer
                 </button>

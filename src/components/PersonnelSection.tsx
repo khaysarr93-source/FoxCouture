@@ -215,46 +215,46 @@ export default function PersonnelSection() {
       </div>
 
       {/* Sub tabs navigation */}
-      <div className="flex border-b-2 border-black dark:border-zinc-800 gap-1">
+      <div className="flex bg-white p-1 rounded-2xl border border-stone-200/60 shadow-xs max-w-md">
         <button
           onClick={() => setActiveSubTab('employees')}
-          className={`px-4 py-2 text-xs font-black uppercase tracking-widest border-t-2 border-x-2 border-black dark:border-zinc-800 -mb-[2px] transition ${
+          className={`flex-1 py-2 text-center text-xs font-bold rounded-xl transition cursor-pointer ${
             activeSubTab === 'employees'
-              ? 'bg-white dark:bg-zinc-900 text-slate-950 dark:text-white border-b-white dark:border-b-zinc-900 z-10'
-              : 'bg-slate-100 dark:bg-zinc-950 text-slate-500 dark:text-zinc-500 hover:bg-slate-50 dark:hover:bg-zinc-800 cursor-pointer border-b-black dark:border-b-zinc-800'
+              ? 'bg-[#191716] text-white shadow-xs'
+              : 'text-stone-600 hover:bg-stone-50'
           }`}
         >
-          👥 Membres de l'Équipe
+          Membres de l'équipe
         </button>
         <button
           onClick={() => setActiveSubTab('accounts')}
-          className={`px-4 py-2 text-xs font-black uppercase tracking-widest border-t-2 border-x-2 border-black dark:border-zinc-800 -mb-[2px] transition ${
+          className={`flex-1 py-2 text-center text-xs font-bold rounded-xl transition cursor-pointer ${
             activeSubTab === 'accounts'
-              ? 'bg-white dark:bg-zinc-900 text-slate-950 dark:text-white border-b-white dark:border-b-zinc-900 z-10'
-              : 'bg-slate-100 dark:bg-zinc-950 text-slate-500 dark:text-zinc-500 hover:bg-slate-50 dark:hover:bg-zinc-800 cursor-pointer border-b-black dark:border-b-zinc-800'
+              ? 'bg-[#191716] text-white shadow-xs'
+              : 'text-stone-600 hover:bg-stone-50'
           }`}
         >
-          🔑 Comptes & Droits d'Accès
+          Comptes & droits d'accès
         </button>
       </div>
 
       {/* TAB 1: EMPLOYEES GRID */}
       {activeSubTab === 'employees' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {employes.map(emp => {
             const isAtMaxLoad = emp.chargeTravail >= 5;
             const hasAccess = !!(emp.email && emp.motDePasse);
 
             return (
-              <div key={emp.id} className="bg-white dark:bg-zinc-900 rounded-none p-5 border-2 border-black dark:border-zinc-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-none flex flex-col justify-between transition">
+              <div key={emp.id} className="card-fox rounded-3xl p-5 border border-stone-200/70 shadow-xs flex flex-col justify-between hover:shadow-md transition">
                 <div className="space-y-4">
                   {/* Header status */}
                   <div className="flex justify-between items-start">
-                    <span className={`text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-none border border-black dark:border-zinc-700 ${
-                      emp.role === 'chef_atelier' ? 'bg-amber-100 dark:bg-amber-950 text-amber-950 dark:text-amber-200' :
-                      emp.role === 'coupeur' ? 'bg-indigo-100 dark:bg-indigo-950 text-indigo-950 dark:text-indigo-200' :
-                      emp.role === 'couturier' ? 'bg-slate-100 dark:bg-zinc-800 text-slate-950 dark:text-zinc-200' :
-                      'bg-slate-100 dark:bg-zinc-800 text-slate-700'
+                    <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full capitalize ${
+                      emp.role === 'chef_atelier' ? 'bg-amber-50 text-amber-800 border border-amber-200/60' :
+                      emp.role === 'coupeur' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200/60' :
+                      emp.role === 'couturier' ? 'bg-orange-50 text-[#F05A22] border border-orange-200/60' :
+                      'bg-stone-100 text-stone-700 border border-stone-200/60'
                     }`}>
                       {(emp.role || 'couturier').replace('_', ' ')}
                     </span>
@@ -262,7 +262,7 @@ export default function PersonnelSection() {
                     <div className="flex items-center gap-2">
                       {hasAccess && (
                         <span 
-                          className="p-1 bg-indigo-50 dark:bg-indigo-950 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 rounded-none" 
+                          className="p-1 bg-indigo-50 border border-indigo-200/60 text-indigo-700 rounded-lg" 
                           title="Possède un compte d'accès système"
                         >
                           <Key className="h-3 w-3" />
@@ -270,65 +270,65 @@ export default function PersonnelSection() {
                       )}
                       <button
                         onClick={() => toggleStatut(emp)}
-                        className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-none border-2 transition cursor-pointer ${
+                        className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border transition cursor-pointer ${
                           emp.statut === 'actif' 
-                            ? 'bg-emerald-400 text-slate-950 border-black dark:border-emerald-500 hover:bg-emerald-500' 
-                            : 'bg-rose-500 text-white border-black dark:border-rose-600 hover:bg-rose-600'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100' 
+                            : 'bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100'
                         }`}
                         title="Cliquer pour changer la disponibilité d'atelier"
                       >
-                        {emp.statut === 'actif' ? '● ACTIF' : '○ ABSENT'}
+                        {emp.statut === 'actif' ? '● Actif' : '○ Absent'}
                       </button>
                     </div>
                   </div>
 
                   {/* Name */}
                   <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-none border-2 border-black flex items-center justify-center font-black uppercase font-display ${emp.avatarColor || 'bg-slate-300'}`}>
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-xs uppercase ${emp.avatarColor || 'bg-stone-800'}`}>
                       {emp.prenom[0]}{emp.nom[0]}
                     </div>
                     <div>
-                      <h3 className="text-sm font-black uppercase tracking-wider text-slate-950 dark:text-white font-display">
+                      <h3 className="text-sm font-bold text-stone-900">
                         {emp.prenom} {emp.nom}
                       </h3>
-                      <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1 flex items-center gap-1 font-mono uppercase">
-                        <Tag className="h-3.5 w-3.5 text-black dark:text-atelier-gold" /> Spécialité : <span className="font-black text-slate-950 dark:text-zinc-200">{Array.isArray(emp.specialite) ? emp.specialite.join(', ') : emp.specialite}</span>
+                      <p className="text-xs text-stone-500 mt-0.5 flex items-center gap-1 font-medium">
+                        <Tag className="h-3.5 w-3.5 text-stone-400" /> Spécialité : <span className="font-semibold text-stone-700">{Array.isArray(emp.specialite) ? emp.specialite.join(', ') : emp.specialite}</span>
                       </p>
                     </div>
                   </div>
 
                   {/* Workload and tasks */}
-                  <div className="bg-white dark:bg-zinc-950 p-3 rounded-none border-2 border-black dark:border-zinc-800 space-y-1.5">
-                    <div className="flex justify-between text-xs font-black uppercase tracking-widest">
-                      <span className="text-slate-600 dark:text-zinc-400 font-sans">Charge d'atelier :</span>
-                      <span className={`font-mono font-black ${isAtMaxLoad ? 'text-rose-600' : 'text-slate-950 dark:text-zinc-100'}`}>
+                  <div className="bg-[#FBF8F3] p-3.5 rounded-2xl border border-stone-200/60 space-y-2">
+                    <div className="flex justify-between text-xs font-semibold">
+                      <span className="text-stone-500">Charge d'atelier :</span>
+                      <span className={`font-mono font-bold ${isAtMaxLoad ? 'text-rose-600' : 'text-stone-900'}`}>
                         {emp.chargeTravail} en cours
                       </span>
                     </div>
 
-                    <div className="h-3 w-full bg-slate-200 dark:bg-zinc-800 rounded-none border border-black dark:border-zinc-700 overflow-hidden">
+                    <div className="h-2 w-full bg-stone-200/70 rounded-full overflow-hidden">
                       <div 
                         style={{ width: `${Math.min(100, (emp.chargeTravail / 6) * 100)}%` }} 
-                        className={`h-full rounded-none transition-all duration-300 ${
-                          isAtMaxLoad ? 'bg-rose-600' : 'bg-atelier-gold'
+                        className={`h-full rounded-full transition-all duration-300 ${
+                          isAtMaxLoad ? 'bg-rose-500' : 'bg-[#F05A22]'
                         }`}
                       ></div>
                     </div>
-                    <span className="text-[9px] font-mono text-slate-600 dark:text-zinc-500 block">Capacité maximale conseillée : 5 confections</span>
+                    <span className="text-[10px] font-mono text-stone-500 block">Capacité maximale conseillée : 5 confections</span>
                   </div>
                 </div>
 
                 {/* Bottom detail action */}
-                <div className="mt-5 pt-4 border-t-2 border-black dark:border-zinc-800 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs text-slate-700 dark:text-zinc-400 font-mono">
-                    <Phone className="h-3.5 w-3.5 text-black dark:text-zinc-350" />
-                    <a href={`tel:${emp.telephone}`} className="hover:underline font-bold text-slate-950 dark:text-zinc-100">{emp.telephone}</a>
+                <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-xs text-stone-600 font-mono">
+                    <Phone className="h-3.5 w-3.5 text-[#F05A22]" />
+                    <a href={`tel:${emp.telephone}`} className="hover:underline font-semibold text-stone-800">{emp.telephone}</a>
                   </div>
 
                   <div className="flex gap-2">
                     <button
                       onClick={() => openAccountManagement(emp)}
-                      className="px-2 py-1 bg-zinc-100 dark:bg-zinc-800 hover:bg-black hover:text-white dark:hover:bg-zinc-700 text-[10px] font-black uppercase border border-black dark:border-zinc-700 transition cursor-pointer flex items-center gap-1"
+                      className="px-2.5 py-1 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold rounded-lg transition cursor-pointer flex items-center gap-1"
                       title="Gérer les identifiants d'accès"
                     >
                       <Key className="h-3 w-3" /> Accès
@@ -337,8 +337,8 @@ export default function PersonnelSection() {
                       onClick={() => {
                         if (window.confirm(`Retirer ${emp.prenom} ${emp.nom} de la liste du personnel ?`)) deleteEmploye(emp.id);
                       }}
-                      className="p-1.5 text-rose-600 hover:bg-rose-600 hover:text-white rounded-none border border-transparent hover:border-black transition cursor-pointer"
-                      title="Licencier / Supprimer"
+                      className="p-1.5 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
+                      title="Supprimer"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -352,66 +352,66 @@ export default function PersonnelSection() {
 
       {/* TAB 2: SYSTEM ACCOUNTS & ACCESS RIGHTS */}
       {activeSubTab === 'accounts' && (
-        <div className="bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-6 rounded-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-none overflow-x-auto">
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-black dark:border-zinc-800">
+        <div className="card-fox rounded-3xl border border-stone-200/70 shadow-xs p-6 overflow-x-auto">
+          <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-100">
             <div>
-              <h3 className="text-sm font-black uppercase tracking-wider text-slate-950 dark:text-white">Identifiants d'accès des Collaborateurs</h3>
-              <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">Attribuez un rôle logiciel (Administrateur, Chef ou Couturier) pour restreindre l'affichage selon le profil.</p>
+              <h3 className="text-sm font-bold text-stone-900">Identifiants d'accès des collaborateurs</h3>
+              <p className="text-xs text-stone-500 mt-0.5">Attribuez un rôle logiciel (Administrateur, Chef ou Couturier) pour restreindre l'affichage selon le profil.</p>
             </div>
           </div>
 
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b-2 border-black dark:border-zinc-800 font-mono text-slate-500 uppercase tracking-wider text-[10px] pb-3">
-                <th className="py-3 px-2">Collaborateur</th>
-                <th className="py-3 px-2">Adresse Email d'Accès</th>
-                <th className="py-3 px-2">Rôle Logiciel</th>
-                <th className="py-3 px-2">Dernière Connexion</th>
-                <th className="py-3 px-2">Statut d'Accès</th>
-                <th className="py-3 px-2 text-right">Actions</th>
+              <tr className="border-b border-stone-200 text-stone-500 text-xs font-semibold pb-3">
+                <th className="py-3 px-3">Collaborateur</th>
+                <th className="py-3 px-3">Adresse email d'accès</th>
+                <th className="py-3 px-3">Rôle logiciel</th>
+                <th className="py-3 px-3">Dernière connexion</th>
+                <th className="py-3 px-3">Statut d'accès</th>
+                <th className="py-3 px-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-zinc-800">
+            <tbody className="divide-y divide-stone-100">
               {employes.map(emp => {
                 const hasAccess = emp.email && emp.motDePasse;
                 const isBlocked = emp.accesActif === false;
 
                 return (
-                  <tr key={emp.id} className="hover:bg-slate-50/50 dark:hover:bg-zinc-950/40 transition-colors">
+                  <tr key={emp.id} className="hover:bg-[#FBF8F3]/60 transition-colors">
                     {/* User info */}
-                    <td className="py-4 px-2">
+                    <td className="py-3.5 px-3">
                       <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-none border-2 border-black flex items-center justify-center font-black text-[11px] uppercase ${emp.avatarColor || 'bg-slate-300'}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-xs ${emp.avatarColor || 'bg-stone-800'}`}>
                           {emp.prenom[0]}{emp.nom[0]}
                         </div>
                         <div>
-                          <span className="font-bold text-slate-950 dark:text-white block">{emp.prenom} {emp.nom}</span>
-                          <span className="text-[10px] text-slate-400 capitalize">{(emp.role || 'couturier').replace('_', ' ')} d'Atelier</span>
+                          <span className="font-bold text-stone-900 block">{emp.prenom} {emp.nom}</span>
+                          <span className="text-[11px] text-stone-400 capitalize">{(emp.role || 'couturier').replace('_', ' ')} d'atelier</span>
                         </div>
                       </div>
                     </td>
 
                     {/* Email */}
-                    <td className="py-4 px-2">
+                    <td className="py-3.5 px-3">
                       {hasAccess ? (
-                        <div className="flex items-center gap-1.5 font-mono text-slate-950 dark:text-zinc-100 font-black">
-                          <Mail className="h-3.5 w-3.5 text-slate-400" />
+                        <div className="flex items-center gap-1.5 font-mono text-stone-900 font-semibold">
+                          <Mail className="h-3.5 w-3.5 text-stone-400" />
                           <span>{emp.email}</span>
                         </div>
                       ) : (
-                        <span className="text-slate-400 dark:text-zinc-600 italic">Aucun compte d'accès</span>
+                        <span className="text-stone-400 italic">Aucun compte d'accès</span>
                       )}
                     </td>
 
                     {/* System role */}
-                    <td className="py-4 px-2">
+                    <td className="py-3.5 px-3">
                       {hasAccess ? (
-                        <span className={`px-2 py-0.5 border border-black dark:border-zinc-700 text-[9px] font-black uppercase tracking-widest ${
-                          emp.roleSaaS === 'tenant_admin' ? 'bg-amber-100 text-amber-950 dark:bg-amber-950 dark:text-amber-200' :
-                          emp.roleSaaS === 'chef_atelier' ? 'bg-indigo-100 text-indigo-950 dark:bg-indigo-950 dark:text-indigo-200' :
-                          emp.roleSaaS === 'vendeur' ? 'bg-emerald-100 text-emerald-950 dark:bg-emerald-950 dark:text-emerald-200' :
-                          emp.roleSaaS === 'coupeur' ? 'bg-blue-100 text-blue-950 dark:bg-blue-950 dark:text-blue-200' :
-                          'bg-slate-100 text-slate-950 dark:bg-zinc-800 dark:text-zinc-200'
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${
+                          emp.roleSaaS === 'tenant_admin' ? 'bg-amber-50 text-amber-800 border border-amber-200' :
+                          emp.roleSaaS === 'chef_atelier' ? 'bg-indigo-50 text-indigo-700 border border-indigo-200' :
+                          emp.roleSaaS === 'vendeur' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
+                          emp.roleSaaS === 'coupeur' ? 'bg-blue-50 text-blue-700 border border-blue-200' :
+                          'bg-stone-100 text-stone-700 border border-stone-200'
                         }`}>
                           {emp.roleSaaS === 'tenant_admin' ? 'Admin d\'Atelier' :
                            emp.roleSaaS === 'chef_atelier' ? 'Chef d\'Atelier' :
@@ -420,42 +420,42 @@ export default function PersonnelSection() {
                            'Couturier / Artisan'}
                         </span>
                       ) : (
-                        <span className="text-slate-400 dark:text-zinc-600 font-mono">—</span>
+                        <span className="text-stone-400 font-mono">—</span>
                       )}
                     </td>
 
                     {/* Last login */}
-                    <td className="py-4 px-2 font-mono text-slate-600 dark:text-zinc-400 font-bold text-[11px]">
-                      {hasAccess ? (emp.derniereConnexion || '—') : <span className="text-slate-400">—</span>}
+                    <td className="py-3.5 px-3 font-mono text-stone-500 text-xs">
+                      {hasAccess ? (emp.derniereConnexion || '—') : <span className="text-stone-400">—</span>}
                     </td>
 
                     {/* System active toggle status */}
-                    <td className="py-4 px-2">
+                    <td className="py-3.5 px-3">
                       {hasAccess ? (
                         <button
                           onClick={() => toggleAccesActif(emp)}
-                          className={`px-2.5 py-0.5 rounded-none border-2 font-black text-[9px] tracking-widest uppercase cursor-pointer transition ${
+                          className={`px-2.5 py-0.5 rounded-full font-bold text-[10px] cursor-pointer transition ${
                             !isBlocked 
-                              ? 'bg-emerald-100 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-400 border-emerald-400 hover:bg-emerald-200' 
-                              : 'bg-rose-100 dark:bg-rose-950/40 text-rose-800 dark:text-rose-400 border-rose-400 hover:bg-rose-200'
+                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' 
+                              : 'bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100'
                           }`}
                           title={isBlocked ? "Débloquer l'accès système" : "Bloquer l'accès système"}
                         >
-                          {!isBlocked ? '✓ AUTORISÉ' : '✗ BLOQUÉ'}
+                          {!isBlocked ? '✓ Autorisé' : '✗ Bloqué'}
                         </button>
                       ) : (
-                        <span className="text-slate-400">—</span>
+                        <span className="text-stone-400">—</span>
                       )}
                     </td>
 
                     {/* Actions */}
-                    <td className="py-4 px-2 text-right">
+                    <td className="py-3.5 px-3 text-right">
                       <div className="flex items-center justify-end gap-2">
                         {hasAccess ? (
                           <>
                             <button
                               onClick={() => openAccountManagement(emp)}
-                              className="px-2 py-1 border border-black dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 hover:bg-slate-900 hover:text-white dark:hover:bg-zinc-700 transition cursor-pointer text-[10px] font-black uppercase"
+                              className="px-2.5 py-1 border border-stone-200/80 bg-white hover:bg-stone-50 rounded-lg transition cursor-pointer text-xs font-semibold text-stone-700"
                               title="Modifier les identifiants de connexion"
                             >
                               Configurer
@@ -472,18 +472,18 @@ export default function PersonnelSection() {
                                   });
                                 }
                               }}
-                              className="p-1 border border-black dark:border-zinc-700 text-rose-600 hover:bg-rose-600 hover:text-white transition rounded-none cursor-pointer"
+                              className="p-1 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
                               title="Retirer les droits de connexion"
                             >
-                              <UserX className="h-3.5 w-3.5" />
+                              <UserX className="h-4 w-4" />
                             </button>
                           </>
                         ) : (
                           <button
                             onClick={() => openAccountManagement(emp)}
-                            className="px-2 py-1 bg-atelier-gold hover:bg-black text-slate-950 hover:text-white transition border border-black text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] cursor-pointer"
+                            className="px-2.5 py-1 bg-orange-50 hover:bg-[#F05A22] text-[#F05A22] hover:text-white transition rounded-lg text-xs font-semibold flex items-center gap-1 cursor-pointer"
                           >
-                            <Plus className="h-3 w-3" /> Créer un Compte
+                            <Plus className="h-3 w-3" /> Créer un compte
                           </button>
                         )}
                       </div>
@@ -499,49 +499,49 @@ export default function PersonnelSection() {
 
       {/* MODAL 1: RECRUIT EMPLOYEE AND OPTIONAL SYSTEM ACCESS */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50 overflow-y-auto">
-          <div className="bg-white dark:bg-zinc-900 rounded-none max-w-lg w-full p-6 border-4 border-black dark:border-zinc-800 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-none animate-in fade-in zoom-in-95 duration-150 my-8">
-            <div className="flex justify-between items-center mb-6 pb-2 border-b border-black">
-              <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 dark:text-white font-display">
-                Recruter un Membre d'Équipe
+        <div className="fixed inset-0 bg-stone-950/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 overflow-y-auto">
+          <div className="card-fox rounded-3xl max-w-lg w-full p-6 border border-stone-200/80 shadow-2xl animate-in fade-in zoom-in-95 duration-150 my-8">
+            <div className="flex justify-between items-center mb-5 pb-3 border-b border-stone-100">
+              <h3 className="text-base font-bold text-stone-900">
+                Recruter un membre d'équipe
               </h3>
-              <button onClick={() => setIsModalOpen(false)} className="text-slate-500 hover:text-black">
+              <button onClick={() => setIsModalOpen(false)} className="text-stone-400 hover:text-stone-700">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Prénom *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Prénom *</label>
                   <input
                     type="text"
                     required
                     value={prenom}
                     onChange={(e) => setPrenom(e.target.value)}
-                    className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     placeholder="Abdoulaye"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Nom *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Nom *</label>
                   <input
                     type="text"
                     required
                     value={nom}
                     onChange={(e) => setNom(e.target.value)}
-                    className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     placeholder="Sarr"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Rôle / Poste *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Rôle / Poste *</label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as RoleEmploye)}
-                  className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-0"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                 >
                   <option value="couturier">Couturier d'Atelier</option>
                   <option value="coupeur">Coupeur de Patronages</option>
@@ -552,83 +552,83 @@ export default function PersonnelSection() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Spécialité / Matières</label>
+                <label className="text-xs font-semibold text-stone-700 block">Spécialité / Matières</label>
                 <input
                   type="text"
                   value={specialite}
                   onChange={(e) => setSpecialite(e.target.value)}
-                  className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs focus:outline-none"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   placeholder="Ex: Broderie or, Costume 3 pièces, Soie"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Téléphone Portable *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Téléphone portable *</label>
                 <input
                   type="text"
                   required
                   value={telephone}
                   onChange={(e) => setTelephone(e.target.value)}
-                  className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   placeholder="+221 77 123 45 67"
                 />
               </div>
 
               {/* Collapsible / Optional section: System User account */}
-              <div className="pt-4 border-t-2 border-dashed border-black dark:border-zinc-800">
+              <div className="pt-3 border-t border-stone-200/80">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={hasSystemAccess}
                     onChange={(e) => setHasSystemAccess(e.target.checked)}
-                    className="w-4 h-4 text-atelier-gold accent-black cursor-pointer rounded-none border-2 border-black"
+                    className="w-4 h-4 accent-[#F05A22] cursor-pointer rounded"
                   />
-                  <span className="text-xs font-black uppercase tracking-wider text-slate-950 dark:text-white flex items-center gap-1.5">
-                    <Key className="h-4 w-4 text-atelier-gold" /> Créer un compte d'accès système
+                  <span className="text-xs font-bold text-stone-800 flex items-center gap-1.5">
+                    <Key className="h-4 w-4 text-[#F05A22]" /> Créer un compte d'accès système
                   </span>
                 </label>
-                <p className="text-[10px] text-slate-500 ml-6 mt-1 leading-relaxed font-serif italic">Permet au tailleur de se connecter à l'application avec un accès restreint ou complet.</p>
+                <p className="text-[11px] text-stone-500 ml-6 mt-0.5 leading-relaxed">Permet au collaborateur de se connecter à l'application avec un accès restreint ou complet.</p>
               </div>
 
               {hasSystemAccess && (
-                <div className="bg-white dark:bg-zinc-950 p-4 border-2 border-black dark:border-zinc-800 space-y-3 animate-in slide-in-from-top-2 duration-150">
+                <div className="bg-[#FBF8F3] p-4 rounded-2xl border border-stone-200/80 space-y-3 animate-in slide-in-from-top-2 duration-150">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-400 block">Adresse Email de Connexion *</label>
+                    <label className="text-xs font-semibold text-stone-700 block">Adresse email de connexion *</label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                      <Mail className="absolute left-3.5 top-3 h-4 w-4 text-stone-400" />
                       <input
                         type="email"
                         required={hasSystemAccess}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none pl-9 pr-3 py-2 text-xs focus:outline-none"
+                        className="w-full rounded-xl border border-stone-200/80 bg-white pl-10 pr-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                         placeholder="couturier@foxcouture.sn"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-400 block">Mot de Passe *</label>
+                      <label className="text-xs font-semibold text-stone-700 block">Mot de passe *</label>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                        <Lock className="absolute left-3.5 top-3 h-4 w-4 text-stone-400" />
                         <input
                           type="password"
                           required={hasSystemAccess}
                           value={motDePasse}
                           onChange={(e) => setMotDePasse(e.target.value)}
-                          className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none pl-9 pr-3 py-2 text-xs focus:outline-none font-mono"
+                          className="w-full rounded-xl border border-stone-200/80 bg-white pl-10 pr-3.5 py-2.5 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                           placeholder="Mot de passe"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-400 block">Niveau d'Accès / Rôle *</label>
+                      <label className="text-xs font-semibold text-stone-700 block">Niveau d'accès / Rôle *</label>
                       <select
                         value={roleSaaS}
                         onChange={(e) => setRoleSaaS(e.target.value as any)}
-                        className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-0"
+                        className="w-full rounded-xl border border-stone-200/80 bg-white px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                       >
                         <option value="couturier">Couturier (Tâches & confection)</option>
                         <option value="coupeur">Coupeur (Découpe & patronages)</option>
@@ -642,17 +642,17 @@ export default function PersonnelSection() {
               )}
 
               {/* Actions */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-none border-2 border-black dark:border-zinc-700 text-slate-950 dark:text-zinc-300 hover:bg-black hover:text-white dark:hover:bg-zinc-800 font-black uppercase tracking-widest text-xs cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200/80 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-none bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs transition cursor-pointer"
+                  className="flex-1 btn-fox-primary !py-2.5"
                 >
                   Enregistrer
                 </button>
@@ -665,65 +665,65 @@ export default function PersonnelSection() {
 
       {/* MODAL 2: MANAGE USER ACCOUNT & CREDENTIALS DETAIL */}
       {isAccountModalOpen && selectedEmp && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-zinc-900 rounded-none max-w-sm w-full p-6 border-4 border-black dark:border-zinc-800 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-none animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex justify-between items-center mb-6 pb-2 border-b border-black">
-              <h3 className="text-sm font-black uppercase tracking-widest text-slate-950 dark:text-white flex items-center gap-1.5">
-                <Key className="h-4.5 w-4.5 text-atelier-gold" /> Accès Système : {selectedEmp.prenom}
+        <div className="fixed inset-0 bg-stone-950/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="card-fox rounded-3xl max-w-sm w-full p-6 border border-stone-200/80 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex justify-between items-center mb-5 pb-3 border-b border-stone-100">
+              <h3 className="text-sm font-bold text-stone-900 flex items-center gap-1.5">
+                <Key className="h-4.5 w-4.5 text-[#F05A22]" /> Accès système : {selectedEmp.prenom}
               </h3>
               <button 
                 onClick={() => {
                   setIsAccountModalOpen(false);
                   setSelectedEmp(null);
                 }} 
-                className="text-slate-500 hover:text-black dark:hover:text-white"
+                className="text-stone-400 hover:text-stone-700"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <form onSubmit={handleSaveAccount} className="space-y-4">
-              <div className="bg-amber-50 dark:bg-zinc-950 p-3 rounded-none border border-amber-300 dark:border-zinc-800 flex items-center gap-3">
-                <div className={`w-8 h-8 rounded-none border-2 border-black flex items-center justify-center font-black text-xs uppercase ${selectedEmp.avatarColor || 'bg-slate-300'}`}>
+              <div className="bg-[#FBF8F3] p-3 rounded-2xl border border-stone-200/80 flex items-center gap-3">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-xs ${selectedEmp.avatarColor || 'bg-stone-800'}`}>
                   {selectedEmp.prenom[0]}{selectedEmp.nom[0]}
                 </div>
                 <div>
-                  <span className="font-bold text-[11px] text-slate-950 dark:text-white block">{selectedEmp.prenom} {selectedEmp.nom}</span>
-                  <span className="text-[9px] text-slate-500 uppercase tracking-wider block">{(selectedEmp.role || 'couturier').replace('_', ' ')}</span>
+                  <span className="font-bold text-xs text-stone-900 block">{selectedEmp.prenom} {selectedEmp.nom}</span>
+                  <span className="text-[11px] text-stone-500 capitalize block">{(selectedEmp.role || 'couturier').replace('_', ' ')}</span>
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Adresse Email d'Accès</label>
+                <label className="text-xs font-semibold text-stone-700 block">Adresse email d'accès</label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                  <Mail className="absolute left-3.5 top-3 h-4 w-4 text-stone-400" />
                   <input
                     type="email"
                     required
                     value={accEmail}
                     onChange={(e) => setAccEmail(e.target.value)}
-                    className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none pl-9 pr-3 py-2 text-xs focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] pl-10 pr-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     placeholder="nom@foxcouture.sn"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Mot de Passe Système</label>
+                <label className="text-xs font-semibold text-stone-700 block">Mot de passe système</label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                  <Lock className="absolute left-3.5 top-3 h-4 w-4 text-stone-400" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     required
                     value={accPassword}
                     onChange={(e) => setAccPassword(e.target.value)}
-                    className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none pl-9 pr-10 py-2 text-xs focus:outline-none font-mono"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] pl-10 pr-10 py-2.5 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     placeholder="Nouveau mot de passe"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-2.5 text-slate-400 hover:text-black dark:hover:text-white"
+                    className="absolute right-3.5 top-3 text-stone-400 hover:text-stone-700"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
@@ -731,11 +731,11 @@ export default function PersonnelSection() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Rôle / Droits Logiciel</label>
+                <label className="text-xs font-semibold text-stone-700 block">Rôle / Droits logiciel</label>
                 <select
                   value={accRoleSaaS}
                   onChange={(e) => setAccRoleSaaS(e.target.value as any)}
-                  className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                 >
                   <option value="couturier">Couturier (Tâches & confection)</option>
                   <option value="coupeur">Coupeur (Découpe & patronages)</option>
@@ -752,32 +752,32 @@ export default function PersonnelSection() {
                     type="checkbox"
                     checked={accAccesActif}
                     onChange={(e) => setAccAccesActif(e.target.checked)}
-                    className="w-4 h-4 text-atelier-gold accent-black cursor-pointer rounded-none border-2 border-black"
+                    className="w-4 h-4 accent-[#F05A22] cursor-pointer rounded"
                   />
-                  <span className="text-xs font-black uppercase tracking-wider text-slate-950 dark:text-white">
-                    Autoriser la connexion (Compte Actif)
+                  <span className="text-xs font-bold text-stone-800">
+                    Autoriser la connexion (Compte actif)
                   </span>
                 </label>
-                <p className="text-[9px] text-slate-400 ml-6 mt-1 leading-relaxed">Si désactivé, l'utilisateur recevra un message d'erreur lors de sa tentative de connexion.</p>
+                <p className="text-[11px] text-stone-500 ml-6 mt-0.5 leading-relaxed">Si désactivé, l'utilisateur recevra un message d'erreur lors de sa tentative de connexion.</p>
               </div>
 
               {/* Actions */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => {
                     setIsAccountModalOpen(false);
                     setSelectedEmp(null);
                   }}
-                  className="flex-1 py-2 rounded-none border-2 border-black dark:border-zinc-700 text-slate-950 dark:text-zinc-300 hover:bg-black hover:text-white dark:hover:bg-zinc-800 font-black uppercase tracking-widest text-[10px] cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200/80 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2 rounded-none bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white font-black uppercase tracking-widest text-[10px] transition cursor-pointer flex items-center justify-center gap-1"
+                  className="flex-1 btn-fox-primary !py-2.5 flex items-center justify-center gap-1"
                 >
-                  <Check className="h-3.5 w-3.5" /> Enregistrer
+                  <Check className="h-4 w-4" /> Enregistrer
                 </button>
               </div>
             </form>

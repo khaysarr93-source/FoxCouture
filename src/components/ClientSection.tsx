@@ -885,51 +885,51 @@ export default function ClientSection() {
             </div>
 
             {/* Segment 2: Custom Preferences */}
-            <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-6">
-              <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 border-b-2 border-black pb-3 font-display flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-atelier-gold" /> Préférences & Remarques d'Atelier
+            <div className="card-fox p-6 space-y-6">
+              <h3 className="text-lg font-bold text-stone-900 border-b border-stone-100 pb-3 flex items-center gap-2">
+                <Sparkles className="h-4.5 w-4.5 text-[#F05A22]" /> Préférences & remarques d'atelier
               </h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Left: Preferences lists */}
                 <div className="space-y-4">
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-2">Styles Favoris</span>
+                    <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider block mb-2">Styles favoris</span>
                     <div className="flex flex-wrap gap-2">
                       {selectedClient.preferences.stylesFavoris.length > 0 ? (
                         selectedClient.preferences.stylesFavoris.map((style, idx) => (
-                          <span key={idx} className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider bg-zinc-900 text-white px-3 py-1.5 rounded-none border border-black">
-                            <Tag className="h-3 w-3 text-atelier-gold" /> {style}
+                          <span key={idx} className="inline-flex items-center gap-1 text-xs font-medium bg-[#191716] text-white px-3 py-1 rounded-full">
+                            <Tag className="h-3 w-3 text-[#F05A22]" /> {style}
                           </span>
                         ))
                       ) : (
-                        <span className="text-xs text-slate-400 font-serif italic">Aucun style fétiche défini</span>
+                        <span className="text-xs text-stone-400">Aucun style fétiche défini</span>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-2">Tissus Préférés</span>
+                    <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider block mb-2">Tissus préférés</span>
                     <div className="flex flex-wrap gap-2">
                       {selectedClient.preferences.tissusPreferes.length > 0 ? (
                         selectedClient.preferences.tissusPreferes.map((tis, idx) => (
-                          <span key={idx} className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-widest bg-atelier-gold text-slate-950 px-3 py-1.5 rounded-none border-2 border-black">
-                            <BookOpen className="h-3 w-3 text-black" /> {tis}
+                          <span key={idx} className="inline-flex items-center gap-1 text-xs font-medium bg-amber-50 text-amber-900 border border-amber-200 px-3 py-1 rounded-full">
+                            <BookOpen className="h-3 w-3 text-amber-700" /> {tis}
                           </span>
                         ))
                       ) : (
-                        <span className="text-xs text-slate-400 font-serif italic">Aucune préférence de tissu spécifiée</span>
+                        <span className="text-xs text-stone-400">Aucune préférence de tissu spécifiée</span>
                       )}
                     </div>
                   </div>
                 </div>
 
                 {/* Right: Atelier Notes */}
-                <div className="p-4 rounded-none bg-atelier-beige border-2 border-black">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-800 block mb-2">
+                <div className="p-4.5 rounded-2xl bg-[#FBF8F3] border border-stone-200/70">
+                  <span className="text-xs font-semibold text-stone-700 block mb-2">
                     Consignes d'atelier particulières (Mesures & Coupe)
                   </span>
-                  <p className="text-sm text-slate-900 leading-relaxed font-serif italic">
+                  <p className="text-xs text-stone-600 leading-relaxed italic">
                     {selectedClient.preferences.remarquesParticulieres ? (
                       `"${selectedClient.preferences.remarquesParticulieres}"`
                     ) : (
@@ -941,31 +941,31 @@ export default function ClientSection() {
             </div>
 
             {/* Segment 3: Measurements Card */}
-            <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-6">
-              <div className="flex items-center justify-between border-b-2 border-black pb-3">
-                <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 font-display flex items-center gap-2">
-                  <Ruler className="h-5 w-5 text-slate-950" /> Mensurations corporelles
+            <div className="card-fox p-6 space-y-6">
+              <div className="flex items-center justify-between border-b border-stone-100 pb-3">
+                <h3 className="text-lg font-bold text-stone-900 flex items-center gap-2">
+                  <Ruler className="h-4.5 w-4.5 text-[#F05A22]" /> Mensurations corporelles
                 </h3>
                 <button 
                   onClick={openNewMeasureModal}
-                  className="px-4 py-3 bg-slate-950 text-white rounded-none border-2 border-black text-xs font-black uppercase tracking-widest hover:bg-white hover:text-black transition flex items-center gap-1.5 cursor-pointer"
+                  className="btn-fox-primary !py-2 !px-3.5 flex items-center gap-1.5"
                 >
-                  <Plus className="h-3.5 w-3.5" /> Nouvelle Fiche
+                  <Plus className="h-3.5 w-3.5" /> Nouvelle fiche
                 </button>
               </div>
 
               {clientMeasures.length > 0 ? (
                 <div className="space-y-6">
                   {clientMeasures.map(measure => (
-                    <div key={measure.id} className="p-5 rounded-none border-2 border-black bg-atelier-beige space-y-4">
+                    <div key={measure.id} className="p-5 rounded-2xl border border-stone-200/70 bg-[#FBF8F3] space-y-4">
                       {/* Sub card title */}
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-mono font-black tracking-wider text-slate-950 bg-atelier-gold px-2.5 py-1 border-2 border-black uppercase">
+                        <span className="text-xs font-mono font-bold text-stone-900 bg-stone-200/80 px-2.5 py-1 rounded-lg">
                           {measure.typeVetement.replace('_', ' ')}
                         </span>
                         
-                        <div className="flex items-center gap-4">
-                          <span className="text-[10px] text-slate-600 font-mono uppercase font-black tracking-wider">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs text-stone-500 font-mono">
                             Saisie le {measure.datePrise ? measure.datePrise.split('-').reverse().join('/') : 'N/A'}
                           </span>
                           
@@ -982,7 +982,7 @@ export default function ClientSection() {
                               )}
                               target="_blank"
                               rel="noreferrer"
-                              className="p-1.5 text-emerald-700 bg-emerald-50 hover:bg-emerald-600 hover:text-white transition border border-emerald-600 rounded-none cursor-pointer flex items-center justify-center"
+                              className="p-2 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition border border-emerald-200 rounded-xl cursor-pointer flex items-center justify-center shadow-xs"
                               title="Partager cette fiche de mesures par WhatsApp"
                             >
                               <MessageCircle className="h-3.5 w-3.5" />
@@ -990,7 +990,7 @@ export default function ClientSection() {
 
                             <button 
                               onClick={() => printSingleMeasurementSheet(measure)}
-                              className="p-1.5 text-slate-950 hover:bg-black hover:text-white transition border border-black rounded-none cursor-pointer flex items-center justify-center"
+                              className="p-2 text-stone-700 hover:bg-stone-200 bg-white transition border border-stone-200 rounded-xl cursor-pointer flex items-center justify-center shadow-xs"
                               title="Imprimer cette fiche de mesures"
                             >
                               <Printer className="h-3.5 w-3.5" />
@@ -998,7 +998,7 @@ export default function ClientSection() {
 
                             <button 
                               onClick={() => openEditMeasureModal(measure)}
-                              className="p-1.5 text-slate-950 hover:bg-black hover:text-white transition border border-black rounded-none cursor-pointer"
+                              className="p-2 text-stone-700 hover:bg-stone-200 bg-white transition border border-stone-200 rounded-xl cursor-pointer shadow-xs"
                               title="Modifier la fiche"
                             >
                               <Edit className="h-3.5 w-3.5" />
@@ -1007,7 +1007,7 @@ export default function ClientSection() {
                               onClick={() => {
                                 if (window.confirm('Supprimer cette fiche de mesures ?')) deleteFicheMesure(measure.id);
                               }}
-                              className="p-1.5 text-rose-600 border border-rose-600 hover:bg-rose-600 hover:text-white transition rounded-none cursor-pointer"
+                              className="p-2 text-rose-600 bg-rose-50 border border-rose-200 hover:bg-rose-100 transition rounded-xl cursor-pointer shadow-xs"
                               title="Supprimer la fiche"
                             >
                               <Trash2 className="h-3.5 w-3.5" />
@@ -1017,12 +1017,12 @@ export default function ClientSection() {
                       </div>
 
                       {/* Measures values Grid */}
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                         {Object.entries(measure.mensurations)
                           .filter(([key]) => isFieldActive(key))
                           .map(([key, value]) => (
-                            <div key={key} className="bg-white p-3 rounded-none border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                              <span className="text-[9px] text-slate-500 uppercase font-black tracking-widest block truncate" title={key}>
+                            <div key={key} className="bg-white p-3 rounded-xl border border-stone-200/80 shadow-xs">
+                              <span className="text-[10px] text-stone-500 font-medium block truncate capitalize" title={key}>
                                 {(() => {
                                   for (const type of Object.keys(defaultMeasurementKeys)) {
                                     const found = defaultMeasurementKeys[type as TypeVetement].find(item => item.key === key);
@@ -1031,7 +1031,7 @@ export default function ClientSection() {
                                   return key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ');
                                 })()}
                               </span>
-                              <span className="text-sm font-black text-slate-950 font-mono mt-1 block">
+                              <span className="text-sm font-bold text-stone-900 font-mono mt-0.5 block">
                                 {value} cm
                               </span>
                             </div>
@@ -1039,24 +1039,23 @@ export default function ClientSection() {
                       </div>
 
                       {measure.notes && (
-                        <p className="text-xs font-serif italic text-slate-800 bg-white p-3 rounded-none border-2 border-black mt-2 leading-relaxed">
+                        <p className="text-xs text-stone-700 bg-white p-3 rounded-xl border border-stone-200 mt-2 leading-relaxed">
                           <strong>Note de coupe :</strong> "{measure.notes}"
                         </p>
                       )}
 
                       {/* AI Tailoring Advice Section */}
-                      <div className="mt-4 pt-4 border-t-2 border-dashed border-black/20">
+                      <div className="mt-4 pt-4 border-t border-stone-200">
                         {aiAdvice[measure.id] ? (
-                          <div className="bg-slate-50 p-4 rounded-none border-2 border-black space-y-3 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-atelier-gold/10 rounded-full blur-2xl pointer-events-none"></div>
-                            <div className="flex justify-between items-center border-b-2 border-black pb-2">
-                              <span className="text-[10px] font-black uppercase tracking-widest text-slate-950 flex items-center gap-1.5">
-                                <Sparkles className="h-4 w-4 text-atelier-gold-dark animate-pulse" /> Analyse de Coupe & Style IA (FOX COUTURE)
+                          <div className="bg-white p-4 rounded-xl border border-stone-200 space-y-3 relative overflow-hidden">
+                            <div className="flex justify-between items-center border-b border-stone-100 pb-2">
+                              <span className="text-xs font-semibold text-stone-900 flex items-center gap-1.5">
+                                <Sparkles className="h-4 w-4 text-[#F05A22]" /> Analyse de coupe & style IA
                               </span>
                               <button
                                 onClick={() => handleFetchAiSizingAdvice(measure)}
                                 disabled={loadingAdvice[measure.id]}
-                                className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-black hover:underline cursor-pointer disabled:opacity-50"
+                                className="text-xs font-semibold text-stone-600 hover:text-[#F05A22] cursor-pointer disabled:opacity-50 transition"
                               >
                                 {loadingAdvice[measure.id] ? 'Analyse...' : 'Réanalyser'}
                               </button>
@@ -1065,20 +1064,20 @@ export default function ClientSection() {
                             {renderFormattedAdvice(aiAdvice[measure.id])}
                           </div>
                         ) : (
-                          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-atelier-beige/40 p-4 rounded-none border-2 border-dashed border-black">
+                          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 rounded-xl border border-stone-200/80">
                             <div className="space-y-0.5">
-                              <span className="text-xs font-black uppercase tracking-widest text-slate-900 flex items-center gap-1">
-                                <Sparkles className="h-4 w-4 text-atelier-gold-dark" /> Assistant de Coupe & Stylisme IA
+                              <span className="text-xs font-bold text-stone-900 flex items-center gap-1.5">
+                                <Sparkles className="h-4 w-4 text-[#F05A22]" /> Assistant de coupe & stylisme IA
                               </span>
-                              <p className="text-[11px] text-slate-600 font-serif italic">
-                                Obtenez une analyse morphologique, des conseils d'ajustements d'atelier et des suggestions de tissus par Gemini.
+                              <p className="text-xs text-stone-500">
+                                Analyse morphologique, conseils d'ajustements d'atelier et suggestions de tissus.
                               </p>
                             </div>
                             <button
                               type="button"
                               onClick={() => handleFetchAiSizingAdvice(measure)}
                               disabled={loadingAdvice[measure.id]}
-                              className="w-full sm:w-auto px-3.5 py-2 bg-black text-white hover:bg-atelier-gold hover:text-black border-2 border-black rounded-none text-[10px] font-black uppercase tracking-widest transition flex items-center justify-center gap-1.5 cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] disabled:opacity-50"
+                              className="btn-fox-primary !py-2 !px-3 shrink-0"
                             >
                               {loadingAdvice[measure.id] ? (
                                 <>
@@ -1086,11 +1085,11 @@ export default function ClientSection() {
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                   </svg>
-                                  ANALYSE...
+                                  Analyse...
                                 </>
                               ) : (
                                 <>
-                                  <Sparkles className="h-3.5 w-3.5" /> GÉNÉRER ANALYSE IA
+                                  <Sparkles className="h-3.5 w-3.5" /> Générer analyse IA
                                 </>
                               )}
                             </button>
@@ -1101,22 +1100,22 @@ export default function ClientSection() {
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-10 bg-slate-50 rounded-none border-2 border-black border-dashed text-slate-500">
-                  <Ruler className="h-8 w-8 mx-auto mb-2 opacity-55" />
-                  <p className="text-xs font-black uppercase tracking-widest">Aucune mensuration enregistrée</p>
-                  <p className="text-xs text-slate-500 font-serif italic mt-1">Créez une fiche pour commencer la fabrication sur-mesure.</p>
+                <div className="text-center py-10 bg-[#FBF8F3] rounded-2xl border border-dashed border-stone-300 text-stone-400">
+                  <Ruler className="h-8 w-8 mx-auto mb-2 text-stone-300" />
+                  <p className="text-xs font-semibold text-stone-600">Aucune mensuration enregistrée</p>
+                  <p className="text-xs text-stone-400 mt-1">Créez une fiche pour commencer la fabrication sur-mesure.</p>
                 </div>
               )}
             </div>
           </>
         ) : (
-          <div className="bg-white rounded-none p-12 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center text-slate-500">
-            <User className="h-12 w-12 mx-auto mb-4 opacity-55" />
-            <h3 className="text-lg font-black uppercase tracking-tight text-slate-950">Aucun Client Sélectionné</h3>
-            <p className="text-xs font-serif italic mt-1 text-slate-600">Veuillez sélectionner un client dans l'annuaire ou en créer un nouveau.</p>
+          <div className="card-fox p-12 text-center text-stone-400">
+            <User className="h-10 w-10 mx-auto mb-3 text-stone-300" />
+            <h3 className="text-base font-bold text-stone-900">Aucun client sélectionné</h3>
+            <p className="text-xs text-stone-500 mt-1">Veuillez sélectionner un client dans la liste ou en créer un nouveau.</p>
             <button 
               onClick={openNewClientModal}
-              className="mt-4 px-4 py-3 bg-atelier-gold text-slate-950 border-2 border-black rounded-none text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition cursor-pointer"
+              className="btn-fox-primary mt-4"
             >
               Ajouter mon premier client
             </button>
@@ -1126,33 +1125,33 @@ export default function ClientSection() {
 
       {/* MODAL: CLIENT FORM (CREATE / EDIT) */}
       {isClientFormOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in fade-in zoom-in-95 duration-150">
-            <h3 className="text-xl font-black uppercase tracking-tight text-slate-950 mb-6 font-display">
-              {editingClient ? 'Modifier le Client' : 'Enregistrer un Nouveau Client'}
+        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-stone-200/80 animate-in fade-in zoom-in-95 duration-150">
+            <h3 className="text-lg font-bold text-stone-900 mb-6">
+              {editingClient ? 'Modifier le client' : 'Enregistrer un nouveau client'}
             </h3>
             
             <form onSubmit={handleClientSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Prénom *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Prénom *</label>
                   <input 
                     type="text" 
                     required
                     value={prenom}
                     onChange={(e) => setPrenom(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs uppercase tracking-wider focus:outline-none focus:bg-slate-50"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     placeholder="Mamadou"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Nom de famille *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Nom de famille *</label>
                   <input 
                     type="text" 
                     required
                     value={nom}
                     onChange={(e) => setNom(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs uppercase tracking-wider focus:outline-none focus:bg-slate-50"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     placeholder="Diop"
                   />
                 </div>
@@ -1160,144 +1159,145 @@ export default function ClientSection() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Téléphone *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Téléphone *</label>
                   <input 
                     type="text" 
                     required
                     value={telephone}
                     onChange={(e) => setTelephone(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none focus:bg-slate-50"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     placeholder="+221 77 654 32 10"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Adresse Email</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Adresse email</label>
                   <input 
                     type="email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none focus:bg-slate-50"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     placeholder="m.diop@gmail.com"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Adresse Postale / Quartier</label>
+                <label className="text-xs font-semibold text-stone-700 block">Adresse postale / Quartier</label>
                 <input 
                   type="text" 
                   value={adresse}
                   onChange={(e) => setAdresse(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none focus:bg-slate-50"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   placeholder="Fann Résidence, Villa 42, Dakar"
                 />
               </div>
 
-              <hr className="border-black my-4" />
-              <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-950 border-b-2 border-black pb-1 mb-2">Préférences Clients</h4>
+              <div className="pt-2 border-t border-stone-100">
+                <h4 className="text-xs font-bold text-stone-800 mb-3">Préférences du client</h4>
 
-              {/* Styles preference helper */}
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Styles favoris de vêtements</label>
-                <div className="flex gap-2">
-                  <input 
-                    type="text" 
-                    value={newStyleInput}
-                    onChange={(e) => setNewStyleInput(e.target.value)}
-                    className="flex-1 bg-white border-2 border-black rounded-none px-3 py-1.5 text-xs focus:outline-none"
-                    placeholder="Ex: Costume croisé, Boubou brodé"
+                {/* Styles preference helper */}
+                <div className="space-y-1.5">
+                  <label className="text-[11px] font-medium text-stone-600 block">Styles favoris</label>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      value={newStyleInput}
+                      onChange={(e) => setNewStyleInput(e.target.value)}
+                      className="flex-1 bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-1.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
+                      placeholder="Ex: Costume croisé, Boubou brodé..."
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        if(newStyleInput.trim()) {
+                          setStylesFavoris([...stylesFavoris, newStyleInput.trim()]);
+                          setNewStyleInput('');
+                        }
+                      }}
+                      className="px-4 py-1.5 bg-stone-900 text-white text-xs font-semibold rounded-xl hover:bg-[#F05A22] transition cursor-pointer"
+                    >
+                      Ajouter
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap gap-1 mt-1.5">
+                    {stylesFavoris.map((st, idx) => (
+                      <span key={idx} className="inline-flex items-center gap-1 text-xs font-medium bg-[#FBF8F3] text-stone-800 border border-stone-200 px-2.5 py-0.5 rounded-full">
+                        {st}
+                        <button 
+                          type="button" 
+                          onClick={() => setStylesFavoris(stylesFavoris.filter((_, i) => i !== idx))}
+                          className="text-stone-400 hover:text-rose-600 font-bold ml-1"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Fabrics preference helper */}
+                <div className="space-y-1.5 mt-3">
+                  <label className="text-[11px] font-medium text-stone-600 block">Matières / Tissus de choix</label>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      value={newTissuInput}
+                      onChange={(e) => setNewTissuInput(e.target.value)}
+                      className="flex-1 bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-1.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
+                      placeholder="Ex: Soie, Bazin Riche..."
+                    />
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        if(newTissuInput.trim()) {
+                          setTissusPreferes([...tissusPreferes, newTissuInput.trim()]);
+                          setNewTissuInput('');
+                        }
+                      }}
+                      className="px-4 py-1.5 bg-stone-900 text-white text-xs font-semibold rounded-xl hover:bg-[#F05A22] transition cursor-pointer"
+                    >
+                      Ajouter
+                    </button>
+                  </div>
+                  <div className="flex flex-wrap gap-1 mt-1.5">
+                    {tissusPreferes.map((tis, idx) => (
+                      <span key={idx} className="inline-flex items-center gap-1 text-xs font-medium bg-amber-50 text-amber-900 border border-amber-200 px-2.5 py-0.5 rounded-full">
+                        {tis}
+                        <button 
+                          type="button" 
+                          onClick={() => setTissusPreferes(tissusPreferes.filter((_, i) => i !== idx))}
+                          className="text-amber-600 hover:text-rose-600 font-bold ml-1"
+                        >
+                          ×
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-1.5 mt-3">
+                  <label className="text-[11px] font-medium text-stone-600 block">Remarques ou contraintes d'atelier</label>
+                  <textarea 
+                    value={remarquesParticulieres}
+                    onChange={(e) => setRemarquesParticulieres(e.target.value)}
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#F05A22] h-20"
+                    placeholder="Épaule droite plus basse de 1cm, attention aux manches..."
                   />
-                  <button 
-                    type="button"
-                    onClick={() => {
-                      if(newStyleInput.trim()) {
-                        setStylesFavoris([...stylesFavoris, newStyleInput.trim()]);
-                        setNewStyleInput('');
-                      }
-                    }}
-                    className="px-4 bg-black text-white text-xs font-black uppercase tracking-widest rounded-none border-2 border-black hover:bg-white hover:text-black cursor-pointer"
-                  >
-                    Ajouter
-                  </button>
                 </div>
-                <div className="flex flex-wrap gap-1 mt-1.5">
-                  {stylesFavoris.map((st, idx) => (
-                    <span key={idx} className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wider bg-zinc-950 text-white px-2.5 py-1 rounded-none border border-black">
-                      {st}
-                      <button 
-                        type="button" 
-                        onClick={() => setStylesFavoris(stylesFavoris.filter((_, i) => i !== idx))}
-                        className="text-atelier-gold hover:text-white font-bold ml-1.5"
-                      >
-                        ×
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Fabrics preference helper */}
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Matières / Tissus de choix</label>
-                <div className="flex gap-2">
-                  <input 
-                    type="text" 
-                    value={newTissuInput}
-                    onChange={(e) => setNewTissuInput(e.target.value)}
-                    className="flex-1 bg-white border-2 border-black rounded-none px-3 py-1.5 text-xs focus:outline-none"
-                    placeholder="Ex: Soie, Bazin Riche"
-                  />
-                  <button 
-                    type="button"
-                    onClick={() => {
-                      if(newTissuInput.trim()) {
-                        setTissusPreferes([...tissusPreferes, newTissuInput.trim()]);
-                        setNewTissuInput('');
-                      }
-                    }}
-                    className="px-4 bg-black text-white text-xs font-black uppercase tracking-widest rounded-none border-2 border-black hover:bg-white hover:text-black cursor-pointer"
-                  >
-                    Ajouter
-                  </button>
-                </div>
-                <div className="flex flex-wrap gap-1 mt-1.5">
-                  {tissusPreferes.map((tis, idx) => (
-                    <span key={idx} className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-widest bg-atelier-gold text-slate-950 px-2.5 py-1 rounded-none border border-black">
-                      {tis}
-                      <button 
-                        type="button" 
-                        onClick={() => setTissusPreferes(tissusPreferes.filter((_, i) => i !== idx))}
-                        className="text-black hover:text-rose-600 font-bold ml-1.5"
-                      >
-                        ×
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Remarques ou Contraintes d'atelier</label>
-                <textarea 
-                  value={remarquesParticulieres}
-                  onChange={(e) => setRemarquesParticulieres(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none focus:bg-slate-50 h-20"
-                  placeholder="Épaule droite plus basse de 1cm, attention aux manches..."
-                />
               </div>
 
               {/* Buttons */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button 
                   type="button" 
                   onClick={() => setIsClientFormOpen(false)}
-                  className="flex-1 py-2.5 rounded-none border-2 border-black text-slate-950 hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 rounded-none bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs transition cursor-pointer"
+                  className="btn-fox-primary flex-1 !py-2.5"
                 >
                   {editingClient ? 'Mettre à jour' : 'Enregistrer'}
                 </button>
@@ -1309,27 +1309,27 @@ export default function ClientSection() {
 
       {/* MODAL: MEASUREMENT FORM */}
       {isMeasureFormOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in fade-in zoom-in-95 duration-150">
-            <h3 className="text-xl font-black uppercase tracking-tight text-slate-950 mb-2 font-display">
-              {editingMeasure ? 'Modifier la Fiche de Mesures' : 'Saisir de Nouvelles Mesures'}
+        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-stone-200/80 animate-in fade-in zoom-in-95 duration-150">
+            <h3 className="text-lg font-bold text-stone-900 mb-1">
+              {editingMeasure ? 'Modifier la fiche de mesures' : 'Saisir de nouvelles mesures'}
             </h3>
-            <p className="text-xs text-slate-600 mb-6 font-serif italic">Client : <span className="font-black text-slate-950">{selectedClient?.prenom} {selectedClient?.nom}</span></p>
+            <p className="text-xs text-stone-500 mb-5">Client : <span className="font-semibold text-stone-900">{selectedClient?.prenom} {selectedClient?.nom}</span></p>
             
-            <form onSubmit={handleMeasureSubmit} className="space-y-5">
+            <form onSubmit={handleMeasureSubmit} className="space-y-4">
               {/* Garment type selectors */}
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Gabarit / Type de vêtement</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-stone-700 block">Type de vêtement</label>
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                   {(['costume_homme', 'robe_femme', 'tailleur_femme', 'chemise_homme', 'autre'] as TypeVetement[]).map(type => (
                     <button 
                       key={type}
                       type="button"
                       onClick={() => handleMeasureTypeChange(type)}
-                      className={`py-2 px-1 text-center rounded-none text-[10px] font-black uppercase tracking-wider border-2 transition capitalize cursor-pointer ${
+                      className={`py-2 px-2 text-center rounded-xl text-xs font-semibold transition capitalize cursor-pointer ${
                         measureType === type 
-                          ? 'bg-black text-white border-black' 
-                          : 'bg-white border-black text-slate-700 hover:bg-zinc-100'
+                          ? 'bg-[#191716] text-white shadow-xs' 
+                          : 'bg-[#FBF8F3] border border-stone-200 text-stone-700 hover:bg-stone-100'
                       }`}
                     >
                       {type.replace('_', ' ')}
@@ -1339,15 +1339,15 @@ export default function ClientSection() {
               </div>
 
               {/* Dynamic Measurement Form Inputs Grid */}
-              <div className="bg-atelier-beige rounded-none p-4 border-2 border-black">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-950 border-b-2 border-black pb-1 block mb-4">
-                  Saisie des valeurs d'atelier (en centimètres)
+              <div className="bg-[#FBF8F3] rounded-2xl p-4 border border-stone-200/80 space-y-3">
+                <span className="text-xs font-bold text-stone-800 block">
+                  Valeurs de mensurations (en cm)
                 </span>
                 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {activeMeasurementKeys[measureType].map(item => (
                     <div key={item.key} className="space-y-1">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block truncate" title={item.label}>
+                      <label className="text-[11px] font-medium text-stone-600 block truncate" title={item.label}>
                         {item.label.replace(' (cm)', '')}
                       </label>
                       
@@ -1356,7 +1356,7 @@ export default function ClientSection() {
                         <textarea 
                           value={measureNotes}
                           onChange={(e) => setMeasureNotes(e.target.value)}
-                          className="w-full bg-white border-2 border-black rounded-none px-3 py-1.5 text-xs h-12 focus:outline-none"
+                          className="w-full bg-white border border-stone-200 rounded-xl px-3 py-1.5 text-xs h-12 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                         />
                       ) : (
                         <div className="relative">
@@ -1370,9 +1370,9 @@ export default function ClientSection() {
                               ...measurements,
                               [item.key]: parseFloat(e.target.value) || 0
                             })}
-                            className="w-full bg-white border-2 border-black rounded-none px-3 py-2 pr-8 text-xs font-black font-mono focus:outline-none"
+                            className="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 pr-8 text-xs font-bold font-mono focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                           />
-                          <span className="absolute right-2 top-2.5 text-[9px] font-black uppercase tracking-widest text-slate-500">cm</span>
+                          <span className="absolute right-2.5 top-2.5 text-[10px] font-semibold text-stone-400">cm</span>
                         </div>
                       )}
                     </div>
@@ -1383,31 +1383,31 @@ export default function ClientSection() {
               {/* General comment */}
               {measureType !== 'autre' && (
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Note de coupe additionnelle</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Note de coupe additionnelle</label>
                   <input 
                     type="text" 
                     value={measureNotes}
                     onChange={(e) => setMeasureNotes(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none focus:bg-slate-50"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     placeholder="Prise d'aisance de 2cm sur l'encolure..."
                   />
                 </div>
               )}
 
               {/* Buttons */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button 
                   type="button" 
                   onClick={() => setIsMeasureFormOpen(false)}
-                  className="flex-1 py-2.5 rounded-none border-2 border-black text-slate-950 hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 rounded-none bg-slate-950 text-white border-2 border-black hover:bg-white hover:text-black font-black uppercase tracking-widest text-xs transition cursor-pointer"
+                  className="btn-fox-primary flex-1 !py-2.5"
                 >
-                  Sauvegarder la Fiche
+                  Sauvegarder la fiche
                 </button>
               </div>
             </form>

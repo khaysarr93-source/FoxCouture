@@ -420,29 +420,29 @@ export default function BillingSection() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" id="billing-payments-section">
       
       {/* Column 1: Invoice index selection */}
-      <div className="bg-white rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col h-[750px] overflow-hidden">
+      <div className="card-fox flex flex-col h-[750px] overflow-hidden">
         
-        <div className="p-5 border-b-2 border-black bg-white space-y-4">
+        <div className="p-5 border-b border-stone-100 bg-white space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-black uppercase tracking-widest text-slate-950 font-display flex items-center gap-2">
-              <FileText className="h-5 w-5 text-slate-950" /> Facturation & Devis
+            <h3 className="text-sm font-bold text-stone-900 flex items-center gap-2">
+              <FileText className="h-4.5 w-4.5 text-[#F05A22]" /> Facturation & devis
             </h3>
             <button
               onClick={() => setIsNewInvoiceModalOpen(true)}
-              className="px-2 py-1 bg-atelier-gold text-slate-950 rounded-none border-2 border-black text-[9px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition flex items-center gap-1 cursor-pointer"
+              className="btn-fox-primary !py-1.5 !px-3 !text-xs flex items-center gap-1.5"
             >
               <PlusCircle className="h-3.5 w-3.5" /> Directe 🧾
             </button>
           </div>
 
           <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-slate-500" />
+            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-stone-400" />
             <input 
               type="text" 
-              placeholder="RECHERCHER N° DE FACTURE, CLIENT..."
+              placeholder="N° de facture, client..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white border-2 border-black rounded-none py-2.5 pl-9 pr-4 text-[10px] font-black uppercase tracking-widest focus:outline-none focus:bg-slate-50"
+              className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl py-2.5 pl-10 pr-4 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
             />
           </div>
 
@@ -457,10 +457,10 @@ export default function BillingSection() {
               <button
                 key={tab.key}
                 onClick={() => setFilterStatut(tab.key)}
-                className={`px-3 py-1.5 rounded-none text-[9px] font-black uppercase tracking-widest border-2 border-black cursor-pointer transition ${
+                className={`px-3 py-1.5 rounded-full text-[10px] font-semibold transition cursor-pointer ${
                   filterStatut === tab.key 
-                    ? 'bg-black text-white border-black' 
-                    : 'bg-white text-slate-950 border-black hover:bg-black hover:text-white'
+                    ? 'bg-[#191716] text-white shadow-xs' 
+                    : 'bg-[#EDE8E0] text-stone-700 hover:bg-stone-300'
                 }`}
               >
                 {tab.label}
@@ -470,7 +470,7 @@ export default function BillingSection() {
         </div>
 
         {/* List of bills */}
-        <div className="flex-1 overflow-y-auto divide-y divide-zinc-200">
+        <div className="flex-1 overflow-y-auto divide-y divide-stone-100">
           {filteredInvoices.length > 0 ? (
             filteredInvoices.map(facture => {
               const client = clients.find(cl => cl.id === facture.clientId);
@@ -481,18 +481,18 @@ export default function BillingSection() {
                   key={facture.id}
                   onClick={() => setSelectedFactureId(facture.id)}
                   className={`p-4 flex flex-col gap-2 cursor-pointer transition ${
-                    selectedFactureId === facture.id ? 'bg-atelier-beige border-l-8 border-black' : 'hover:bg-slate-50'
+                    selectedFactureId === facture.id ? 'bg-[#FDF4EE] border-l-4 border-[#F05A22]' : 'hover:bg-stone-50/70'
                   }`}
                 >
                   <div className="flex justify-between items-start">
-                    <span className="text-[10px] font-mono font-black text-slate-500">
+                    <span className="text-xs font-mono font-semibold text-stone-500">
                       {facture.numero}
                     </span>
                     
-                    <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-none border border-black ${
-                      facture.statut === 'paye' ? 'bg-emerald-500 text-white' :
-                      facture.statut === 'partiel' ? 'bg-indigo-600 text-white' :
-                      'bg-rose-600 text-white'
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${
+                      facture.statut === 'paye' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                      facture.statut === 'partiel' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                      'bg-rose-50 text-rose-700 border-rose-200'
                     }`}>
                       {facture.statut === 'paye' ? 'Réglée' :
                        facture.statut === 'partiel' ? 'Acompte' : 'Impayée'}
@@ -500,17 +500,17 @@ export default function BillingSection() {
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-black uppercase tracking-wider text-slate-950 font-display">
+                    <h4 className="text-xs font-bold text-stone-900">
                       {client ? `${client.prenom} ${client.nom}` : 'Client Inconnu'}
                     </h4>
-                    <p className="text-[10px] font-serif italic text-slate-500 truncate mt-0.5">
-                      {facture.designationDirecte ? `Prestation : ${facture.designationDirecte}` : `Vêtement : ${order ? order.modeleNom : 'Sur-mesure'}`}
+                    <p className="text-xs text-stone-500 truncate mt-0.5">
+                      {facture.designationDirecte ? `Prestation : ${facture.designationDirecte}` : `Modèle : ${order ? order.modeleNom : 'Sur-mesure'}`}
                     </p>
                   </div>
 
-                  <div className="flex justify-between items-center text-xs mt-1.5 pt-1.5 border-t border-zinc-200">
-                    <span className="text-[10px] font-black uppercase text-slate-500">Total : {formatFCFA(facture.montantTotal)}</span>
-                    <strong className="text-slate-950 font-mono font-black">
+                  <div className="flex justify-between items-center text-xs mt-1 pt-1.5 border-t border-stone-200/60 font-medium">
+                    <span className="text-stone-500">Total : {formatFCFA(facture.montantTotal)}</span>
+                    <strong className="text-stone-900 font-mono font-bold">
                       Dû: {formatFCFA(facture.soldeDu)}
                     </strong>
                   </div>
@@ -518,9 +518,9 @@ export default function BillingSection() {
               );
             })
           ) : (
-            <div className="text-center py-12 text-slate-500 bg-white">
-              <FileText className="h-10 w-10 mx-auto mb-2 opacity-60" />
-              <p className="text-xs font-black uppercase tracking-widest">Aucune facture trouvée</p>
+            <div className="text-center py-12 text-stone-400">
+              <FileText className="h-8 w-8 mx-auto mb-2 text-stone-300" />
+              <p className="text-xs font-medium">Aucune facture trouvée</p>
             </div>
           )}
         </div>
@@ -531,27 +531,27 @@ export default function BillingSection() {
         {selectedFacture ? (
           <>
             {/* Visual Header invoice detail card */}
-            <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-6">
-              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b-2 border-black pb-5">
+            <div className="card-fox p-6 space-y-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-stone-100 pb-5">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-mono font-black bg-atelier-gold text-slate-950 px-2.5 py-1 border-2 border-black uppercase">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="text-xs font-mono font-bold bg-[#191716] text-[#FAF8F5] px-2.5 py-0.5 rounded-lg">
                       {selectedFacture.numero}
                     </span>
-                    <span className="text-xs text-slate-600 font-serif italic">
+                    <span className="text-xs text-stone-500 font-medium">
                       Date : {selectedFacture.dateEmission.split('-').reverse().join('/')}
                     </span>
                   </div>
-                  <h2 className="text-xl font-black uppercase tracking-tight text-slate-950 font-display">
-                    Récépissé de Caisse Officiel
+                  <h2 className="text-xl font-bold text-stone-900">
+                    Récépissé de caisse officiel
                   </h2>
                   {selectedFacture.designationDirecte ? (
-                    <p className="text-xs text-slate-700 mt-2 font-black uppercase tracking-wider bg-slate-100 px-3 py-1.5 border border-black inline-block">
-                      ⚡ PRESTATION : {selectedFacture.designationDirecte}
+                    <p className="text-xs text-stone-800 mt-2 font-semibold bg-[#FBF8F3] px-3 py-1.5 rounded-xl border border-stone-200 inline-block">
+                      ⚡ Prestation : {selectedFacture.designationDirecte}
                     </p>
                   ) : invoiceOrder ? (
-                    <p className="text-xs text-slate-700 mt-2 font-serif italic">
-                      Commande : <strong className="font-sans uppercase font-black text-slate-950">{invoiceOrder.modeleNom}</strong> ({invoiceOrder.reference})
+                    <p className="text-xs text-stone-600 mt-2">
+                      Commande : <strong className="font-bold text-stone-900">{invoiceOrder.modeleNom}</strong> ({invoiceOrder.reference})
                     </p>
                   ) : null}
                 </div>
@@ -559,16 +559,16 @@ export default function BillingSection() {
                 <div className="flex flex-wrap gap-2">
                   <button 
                     onClick={printReceipt}
-                    className="px-4 py-3 bg-white text-slate-950 rounded-none border-2 border-black text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition flex items-center gap-1.5 cursor-pointer"
+                    className="px-3.5 py-2 bg-white text-stone-800 rounded-xl border border-stone-200 text-xs font-semibold hover:bg-stone-50 shadow-xs transition flex items-center gap-1.5 cursor-pointer"
                   >
-                    <Printer className="h-4 w-4" /> Facture A4 / PDF
+                    <Printer className="h-4 w-4" /> Facture A4
                   </button>
 
                   <button 
                     onClick={printThermalTicket}
-                    className="px-4 py-3 bg-slate-900 text-white rounded-none border-2 border-black text-xs font-black uppercase tracking-widest hover:bg-amber-500 hover:text-black transition flex items-center gap-1.5 cursor-pointer"
+                    className="px-3.5 py-2 bg-stone-900 text-white rounded-xl text-xs font-semibold hover:bg-[#F05A22] transition flex items-center gap-1.5 cursor-pointer"
                   >
-                    <FileText className="h-4 w-4 text-amber-500" /> Ticket Caisse 🎫
+                    <FileText className="h-4 w-4 text-[#F05A22]" /> Ticket caisse 🎫
                   </button>
 
                   {invoiceClient && (
@@ -587,10 +587,10 @@ export default function BillingSection() {
                       )}
                       target="_blank"
                       rel="noreferrer"
-                      className="px-4 py-3 bg-emerald-50 text-emerald-800 rounded-none border-2 border-emerald-600 text-xs font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition flex items-center gap-1.5 cursor-pointer"
+                      className="px-3.5 py-2 bg-emerald-50 text-emerald-800 rounded-xl border border-emerald-200 text-xs font-semibold hover:bg-emerald-100 transition flex items-center gap-1.5 cursor-pointer"
                       title="Envoyer le reçu officiel sur WhatsApp"
                     >
-                      <MessageCircle className="h-4 w-4 text-emerald-600 group-hover:text-white" />
+                      <MessageCircle className="h-4 w-4 text-emerald-600" />
                       Reçu WhatsApp
                     </a>
                   )}
@@ -601,7 +601,7 @@ export default function BillingSection() {
                         setPaymentAmount(selectedFacture.soldeDu);
                         setIsPaymentModalOpen(true);
                       }}
-                      className="px-4 py-3 bg-atelier-gold text-slate-950 rounded-none border-2 border-black text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition flex items-center gap-1.5 cursor-pointer"
+                      className="btn-fox-primary !py-2 !px-3.5 flex items-center gap-1.5"
                     >
                       <PlusCircle className="h-4 w-4" /> Versement
                     </button>
@@ -610,40 +610,40 @@ export default function BillingSection() {
               </div>
 
               {/* Invoice details body */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
-                <div className="space-y-3">
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Débiteur (Client)</h3>
-                  <div className="bg-atelier-beige p-4 rounded-none border-2 border-black space-y-2">
-                    <span className="font-black text-slate-950 text-base font-display block uppercase">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div className="space-y-2">
+                  <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Débiteur (Client)</h3>
+                  <div className="bg-[#FBF8F3] p-4.5 rounded-2xl border border-stone-200/70 space-y-1.5">
+                    <span className="font-bold text-stone-900 text-base block">
                       {invoiceClient ? `${invoiceClient.prenom} ${invoiceClient.nom}` : 'N/A'}
                     </span>
-                    <p className="text-xs text-slate-700 font-mono flex items-center gap-1">
-                      Téléphone : <span className="font-black text-black">{invoiceClient?.telephone}</span>
+                    <p className="text-xs text-stone-600 font-mono flex items-center gap-1">
+                      Téléphone : <span className="font-semibold text-stone-900">{invoiceClient?.telephone}</span>
                     </p>
-                    <p className="text-xs text-slate-700 font-serif italic">
+                    <p className="text-xs text-stone-500">
                       Adresse : {invoiceClient?.adresse || 'Dakar'}
                     </p>
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500">État de la Balance</h3>
-                  <div className="bg-white p-4 rounded-none border-2 border-black space-y-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-                    <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-500">
+                <div className="space-y-2">
+                  <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wider">État de la balance</h3>
+                  <div className="bg-[#FBF8F3] p-4.5 rounded-2xl border border-stone-200/70 space-y-3">
+                    <div className="flex justify-between items-center text-xs font-semibold text-stone-600">
                       <span>Réglé ({Math.round(((selectedFacture.montantTotal - selectedFacture.soldeDu) / selectedFacture.montantTotal) * 100)}%) :</span>
-                      <span className="text-slate-950 font-mono font-black">{formatFCFA(selectedFacture.montantTotal - selectedFacture.soldeDu)} / {formatFCFA(selectedFacture.montantTotal)}</span>
+                      <span className="text-stone-900 font-mono font-bold">{formatFCFA(selectedFacture.montantTotal - selectedFacture.soldeDu)} / {formatFCFA(selectedFacture.montantTotal)}</span>
                     </div>
 
-                    <div className="h-4 w-full bg-slate-100 rounded-none border border-black overflow-hidden">
+                    <div className="h-2.5 w-full bg-stone-200 rounded-full overflow-hidden">
                       <div 
                         style={{ width: `${((selectedFacture.montantTotal - selectedFacture.soldeDu) / selectedFacture.montantTotal) * 100}%` }}
-                        className="h-full bg-emerald-500"
+                        className="h-full bg-emerald-500 rounded-full"
                       ></div>
                     </div>
 
-                    <div className="flex justify-between items-center text-xs font-black uppercase tracking-widest">
-                      <span className="text-slate-600">Solde Restant Dû :</span>
-                      <span className={selectedFacture.soldeDu > 0 ? 'text-rose-600 font-mono font-black text-base' : 'text-emerald-600 font-mono font-black text-base'}>
+                    <div className="flex justify-between items-center text-xs font-semibold pt-1">
+                      <span className="text-stone-600">Solde restant dû :</span>
+                      <span className={selectedFacture.soldeDu > 0 ? 'text-[#F05A22] font-mono font-bold text-base' : 'text-emerald-700 font-mono font-bold text-base'}>
                         {formatFCFA(selectedFacture.soldeDu)}
                       </span>
                     </div>
@@ -653,62 +653,62 @@ export default function BillingSection() {
 
               {/* Payments History ledger */}
               <div className="space-y-3">
-                <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500">Historique des Acomptes Reçus</h3>
+                <h3 className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Historique des acomptes reçus</h3>
                 
                 {selectedFacture.reglements.length > 0 ? (
-                  <div className="border-2 border-black rounded-none overflow-hidden divide-y-2 divide-black">
+                  <div className="border border-stone-200/70 rounded-2xl overflow-hidden divide-y divide-stone-100 bg-white">
                     {selectedFacture.reglements.map((payment, idx) => (
-                      <div key={payment.id} className="p-3.5 bg-white flex items-center justify-between text-xs hover:bg-slate-50 transition">
+                      <div key={payment.id} className="p-3.5 flex items-center justify-between text-xs hover:bg-stone-50/60 transition">
                         <div className="flex items-center gap-3">
-                          <div className="p-2 bg-atelier-gold text-slate-950 rounded-none border border-black">
-                            <Smartphone className="h-4 w-4" />
+                          <div className="w-8 h-8 rounded-xl bg-[#FBF8F3] border border-stone-200 flex items-center justify-center text-stone-700">
+                            <Smartphone className="h-4 w-4 text-[#F05A22]" />
                           </div>
                           <div>
-                            <span className="font-black text-slate-950 block uppercase tracking-wider text-[10px]">Tranche n°{idx + 1} ({payment.mode === 'mobile_money' ? 'MOBILE MONEY' : payment.mode === 'especes' ? 'ESPÈCES' : payment.mode === 'carte' ? 'CARTE' : 'VIREMENT'})</span>
-                            <span className="text-[9px] text-slate-500 font-serif italic">Versement enregistré le {payment.date.split('-').reverse().join('/')}</span>
+                            <span className="font-bold text-stone-900 block text-xs">Tranche n°{idx + 1} ({payment.mode === 'mobile_money' ? 'Mobile Money' : payment.mode === 'especes' ? 'Espèces' : payment.mode === 'carte' ? 'Carte' : 'Virement'})</span>
+                            <span className="text-[11px] text-stone-400">Versement enregistré le {payment.date.split('-').reverse().join('/')}</span>
                           </div>
                         </div>
 
                         <div className="text-right">
-                          <strong className="text-slate-950 font-black font-mono text-sm">{formatFCFA(payment.montant)}</strong>
-                          {payment.reference && <p className="text-[9px] font-mono text-slate-500 mt-0.5">Réf: {payment.reference}</p>}
+                          <strong className="text-stone-900 font-bold font-mono text-sm">{formatFCFA(payment.montant)}</strong>
+                          {payment.reference && <p className="text-[10px] font-mono text-stone-400 mt-0.5">Réf: {payment.reference}</p>}
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-6 border-2 border-dashed border-black rounded-none text-slate-500 bg-slate-50">
-                    <Coins className="h-6 w-6 mx-auto mb-1 opacity-60" />
-                    <p className="text-xs font-black uppercase tracking-widest">Aucun acompte encaissé sur cette facture.</p>
+                  <div className="text-center py-6 border border-dashed border-stone-300 rounded-2xl text-stone-400 bg-[#FBF8F3]">
+                    <Coins className="h-6 w-6 mx-auto mb-1 text-stone-300" />
+                    <p className="text-xs font-medium">Aucun acompte encaissé sur cette facture.</p>
                   </div>
                 )}
               </div>
             </div>
           </>
         ) : (
-          <div className="bg-white rounded-none p-12 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center text-slate-500">
-            <FileText className="h-12 w-12 mx-auto mb-4 opacity-60" />
-            <h3 className="text-lg font-black uppercase tracking-tight text-slate-950">Aucune Facture Sélectionnée</h3>
-            <p className="text-xs font-serif italic mt-1 text-slate-600">Veuillez sélectionner une facture ou un règlement dans l'annuaire de gauche.</p>
+          <div className="card-fox p-12 text-center text-stone-400">
+            <FileText className="h-10 w-10 mx-auto mb-3 text-stone-300" />
+            <h3 className="text-base font-bold text-stone-900">Aucune facture sélectionnée</h3>
+            <p className="text-xs text-stone-500 mt-1">Veuillez sélectionner une facture dans la liste de gauche.</p>
           </div>
         )}
       </div>
 
       {/* MODAL: NEW PAYMENT VERSEMENT */}
       {isPaymentModalOpen && selectedFacture && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none max-w-sm w-full p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in fade-in zoom-in-95 duration-150">
-            <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 mb-2 font-display">
-              Enregistrer un Versement
+        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-stone-200/80 animate-in fade-in zoom-in-95 duration-150">
+            <h3 className="text-lg font-bold text-stone-900 mb-1">
+              Enregistrer un versement
             </h3>
-            <p className="text-xs text-slate-600 mb-5 font-serif italic">
-              Facture : <span className="font-black text-slate-950">{selectedFacture.numero}</span> | Solde dû : <span className="font-black text-rose-600">{formatFCFA(selectedFacture.soldeDu)}</span>
+            <p className="text-xs text-stone-500 mb-5">
+              Facture : <span className="font-semibold text-stone-900">{selectedFacture.numero}</span> | Solde dû : <span className="font-bold text-[#F05A22]">{formatFCFA(selectedFacture.soldeDu)}</span>
             </p>
 
             <form onSubmit={handleAddPayment} className="space-y-4">
               {/* Payment Amount */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Montant du versement (FCFA) *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Montant du versement (FCFA) *</label>
                 <input
                   type="number"
                   required
@@ -716,17 +716,17 @@ export default function BillingSection() {
                   min="1"
                   value={paymentAmount}
                   onChange={(e) => setPaymentAmount(parseInt(e.target.value) || 0)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-sm font-mono font-black text-slate-950 focus:outline-none"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                 />
               </div>
 
               {/* Payment Channel */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Mode de paiement d'encaissement *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Mode de paiement *</label>
                 <select
                   value={paymentMethod}
                   onChange={(e) => setPaymentMethod(e.target.value as ModePaiement)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none focus:bg-slate-50"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2.5 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                 >
                   <option value="wave">Wave Sénégal 🌊</option>
                   <option value="orange_money">Orange Money 🟠</option>
@@ -739,28 +739,28 @@ export default function BillingSection() {
 
               {/* Payment Notes */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Référence de transaction</label>
+                <label className="text-xs font-semibold text-stone-700 block">Référence de transaction</label>
                 <input
                   type="text"
                   value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2.5 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   placeholder="Ex: Tx Wave #8392193"
                 />
               </div>
 
               {/* Actions */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsPaymentModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-none border-2 border-black text-slate-950 hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-none bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs transition cursor-pointer"
+                  className="btn-fox-primary flex-1 !py-2.5"
                 >
                   Valider
                 </button>
@@ -771,35 +771,35 @@ export default function BillingSection() {
       )}
       {/* MODAL: NEW DIRECT INVOICE */}
       {isNewInvoiceModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none max-w-md w-full p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in fade-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
-            <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 mb-2 font-display">
-              Créer une Facture Directe 🧾
+        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-stone-200/80 animate-in fade-in zoom-in-95 duration-150 max-h-[90vh] overflow-y-auto">
+            <h3 className="text-lg font-bold text-stone-900 mb-1">
+              Créer une facture directe 🧾
             </h3>
-            <p className="text-xs text-slate-600 mb-5 font-serif italic">
+            <p className="text-xs text-stone-500 mb-5">
               Émettez instantanément une facture ou un devis pour une prestation sur-mesure ou un service hors commande.
             </p>
 
             <form onSubmit={handleCreateDirectInvoice} className="space-y-4">
               {/* Select Client */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Sélectionner un Client *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Sélectionner un client *</label>
                 {clients.length > 0 ? (
                   <select
                     required
                     value={newInvoiceClientId}
                     onChange={(e) => setNewInvoiceClientId(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none focus:bg-slate-50"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2.5 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   >
-                    <option value="">-- CHOISIR UN CLIENT --</option>
+                    <option value="">-- Choisir un client --</option>
                     {clients.map(cli => (
                       <option key={cli.id} value={cli.id}>
-                        {cli.prenom.toUpperCase()} {cli.nom.toUpperCase()} ({cli.telephone})
+                        {cli.prenom} {cli.nom} ({cli.telephone})
                       </option>
                     ))}
                   </select>
                 ) : (
-                  <div className="p-3 bg-red-50 border border-red-500 text-[11px] text-red-700 font-serif">
+                  <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700">
                     Aucun client enregistré ! Veuillez d'abord en créer un dans l'onglet <strong>Clients</strong>.
                   </div>
                 )}
@@ -807,20 +807,20 @@ export default function BillingSection() {
 
               {/* Designation of service */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Libellé / Désignation de la prestation *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Libellé / Désignation de la prestation *</label>
                 <input
                   type="text"
                   required
                   value={newInvoiceDesignation}
                   onChange={(e) => setNewInvoiceDesignation(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black focus:outline-none"
-                  placeholder="Ex: Confection Robe de Mariée, Tissu fourni"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2.5 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
+                  placeholder="Ex: Confection robe de mariée, tissu fourni"
                 />
               </div>
 
               {/* Montant Total */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 block">Montant Total de la Prestation (FCFA) *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Montant total (FCFA) *</label>
                 <input
                   type="number"
                   required
@@ -830,37 +830,37 @@ export default function BillingSection() {
                     const val = parseInt(e.target.value) || 0;
                     setNewInvoiceAmount(val);
                   }}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-sm font-mono font-black text-slate-950 focus:outline-none"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2.5 text-sm font-mono font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   placeholder="Ex: 150000"
                 />
               </div>
 
               {/* Optional Deposit / Acompte */}
-              <div className="p-3 bg-atelier-beige border border-black space-y-3.5">
+              <div className="p-4 bg-[#FBF8F3] border border-stone-200/80 rounded-2xl space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-950">💰 Enregistrer un acompte initial ?</span>
+                  <span className="text-xs font-semibold text-stone-800">💰 Enregistrer un acompte initial ?</span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[8px] font-black uppercase tracking-widest text-slate-600 block">Montant Acompte (FCFA)</label>
+                    <label className="text-[11px] font-medium text-stone-500 block">Montant acompte (FCFA)</label>
                     <input
                       type="number"
                       min="0"
                       max={newInvoiceAmount}
                       value={newInvoiceAcompte || ''}
                       onChange={(e) => setNewInvoiceAcompte(parseInt(e.target.value) || 0)}
-                      className="w-full bg-white border border-black rounded-none px-2 py-1.5 text-xs font-mono font-black focus:outline-none"
+                      className="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-mono font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                       placeholder="0"
                     />
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[8px] font-black uppercase tracking-widest text-slate-600 block">Mode de Règlement</label>
+                    <label className="text-[11px] font-medium text-stone-500 block">Mode de règlement</label>
                     <select
                       value={newInvoiceAcompteMode}
                       onChange={(e) => setNewInvoiceAcompteMode(e.target.value as ModePaiement)}
-                      className="w-full bg-white border border-black rounded-none px-1 py-1.5 text-[10px] font-black uppercase tracking-widest focus:outline-none"
+                      className="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-medium text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     >
                       <option value="wave">Wave Sénégal 🌊</option>
                       <option value="orange_money">Orange Money 🟠</option>
@@ -873,12 +873,12 @@ export default function BillingSection() {
 
                 {newInvoiceAcompte > 0 && (
                   <div className="space-y-1">
-                    <label className="text-[8px] font-black uppercase tracking-widest text-slate-600 block">Référence de paiement</label>
+                    <label className="text-[11px] font-medium text-stone-500 block">Référence de paiement</label>
                     <input
                       type="text"
                       value={newInvoiceAcompteRef}
                       onChange={(e) => setNewInvoiceAcompteRef(e.target.value)}
-                      className="w-full bg-white border border-black rounded-none px-2 py-1 text-xs focus:outline-none"
+                      className="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                       placeholder="Ex: Acompte initial en espèces"
                     />
                   </div>
@@ -886,20 +886,20 @@ export default function BillingSection() {
               </div>
 
               {/* Actions */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsNewInvoiceModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-none border-2 border-black text-slate-950 hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
                   disabled={clients.length === 0}
-                  className="flex-1 py-2.5 rounded-none bg-black text-white border-2 border-black hover:bg-atelier-gold hover:text-black font-black uppercase tracking-widest text-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-fox-primary flex-1 !py-2.5 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Créer Facture 🚀
+                  Créer facture 🚀
                 </button>
               </div>
             </form>

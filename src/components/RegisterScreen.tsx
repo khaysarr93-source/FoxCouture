@@ -27,6 +27,7 @@ import {
   FileText
 } from 'lucide-react';
 import { Tenant, SaasAdmin } from '../types';
+import FoxLogo from './FoxLogo';
 
 interface RegisterScreenProps {
   onBackToLogin: () => void;
@@ -358,25 +359,23 @@ export default function RegisterScreen({ onBackToLogin, onRegisterSuccess }: Reg
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950 flex flex-col p-4 md:p-8 justify-center items-center transition-colors duration-300 font-sans">
+    <div className="min-h-screen bg-[#FBF8F3] flex flex-col p-4 md:p-8 justify-center items-center font-sans">
       
       {/* Brand Header */}
-      <div className="text-center mb-6">
-        <div className="w-16 h-16 bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-700 flex items-center justify-center mx-auto mb-2 shadow-[4px_4px_0px_0px_rgba(255,122,26,1)] rounded-none">
-          <Scissors className="h-7 w-7 text-atelier-gold animate-bounce" />
-        </div>
-        <h1 className="font-display font-black text-2.5xl tracking-tighter text-slate-950 dark:text-white">
-          FOX <span className="text-atelier-gold">COUTURE</span>
+      <div className="text-center mb-6 flex flex-col items-center">
+        <FoxLogo size={48} showText={false} className="mb-2" />
+        <h1 className="text-2xl font-black tracking-tight text-[#161412]">
+          Fox <span className="text-[#F05A22]">Couture</span>
         </h1>
-        <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">
-          Création d'Espace de Travail SaaS Autonome
+        <p className="text-xs font-medium text-stone-500">
+          Création d'espace atelier autonome
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-6xl w-full">
         
         {/* Step Contents Column */}
-        <div className="lg:col-span-7 bg-white dark:bg-zinc-900 border-4 border-black dark:border-zinc-800 p-6 md:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-none flex flex-col justify-between">
+        <div className="lg:col-span-7 card-fox rounded-3xl border border-stone-200/80 p-6 md:p-8 shadow-xl bg-white flex flex-col justify-between">
           
           <AnimatePresence mode="wait">
             

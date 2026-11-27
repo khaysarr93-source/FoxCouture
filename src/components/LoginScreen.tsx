@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { useStore } from '../store';
 import FoxMascot from './FoxMascot';
+import FoxLogo from './FoxLogo';
 import RegisterScreen from './RegisterScreen';
 import { 
   Lock, 
@@ -153,31 +154,26 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
   };
 
   return (
-    <div className="min-h-screen bg-atelier-cream dark:bg-zinc-950 flex flex-col items-center justify-center p-4 transition-colors duration-300">
+    <div className="min-h-screen bg-[#FBF8F3] flex flex-col items-center justify-center p-4">
       
-      {/* Brand Header with Fox Mascot */}
-      <div className="text-center mb-6">
-        <div className="w-24 h-24 bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-700 flex items-center justify-center mx-auto mb-3 shadow-[6px_6px_0px_0px_rgba(255,122,26,1)] rounded-none relative">
-          <FoxMascot size="lg" />
-          <div className="absolute -bottom-1 -right-1 bg-black text-white p-1 rounded-none border border-black">
-            <Scissors className="h-3.5 w-3.5 text-atelier-gold" />
-          </div>
-        </div>
-        <h1 className="font-display font-black text-3.5xl tracking-tighter text-slate-950 dark:text-white">
-          FOX <span className="text-atelier-gold">COUTURE</span>
+      {/* Brand Header */}
+      <div className="text-center mb-8 flex flex-col items-center">
+        <FoxLogo size={56} showText={false} className="mb-3" />
+        <h1 className="text-2xl font-black tracking-tight text-[#161412]">
+          Fox <span className="text-[#F05A22]">Couture</span>
         </h1>
-        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mt-1">
-          SUITE D'ADMINISTRATION & DE CONFECTION FOXFY
+        <p className="text-xs font-medium text-stone-500 mt-1">
+          Haute confection et gestion d'atelier
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-4xl w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-4xl w-full">
         {/* Main Login Form Column */}
-        <div className="lg:col-span-7 bg-white dark:bg-zinc-900 border-4 border-black dark:border-zinc-800 p-6 sm:p-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-none flex flex-col justify-between">
+        <div className="lg:col-span-7 card-fox rounded-3xl border border-stone-200/80 p-6 sm:p-8 shadow-xl bg-white flex flex-col justify-between">
           <form onSubmit={handleLoginSubmit} className="space-y-5">
-            <div className="flex justify-between items-center pb-4 border-b-2 border-black dark:border-zinc-800 mb-2">
-              <span className="text-xs font-black uppercase tracking-widest text-slate-950 dark:text-white flex items-center gap-1.5">
-                <ShieldCheck className="h-4.5 w-4.5 text-atelier-gold" /> Authentification Atelier
+            <div className="flex justify-between items-center pb-4 border-b border-stone-100 mb-2">
+              <span className="text-xs font-bold text-stone-800 flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-[#F05A22]" /> Connexion Atelier
               </span>
               <select
                 value={currentTenantId}
@@ -187,7 +183,7 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                   setPasswordInput('');
                   setErrorMsg('');
                 }}
-                className="bg-slate-50 dark:bg-zinc-950 text-slate-950 dark:text-zinc-100 border-2 border-black dark:border-zinc-700 px-2.5 py-1 font-black cursor-pointer text-[10px] uppercase"
+                className="bg-[#FBF8F3] text-stone-800 border border-stone-200 rounded-xl px-3 py-1.5 font-semibold cursor-pointer text-xs focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
               >
                 {tenants.map(t => (
                   <option key={t.id} value={t.id}>
@@ -198,30 +194,30 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
             </div>
 
             {errorMsg && (
-              <div className="bg-rose-50 dark:bg-rose-950/30 border-2 border-rose-600 p-4 text-xs font-bold text-rose-950 dark:text-rose-200 flex gap-2.5">
-                <AlertTriangle className="h-5 w-5 text-rose-600 flex-shrink-0" />
+              <div className="bg-rose-50 border border-rose-200 rounded-2xl p-3.5 text-xs font-medium text-rose-800 flex gap-2.5">
+                <AlertTriangle className="h-4 w-4 text-rose-600 flex-shrink-0 mt-0.5" />
                 <p className="leading-relaxed">{errorMsg}</p>
               </div>
             )}
 
             {successMsg && (
-              <div className="bg-emerald-50 dark:bg-emerald-950/30 border-2 border-emerald-500 p-4 text-xs font-bold text-emerald-950 dark:text-emerald-200 flex gap-2.5">
-                <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
+              <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-3.5 text-xs font-medium text-emerald-800 flex gap-2.5">
+                <CheckCircle className="h-4 w-4 text-emerald-600 flex-shrink-0 mt-0.5" />
                 <p className="leading-relaxed">{successMsg}</p>
               </div>
             )}
 
             {/* Email Field */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Identifiant ou Adresse Email *</label>
+              <label className="text-xs font-semibold text-stone-700 block">Identifiant ou adresse email *</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4.5 w-4.5 text-slate-400" />
+                <Mail className="absolute left-3.5 top-3 h-4 w-4 text-stone-400" />
                 <input
                   type="email"
                   required
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none pl-10 pr-3 py-3 text-xs focus:outline-none focus:bg-white"
+                  className="w-full bg-[#FBF8F3] text-stone-900 border border-stone-200/80 rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   placeholder="votre.email@foxcouture.sn"
                 />
               </div>
@@ -229,23 +225,23 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
 
             {/* Password Field */}
             <div className="space-y-1.5">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-700 dark:text-zinc-300 block">Mot de Passe d'Accès *</label>
+              <label className="text-xs font-semibold text-stone-700 block">Mot de passe *</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4.5 w-4.5 text-slate-400" />
+                <Lock className="absolute left-3.5 top-3 h-4 w-4 text-stone-400" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none pl-10 pr-10 py-3 text-xs focus:outline-none focus:bg-white font-mono"
+                  className="w-full bg-[#FBF8F3] text-stone-900 border border-stone-200/80 rounded-xl pl-10 pr-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3.5 text-slate-400 hover:text-black dark:hover:text-white"
+                  className="absolute right-3 top-3 text-stone-400 hover:text-stone-700"
                 >
-                  {showPassword ? <EyeOff className="h-4.5 w-4.5" /> : <Eye className="h-4.5 w-4.5" />}
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
@@ -253,54 +249,56 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs transition cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:shadow-none"
+              className="btn-fox-primary w-full py-3 text-center justify-center font-bold text-sm"
             >
-              Se Connecter à l'Atelier
+              Se connecter à l'atelier
             </button>
 
             <div className="text-center pt-2">
-              <p className="text-[11px] text-slate-500 font-serif">
+              <p className="text-xs text-stone-500">
                 Pas encore de compte ?{' '}
                 <button
                   type="button"
                   onClick={() => setIsRegistering(true)}
-                  className="font-black uppercase text-[10px] tracking-wider text-slate-950 dark:text-white underline hover:text-atelier-gold transition cursor-pointer"
+                  className="font-bold text-[#F05A22] hover:underline transition cursor-pointer"
                 >
-                  Inscrivez votre atelier (Essai Gratuit 15j)
+                  Créer un compte atelier (Essai 15j)
                 </button>
               </p>
             </div>
           </form>
 
-          <div className="mt-6 pt-4 border-t border-slate-100 dark:border-zinc-800 text-[10px] text-slate-400 text-center flex items-center justify-center gap-1.5">
-            <Clock className="h-3.5 w-3.5 text-slate-400" />
-            <span>Sécurité renforcée — Maison Fox Couture © 2026</span>
+          <div className="mt-6 pt-4 border-t border-stone-100 text-[11px] text-stone-400 text-center flex items-center justify-center gap-1.5">
+            <Clock className="h-3.5 w-3.5 text-stone-400" />
+            <span>Sécurité renforcée — Fox Couture © 2026</span>
           </div>
         </div>
 
         {/* Demo Helper / Accounts Column */}
-        <div className="lg:col-span-5 bg-white dark:bg-zinc-900 border-2 border-black dark:border-zinc-800 p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-none space-y-4">
-          <div className="flex items-center gap-1.5 border-b-2 border-black dark:border-zinc-800 pb-2.5">
-            <HelpCircle className="h-4.5 w-4.5 text-atelier-gold" />
-            <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-950 dark:text-white">Comptes de Démo (Test)</h3>
+        <div className="lg:col-span-5 card-fox rounded-3xl border border-stone-200/80 p-6 shadow-xl bg-white space-y-4">
+          <div className="flex items-center gap-2 border-b border-stone-100 pb-3">
+            <HelpCircle className="h-4 w-4 text-[#F05A22]" />
+            <h3 className="text-xs font-bold text-stone-900">Comptes de démonstration</h3>
           </div>
           
-          <p className="text-[11px] text-slate-500 font-serif leading-relaxed italic">
-            Cliquer sur l'un des comptes ci-dessous pour remplir instantanément les identifiants d'accès correspondants.
+          <p className="text-xs text-stone-500 leading-relaxed">
+            Cliquez sur un compte ci-dessous pour pré-remplir instantanément ses identifiants.
           </p>
 
-          <div className="space-y-3 pt-2 max-h-[380px] overflow-y-auto pr-1">
+          <div className="space-y-2.5 pt-1 max-h-[380px] overflow-y-auto pr-1">
             {/* Master Tenant Admin */}
             {activeTenant && (
               <div 
                 onClick={() => quickFill(activeTenant.admin.email, activeTenant.admin.motDePasse)}
-                className="bg-amber-50/50 dark:bg-amber-950/10 hover:bg-amber-50 dark:hover:bg-amber-950/20 border-2 border-amber-300 dark:border-amber-900/60 p-3 rounded-none text-xs cursor-pointer transition flex items-start gap-2.5"
+                className="bg-amber-50/60 hover:bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-xs cursor-pointer transition-all flex items-start gap-3 shadow-xs"
               >
-                <User className="h-4 w-4 text-amber-600 mt-0.5" />
-                <div className="space-y-0.5">
-                  <span className="font-black text-slate-900 dark:text-white block">Administrateur d'Atelier ({activeTenant.raisonSociale})</span>
-                  <span className="text-[10px] text-slate-500 font-mono block">Email : {activeTenant.admin.email}</span>
-                  <span className="text-[10px] text-slate-500 font-mono block">Code d'accès : {activeTenant.admin.motDePasse}</span>
+                <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
+                  <User className="h-4 w-4" />
+                </div>
+                <div className="space-y-0.5 min-w-0">
+                  <span className="font-bold text-stone-900 block truncate">Admin Atelier ({activeTenant.raisonSociale})</span>
+                  <span className="text-[11px] text-stone-500 block truncate">Email : {activeTenant.admin.email}</span>
+                  <span className="text-[11px] text-stone-500 block">Passe : {activeTenant.admin.motDePasse}</span>
                 </div>
               </div>
             )}
@@ -312,25 +310,29 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                 <div 
                   key={emp.id}
                   onClick={() => quickFill(emp.email!, emp.motDePasse!)}
-                  className={`border-2 p-3 rounded-none text-xs cursor-pointer transition flex items-start gap-2.5 ${
+                  className={`border p-3.5 rounded-2xl text-xs cursor-pointer transition-all flex items-start gap-3 shadow-xs ${
                     isBlocked 
-                      ? 'bg-rose-50/30 hover:bg-rose-50/60 border-rose-200 dark:border-rose-900/40 text-slate-400'
+                      ? 'bg-rose-50/40 border-rose-200 text-stone-400' 
                       : emp.roleSaaS === 'chef_atelier' 
-                        ? 'bg-indigo-50/40 dark:bg-indigo-950/10 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 border-indigo-200 dark:border-indigo-900/60'
-                        : 'bg-slate-50 hover:bg-slate-100 dark:bg-zinc-800 dark:hover:bg-zinc-700/80 border-slate-300 dark:border-zinc-700'
+                        ? 'bg-orange-50/50 hover:bg-orange-50 border-orange-200' 
+                        : 'bg-stone-50/60 hover:bg-stone-100 border-stone-200/80'
                   }`}
                 >
-                  <User className={`h-4 w-4 mt-0.5 ${isBlocked ? 'text-rose-400' : emp.roleSaaS === 'chef_atelier' ? 'text-indigo-600' : 'text-slate-600'}`} />
-                  <div className="space-y-0.5">
-                    <span className="font-black text-slate-900 dark:text-white block flex items-center gap-1.5">
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
+                    isBlocked ? 'bg-rose-100 text-rose-600' : emp.roleSaaS === 'chef_atelier' ? 'bg-[#F05A22]/10 text-[#F05A22]' : 'bg-stone-200/70 text-stone-700'
+                  }`}>
+                    <User className="h-4 w-4" />
+                  </div>
+                  <div className="space-y-0.5 min-w-0">
+                    <span className="font-bold text-stone-900 block flex items-center gap-1.5 truncate">
                       {emp.prenom} {emp.nom}
-                      <span className="font-mono text-[9px] text-slate-400 font-bold tracking-tight">
+                      <span className="text-[10px] text-stone-400 font-medium">
                         ({emp.roleSaaS === 'chef_atelier' ? 'Chef' : emp.roleSaaS === 'vendeur' ? 'Vendeur' : emp.roleSaaS === 'coupeur' ? 'Coupeur' : 'Couturier'})
                       </span>
-                      {isBlocked && <span className="text-[8px] bg-rose-600 text-white font-mono px-1 py-0.5 ml-1">BLOQUÉ</span>}
+                      {isBlocked && <span className="text-[9px] bg-rose-500 text-white font-medium px-1.5 py-0.2 rounded-md">Bloqué</span>}
                     </span>
-                    <span className="text-[10px] text-slate-500 font-mono block">Email : {emp.email}</span>
-                    <span className="text-[10px] text-slate-500 font-mono block">Code d'accès : {emp.motDePasse}</span>
+                    <span className="text-[11px] text-stone-500 block truncate">Email : {emp.email}</span>
+                    <span className="text-[11px] text-stone-500 block">Passe : {emp.motDePasse}</span>
                   </div>
                 </div>
               );
@@ -339,13 +341,15 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
             {/* Platform SuperAdmin */}
             <div 
               onClick={() => quickFill('superadmin@foxcouture.sn', 'superadmin123')}
-              className="bg-emerald-50/40 dark:bg-emerald-950/10 hover:bg-emerald-50 dark:hover:bg-emerald-950/20 border-2 border-emerald-300 dark:border-emerald-900/60 p-3 rounded-none text-xs cursor-pointer transition flex items-start gap-2.5"
+              className="bg-emerald-50/60 hover:bg-emerald-50 border border-emerald-200 p-3.5 rounded-2xl text-xs cursor-pointer transition-all flex items-start gap-3 shadow-xs"
             >
-              <User className="h-4 w-4 text-emerald-600 mt-0.5" />
-              <div className="space-y-0.5">
-                <span className="font-black text-slate-900 dark:text-white block">Super-Administrateur SaaS</span>
-                <span className="text-[10px] text-slate-500 font-mono block">Email : superadmin@foxcouture.sn</span>
-                <span className="text-[10px] text-slate-500 font-mono block">Code d'accès : superadmin123</span>
+              <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 mt-0.5">
+                <User className="h-4 w-4" />
+              </div>
+              <div className="space-y-0.5 min-w-0">
+                <span className="font-bold text-stone-900 block">Super-Admin Fox Couture</span>
+                <span className="text-[11px] text-stone-500 block">Email : superadmin@foxcouture.sn</span>
+                <span className="text-[11px] text-stone-500 block">Passe : superadmin123</span>
               </div>
             </div>
           </div>

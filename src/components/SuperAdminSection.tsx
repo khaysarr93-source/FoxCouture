@@ -278,22 +278,22 @@ export default function SuperAdminSection() {
     <div className="space-y-8">
       
       {/* Title block */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 card-fox rounded-3xl p-6 border border-stone-200/60 shadow-xs">
         <div>
-          <span className="text-[10px] font-black uppercase tracking-widest text-atelier-gold-dark flex items-center gap-1.5">
-            <ShieldCheck className="h-4.5 w-4.5" /> Espace Super-Administrateur Plateforme
+          <span className="text-xs font-semibold text-[#F05A22] flex items-center gap-1.5">
+            <ShieldCheck className="h-4.5 w-4.5 text-[#F05A22]" /> Espace Super-Administrateur Plateforme
           </span>
-          <h2 className="text-xl font-black uppercase tracking-tight text-slate-900 mt-1 font-display">
+          <h2 className="text-xl font-bold text-stone-900 mt-1">
             Supervision & Contrôle SaaS Global
           </h2>
-          <p className="text-xs text-slate-500 font-serif italic mt-0.5">Console d'administration de l'éditeur de solution — Gestion des abonnements et des tarifications.</p>
+          <p className="text-xs text-stone-500 mt-0.5">Console d'administration de l'éditeur de solution — Gestion des abonnements et des tarifications.</p>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setIsNewTenantFormOpen(true)}
-            className="px-4 py-2 bg-black text-white hover:bg-atelier-gold hover:text-black border-2 border-black font-black uppercase text-[10px] tracking-widest transition cursor-pointer flex items-center gap-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+            className="btn-fox-primary text-xs"
           >
-            <Plus className="h-4 w-4" /> ENREGISTRER UN ATELIER
+            <Plus className="h-4 w-4 stroke-[3]" /> Enregistrer un atelier
           </button>
         </div>
       </div>
@@ -302,101 +302,101 @@ export default function SuperAdminSection() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Total revenue */}
-        <div className="bg-white p-5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] flex items-center gap-4">
-          <div className="p-3 bg-emerald-100 border border-emerald-500 text-emerald-950 font-black text-sm">
+        <div className="card-fox rounded-3xl p-5 border border-stone-200/60 shadow-xs flex items-center gap-4">
+          <div className="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-700 font-bold text-xs flex items-center justify-center shrink-0">
             FCFA
           </div>
           <div>
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Chiffre d'Affaires SaaS</span>
-            <span className="text-base font-black font-mono text-slate-950 mt-1 block">{totalRevenue} FCFA</span>
-            <span className="text-[9px] text-emerald-700 font-bold block mt-0.5">Cumulé global</span>
+            <span className="text-xs font-medium text-stone-400 block">CA SaaS Global</span>
+            <span className="text-base font-bold font-mono text-stone-900 mt-0.5 block">{totalRevenue.toLocaleString()} FCFA</span>
+            <span className="text-[11px] text-emerald-600 font-medium block mt-0.5">Cumulé global</span>
           </div>
         </div>
 
         {/* MRR Recurring estimate */}
-        <div className="bg-white p-5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] flex items-center gap-4">
-          <div className="p-3 bg-blue-100 border border-blue-500 text-blue-950">
+        <div className="card-fox rounded-3xl p-5 border border-stone-200/60 shadow-xs flex items-center gap-4">
+          <div className="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
             <TrendingUp className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">MRR Estimé</span>
-            <span className="text-base font-black font-mono text-slate-950 mt-1 block">{estimatedMRR} FCFA <span className="text-[10px] font-normal text-slate-500">/mois</span></span>
-            <span className="text-[9px] text-blue-700 font-bold block mt-0.5">Abonnements actifs proratisés</span>
+            <span className="text-xs font-medium text-stone-400 block">MRR Estimé</span>
+            <span className="text-base font-bold font-mono text-stone-900 mt-0.5 block">{estimatedMRR.toLocaleString()} FCFA <span className="text-[10px] font-normal text-stone-400">/mois</span></span>
+            <span className="text-[11px] text-blue-600 font-medium block mt-0.5">Abonnements actifs</span>
           </div>
         </div>
 
         {/* Societies count */}
-        <div className="bg-white p-5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] flex items-center gap-4">
-          <div className="p-3 bg-amber-100 border border-amber-500 text-amber-950">
+        <div className="card-fox rounded-3xl p-5 border border-stone-200/60 shadow-xs flex items-center gap-4">
+          <div className="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
             <Building className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Maisons / Ateliers</span>
-            <span className="text-base font-black font-mono text-slate-950 mt-1 block">{totalSocieties}</span>
-            <span className="text-[9px] text-slate-600 font-bold block mt-0.5">
+            <span className="text-xs font-medium text-stone-400 block">Maisons / Ateliers</span>
+            <span className="text-base font-bold font-mono text-stone-900 mt-0.5 block">{totalSocieties}</span>
+            <span className="text-[11px] text-stone-500 font-medium block mt-0.5">
               {activeCount} act. | {trialCount} essai | {pendingCount} att. | {suspendedCount} susp.
             </span>
           </div>
         </div>
 
         {/* Conversion & Churn rates */}
-        <div className="bg-white p-5 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] flex items-center gap-4">
-          <div className="p-3 bg-purple-100 border border-purple-500 text-purple-950">
+        <div className="card-fox rounded-3xl p-5 border border-stone-200/60 shadow-xs flex items-center gap-4">
+          <div className="w-11 h-11 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
             <BarChart2 className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Entonnoir SaaS & Churn</span>
-            <span className="text-sm font-black font-mono text-slate-950 mt-1 block">
+            <span className="text-xs font-medium text-stone-400 block">Entonnoir & Churn</span>
+            <span className="text-sm font-bold font-mono text-stone-900 mt-0.5 block">
               Act. {trialConversionRate}% | Pay. {payingConversionRate}%
             </span>
-            <span className="text-[9px] text-purple-700 font-bold block mt-0.5">Taux d'activation | Taux de conversion | Churn: {churnRate}%</span>
+            <span className="text-[11px] text-purple-600 font-medium block mt-0.5">Conversion payante | Churn: {churnRate}%</span>
           </div>
         </div>
 
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Left column: Pricing setting & system logs */}
         <div className="space-y-6">
           
           {/* PRICING CONTROL PANELS (Section 4 of specs) */}
-          <div className="bg-white p-5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
-            <h3 className="text-xs font-black uppercase tracking-widest text-slate-950 border-b border-black pb-2 flex items-center gap-2">
-              <Settings className="h-4.5 w-4.5 text-atelier-gold-dark" /> Configuration Tarifs SaaS
+          <div className="card-fox rounded-3xl p-5 border border-stone-200/60 shadow-xs space-y-4">
+            <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-2 flex items-center gap-2">
+              <Settings className="h-4.5 w-4.5 text-[#F05A22]" /> Configuration Tarifs SaaS
             </h3>
 
-            <form onSubmit={handleUpdatePriceConfig} className="space-y-4 text-xs font-semibold">
+            <form onSubmit={handleUpdatePriceConfig} className="space-y-3 text-xs font-semibold">
               <div className="space-y-1">
-                <label className="text-[10px] text-slate-600 uppercase tracking-wider block">Formule Mensuelle (FCFA / mois)</label>
+                <label className="text-xs font-medium text-stone-600 block">Formule Mensuelle (FCFA / mois)</label>
                 <input
                   type="number"
                   value={mensuelPriceInput}
                   onChange={(e) => setMensuelPriceInput(parseInt(e.target.value) || 0)}
-                  className="w-full bg-white border border-black p-2 rounded-none font-mono font-black"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] p-2.5 font-mono font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                 />
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] text-slate-600 uppercase tracking-wider block">Formule Annuelle (FCFA / an)</label>
+                <label className="text-xs font-medium text-stone-600 block">Formule Annuelle (FCFA / an)</label>
                 <input
                   type="number"
                   value={annuelPriceInput}
                   onChange={(e) => setAnnuelPriceInput(parseInt(e.target.value) || 0)}
-                  className="w-full bg-white border border-black p-2 rounded-none font-mono font-black"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] p-2.5 font-mono font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                 />
-                <span className="text-[9px] text-slate-500 font-serif italic block mt-1">Recommandé: 74 000 FCFA (soit 10 000 FCFA de remise par rapport au cumul mensuel).</span>
+                <span className="text-[11px] text-stone-400 block mt-1">Recommandé: 74 000 FCFA (soit 10 000 FCFA de remise par rapport au cumul mensuel).</span>
               </div>
 
               <button
                 type="submit"
-                className="w-full px-4 py-2 bg-slate-950 text-white hover:bg-black font-black uppercase text-[10px] tracking-widest border border-black rounded-none cursor-pointer transition flex items-center justify-center gap-1.5"
+                className="w-full btn-fox-primary !py-2.5 flex items-center justify-center gap-1.5"
               >
-                <CheckCircle className="h-4 w-4 text-atelier-gold" /> METTRE À JOUR LA GRILLE
+                <CheckCircle className="h-4 w-4" /> Mettre à jour la grille
               </button>
 
               {isPricingSaved && (
-                <p className="text-center text-emerald-600 text-[10px] font-bold uppercase tracking-wider animate-pulse">
+                <p className="text-center text-emerald-600 text-xs font-semibold animate-pulse">
                   Tarifs sauvegardés avec succès !
                 </p>
               )}
@@ -404,19 +404,19 @@ export default function SuperAdminSection() {
           </div>
 
           {/* Audit Trail System Log (Section 3.6 of specs) */}
-          <div className="bg-white p-5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
-            <h3 className="text-xs font-black uppercase tracking-widest text-slate-950 border-b border-black pb-2">
+          <div className="card-fox rounded-3xl p-5 border border-stone-200/60 shadow-xs space-y-4">
+            <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-2">
               Journal d'audit SaaS (Temps Réel)
             </h3>
             
             <div className="space-y-2 max-h-[250px] overflow-y-auto pr-1">
               {auditLogs.map(log => (
-                <div key={log.id} className="p-2 border border-slate-200 bg-slate-50 text-[10px] space-y-0.5">
-                  <div className="flex justify-between text-slate-400 font-mono">
+                <div key={log.id} className="p-2.5 rounded-xl border border-stone-200/60 bg-[#FBF8F3] text-xs space-y-0.5">
+                  <div className="flex justify-between text-stone-400 font-mono text-[10px]">
                     <span>{log.timestamp}</span>
-                    <span className="uppercase text-[8px] px-1 bg-slate-200 font-black tracking-wider text-slate-600">{log.category}</span>
+                    <span className="uppercase text-[9px] px-1.5 py-0.5 rounded-md bg-stone-200/70 font-semibold text-stone-600">{log.category}</span>
                   </div>
-                  <p className="text-slate-800 font-medium font-serif italic leading-relaxed">{log.action}</p>
+                  <p className="text-stone-800 font-medium text-xs leading-relaxed">{log.action}</p>
                 </div>
               ))}
             </div>
@@ -425,37 +425,37 @@ export default function SuperAdminSection() {
         </div>
 
         {/* Right column: Societies database list (Section 3.6) */}
-        <div className="lg:col-span-2 bg-white p-5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
+        <div className="lg:col-span-2 card-fox rounded-3xl p-6 border border-stone-200/60 shadow-xs space-y-5">
           
           {/* Header & CSV export button */}
-          <div className="border-b-2 border-black pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-1">
+          <div className="border-b border-stone-100 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex bg-stone-100 p-1 rounded-2xl">
               <button
                 onClick={() => setActiveSubTab('tenants')}
-                className={`px-3 py-1.5 text-xs font-black uppercase tracking-wider border-2 border-black transition cursor-pointer ${
+                className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition cursor-pointer ${
                   activeSubTab === 'tenants' 
-                    ? 'bg-black text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' 
-                    : 'bg-white text-slate-700 hover:bg-slate-50'
+                    ? 'bg-stone-900 text-white shadow-xs' 
+                    : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 Ateliers ({filteredTenants.length})
               </button>
               <button
                 onClick={() => setActiveSubTab('payments')}
-                className={`px-3 py-1.5 text-xs font-black uppercase tracking-wider border-2 border-black transition cursor-pointer ${
+                className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition cursor-pointer ${
                   activeSubTab === 'payments' 
-                    ? 'bg-black text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' 
-                    : 'bg-white text-slate-700 hover:bg-slate-50'
+                    ? 'bg-stone-900 text-white shadow-xs' 
+                    : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 Règlements ({filteredPayments.length})
               </button>
               <button
                 onClick={() => setActiveSubTab('promo_codes')}
-                className={`px-3 py-1.5 text-xs font-black uppercase tracking-wider border-2 border-black transition cursor-pointer ${
+                className={`px-3.5 py-1.5 text-xs font-bold rounded-xl transition cursor-pointer ${
                   activeSubTab === 'promo_codes' 
-                    ? 'bg-black text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' 
-                    : 'bg-white text-slate-700 hover:bg-slate-50'
+                    ? 'bg-stone-900 text-white shadow-xs' 
+                    : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 Codes Promo ({promoCodes.length})
@@ -464,16 +464,16 @@ export default function SuperAdminSection() {
             
             <button
               onClick={handleExportCSV}
-              className="px-2.5 py-1.5 border-2 border-black text-[10px] font-black uppercase hover:bg-slate-50 flex items-center gap-1 cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+              className="px-3 py-1.5 rounded-xl border border-stone-200/80 bg-white hover:bg-stone-50 text-xs font-semibold text-stone-700 flex items-center gap-1.5 cursor-pointer transition shadow-xs"
             >
-              <FileDown className="h-3.5 w-3.5" /> EXPORTER BASE (CSV)
+              <FileDown className="h-4 w-4 text-[#F05A22]" /> Exporter base (CSV)
             </button>
           </div>
 
           {/* Filters controls */}
           <div className="flex flex-col md:flex-row gap-3">
             <div className="relative flex-1">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400" />
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-stone-400" />
               <input
                 type="text"
                 placeholder={
@@ -485,7 +485,7 @@ export default function SuperAdminSection() {
                 }
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-8 w-full bg-white border border-black p-2 text-xs rounded-none font-medium"
+                className="pl-9 w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl p-2 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
               />
             </div>
             {activeSubTab === 'tenants' && (
@@ -493,13 +493,13 @@ export default function SuperAdminSection() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="w-full bg-white border border-black p-2 text-xs rounded-none font-bold"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl p-2 text-xs font-semibold text-stone-800 focus:outline-none"
                 >
-                  <option value="all">Tous les Statuts</option>
+                  <option value="all">Tous les statuts</option>
                   <option value="en_attente">En attente de validation</option>
-                  <option value="essai">En période d'Essai</option>
-                  <option value="actif">Abonnement Actif</option>
-                  <option value="suspendu">Accès Suspendu</option>
+                  <option value="essai">En période d'essai</option>
+                  <option value="actif">Abonnement actif</option>
+                  <option value="suspendu">Accès suspendu</option>
                   <option value="resilie">Résilié</option>
                 </select>
               </div>
@@ -508,32 +508,32 @@ export default function SuperAdminSection() {
 
           {/* Tab content 1: Tenants List Grid/Table */}
           {activeSubTab === 'tenants' && (
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               {filteredTenants.length > 0 ? (
                 filteredTenants.map(tenant => {
                   const isCurrent = currentTenantId === tenant.id;
                   return (
                     <div 
                       key={tenant.id}
-                      className={`border-2 p-4 space-y-3 transition ${
+                      className={`rounded-2xl border p-4 space-y-3 transition ${
                         isCurrent 
-                          ? 'bg-atelier-beige/20 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' 
-                          : 'bg-white border-black/20 hover:border-black'
+                          ? 'bg-orange-50/40 border-[#F05A22]/40 shadow-xs' 
+                          : 'bg-white border-stone-200/80 hover:border-stone-300'
                       }`}
                     >
                       {/* Header line of tenant */}
                       <div className="flex justify-between items-start">
                         <div>
-                          <span className="text-[10px] font-mono text-slate-400 block uppercase font-black">ID: {tenant.id}</span>
-                          <h4 className="font-black uppercase text-sm text-slate-950 flex items-center gap-1.5">
+                          <span className="text-[10px] font-mono text-stone-400 block font-semibold">ID: {tenant.id}</span>
+                          <h4 className="font-bold text-sm text-stone-900 flex items-center gap-2">
                             {tenant.raisonSociale}
                             {isCurrent && (
-                              <span className="text-[8px] bg-black text-white px-1.5 py-0.5 rounded-none font-black tracking-widest uppercase">
-                                CONTEXTE ACTIF
+                              <span className="text-[10px] bg-[#F05A22] text-white px-2 py-0.5 rounded-full font-bold">
+                                Contexte actif
                               </span>
                             )}
                           </h4>
-                          <span className="text-[10px] text-slate-500 font-serif italic mt-0.5 block">{tenant.secteur}</span>
+                          <span className="text-xs text-stone-500 mt-0.5 block">{tenant.secteur}</span>
                         </div>
 
                         {/* Status selectors */}
@@ -541,12 +541,12 @@ export default function SuperAdminSection() {
                           <select
                             value={tenant.statut}
                             onChange={(e) => handleStatusChange(tenant.id, e.target.value as StatutSaaS)}
-                            className={`p-1 text-[9px] font-black uppercase tracking-widest border border-black rounded-none ${
-                              tenant.statut === 'en_attente' ? 'bg-blue-100 text-blue-800 font-bold animate-pulse' :
-                              tenant.statut === 'actif' ? 'bg-emerald-100 text-emerald-800' :
-                              tenant.statut === 'essai' ? 'bg-amber-100 text-amber-800' :
-                              tenant.statut === 'suspendu' ? 'bg-rose-100 text-rose-800 font-black animate-pulse' :
-                              'bg-slate-100 text-slate-800'
+                            className={`p-1.5 text-xs font-semibold rounded-xl border border-stone-200/80 ${
+                              tenant.statut === 'en_attente' ? 'bg-blue-50 text-blue-800' :
+                              tenant.statut === 'actif' ? 'bg-emerald-50 text-emerald-800' :
+                              tenant.statut === 'essai' ? 'bg-amber-50 text-amber-800' :
+                              tenant.statut === 'suspendu' ? 'bg-rose-50 text-rose-800 font-bold' :
+                              'bg-stone-100 text-stone-700'
                             }`}
                           >
                             <option value="en_attente">En attente</option>
@@ -559,27 +559,27 @@ export default function SuperAdminSection() {
                       </div>
 
                       {/* Metadata line of tenant */}
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] pt-2 border-t border-black/5 font-semibold text-slate-600">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-2 border-t border-stone-100 font-medium text-stone-600">
                         <div>
-                          <span className="block text-[8px] text-slate-400 uppercase font-black">Formule choisie</span>
-                          <span className="font-mono text-slate-900 uppercase font-bold">{tenant.formule}</span>
+                          <span className="block text-[10px] text-stone-400">Formule</span>
+                          <span className="font-mono text-stone-900 font-bold capitalize">{tenant.formule}</span>
                         </div>
                         <div>
-                          <span className="block text-[8px] text-slate-400 uppercase font-black">Date d'inscription</span>
-                          <span className="font-mono text-slate-900">{tenant.dateInscription}</span>
+                          <span className="block text-[10px] text-stone-400">Inscription</span>
+                          <span className="font-mono text-stone-900">{tenant.dateInscription}</span>
                         </div>
                         <div>
-                          <span className="block text-[8px] text-slate-400 uppercase font-black">Expiration / Échéance</span>
-                          <span className="font-mono text-slate-900">{tenant.dateExpiration}</span>
+                          <span className="block text-[10px] text-stone-400">Échéance</span>
+                          <span className="font-mono text-stone-900">{tenant.dateExpiration}</span>
                         </div>
                         <div>
-                          <span className="block text-[8px] text-slate-400 uppercase font-black">Responsable principal</span>
-                          <span className="text-slate-900 truncate block max-w-[120px]" title={tenant.admin.email}>{tenant.admin.email}</span>
+                          <span className="block text-[10px] text-stone-400">Responsable</span>
+                          <span className="text-stone-900 truncate block max-w-[120px]" title={tenant.admin.email}>{tenant.admin.email}</span>
                         </div>
                       </div>
 
                       {/* Tenant level administrative controls */}
-                      <div className="flex gap-2 justify-end pt-1 border-t border-dashed border-black/10">
+                      <div className="flex gap-2 justify-end pt-2 border-t border-stone-100">
                         {tenant.statut === 'en_attente' && (
                           <button
                             onClick={() => {
@@ -587,16 +587,16 @@ export default function SuperAdminSection() {
                               addAuditLog(`Confirmation manuelle de l'e-mail pour '${tenant.raisonSociale}'`, 'tenant');
                               alert(`L'adresse e-mail de l'administrateur (${tenant.admin.email}) a été validée avec succès. L'essai de 15 jours est démarré !`);
                             }}
-                            className="p-1.5 bg-emerald-600 hover:bg-black text-white hover:text-white font-black uppercase text-[8px] tracking-wider cursor-pointer shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] hover:shadow-none"
+                            className="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg text-xs cursor-pointer transition shadow-xs"
                           >
-                            Valider l'E-mail (Activer l'Atelier)
+                            Valider l'e-mail (Activer l'atelier)
                           </button>
                         )}
                         <button
                           onClick={() => handleContextSwitch(tenant.id)}
-                          className="p-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 font-black uppercase text-[8px] tracking-wider text-slate-800 cursor-pointer"
+                          className="px-2.5 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-lg font-semibold text-xs text-stone-800 cursor-pointer transition"
                         >
-                          BASCULER VERS CET ATELIER
+                          Basculer vers cet atelier
                         </button>
                       </div>
 
@@ -604,7 +604,7 @@ export default function SuperAdminSection() {
                   );
                 })
               ) : (
-                <div className="text-center py-8 text-slate-500 font-serif italic text-xs">
+                <div className="text-center py-8 text-stone-400 text-xs">
                   Aucun atelier ne correspond à votre recherche.
                 </div>
               )}
@@ -616,18 +616,18 @@ export default function SuperAdminSection() {
             <div className="space-y-4">
               
               {/* Filter total info bar */}
-              <div className="bg-slate-50 border border-slate-200 p-3 text-[11px] flex justify-between items-center text-slate-700">
+              <div className="bg-[#FBF8F3] border border-stone-200/80 rounded-2xl p-3 text-xs flex justify-between items-center text-stone-700">
                 <span>Chiffre d'affaires affiché :</span>
-                <span className="font-mono font-black text-slate-950 text-xs">
-                  {filteredPayments.reduce((sum, p) => sum + p.montant, 0)} FCFA
+                <span className="font-mono font-bold text-stone-900 text-sm">
+                  {filteredPayments.reduce((sum, p) => sum + p.montant, 0).toLocaleString()} FCFA
                 </span>
               </div>
 
               {filteredPayments.length > 0 ? (
-                <div className="overflow-x-auto border border-black/10">
+                <div className="overflow-x-auto rounded-2xl border border-stone-200/80">
                   <table className="w-full text-left text-xs border-collapse">
                     <thead>
-                      <tr className="bg-slate-100 text-slate-700 uppercase tracking-wider text-[9px] border-b border-black">
+                      <tr className="bg-stone-50 text-stone-600 text-xs font-semibold border-b border-stone-200">
                         <th className="p-3">Atelier</th>
                         <th className="p-3">Date</th>
                         <th className="p-3">Référence / Facture</th>
@@ -635,28 +635,28 @@ export default function SuperAdminSection() {
                         <th className="p-3 text-right">Montant</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-black/5">
+                    <tbody className="divide-y divide-stone-100">
                       {filteredPayments.map((pay) => (
-                        <tr key={pay.id} className="hover:bg-slate-50/50 text-[11px]">
-                          <td className="p-3 font-bold text-slate-900">{pay.tenantName}</td>
-                          <td className="p-3 font-mono">{pay.date}</td>
+                        <tr key={pay.id} className="hover:bg-stone-50/50 text-xs">
+                          <td className="p-3 font-bold text-stone-900">{pay.tenantName}</td>
+                          <td className="p-3 font-mono text-stone-500">{pay.date}</td>
                           <td className="p-3 font-mono">
-                            <div>{pay.reference}</div>
-                            <div className="text-[9px] text-slate-400">{pay.factureNumero}</div>
+                            <div className="font-semibold text-stone-800">{pay.reference}</div>
+                            <div className="text-[10px] text-stone-400">{pay.factureNumero}</div>
                           </td>
-                          <td className="p-3 uppercase">
-                            <span className="px-1.5 py-0.5 border border-slate-200 text-[9px] font-bold tracking-widest bg-slate-50 text-slate-600">
+                          <td className="p-3 capitalize">
+                            <span className="px-2 py-0.5 rounded-md border border-stone-200/80 text-[10px] font-semibold bg-stone-50 text-stone-600">
                               {pay.moyen.replace('_', ' ')}
                             </span>
                           </td>
-                          <td className="p-3 font-mono font-black text-right text-emerald-700">{pay.montant} FCFA</td>
+                          <td className="p-3 font-mono font-bold text-right text-emerald-700">{pay.montant.toLocaleString()} FCFA</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ) : (
-                <div className="text-center py-8 text-slate-500 font-serif italic text-xs">
+                <div className="text-center py-8 text-stone-400 text-xs">
                   Aucun règlement n'a été trouvé.
                 </div>
               )}
@@ -667,27 +667,27 @@ export default function SuperAdminSection() {
           {activeSubTab === 'promo_codes' && (
             <div className="space-y-6">
               
-              <form onSubmit={handleCreatePromoCode} className="bg-slate-50 border-2 border-black p-4 space-y-3">
-                <span className="text-[10px] font-black uppercase tracking-wider text-slate-900 block border-b border-black/10 pb-1.5 font-display">
-                  Créer un Nouveau Code Promo
+              <form onSubmit={handleCreatePromoCode} className="bg-[#FBF8F3] border border-stone-200/80 rounded-2xl p-4 space-y-3">
+                <span className="text-xs font-bold text-stone-900 block border-b border-stone-200/60 pb-1.5">
+                  Créer un nouveau code promo
                 </span>
                 {promoCodeError && (
-                  <p className="text-[10px] font-bold text-rose-600">✗ {promoCodeError}</p>
+                  <p className="text-xs font-semibold text-rose-600">✗ {promoCodeError}</p>
                 )}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div className="space-y-1">
-                    <label className="text-[9px] text-slate-500 uppercase font-black">Code (Ex: VIP30) *</label>
+                    <label className="text-xs font-medium text-stone-600">Code (Ex: VIP30) *</label>
                     <input 
                       type="text" 
                       required 
                       placeholder="Ex: NOEL25" 
                       value={newPromoCode}
                       onChange={(e) => setNewPromoCode(e.target.value)}
-                      className="w-full bg-white border border-black p-2 rounded-none font-mono uppercase"
+                      className="w-full bg-white border border-stone-200/80 p-2.5 rounded-xl font-mono uppercase text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[9px] text-slate-500 uppercase font-black">Réduction (%) *</label>
+                    <label className="text-xs font-medium text-stone-600">Réduction (%) *</label>
                     <input 
                       type="number" 
                       required 
@@ -696,39 +696,39 @@ export default function SuperAdminSection() {
                       placeholder="Ex: 25" 
                       value={newPromoReduction}
                       onChange={(e) => setNewPromoReduction(Number(e.target.value))}
-                      className="w-full bg-white border border-black p-2 rounded-none font-mono"
+                      className="w-full bg-white border border-stone-200/80 p-2.5 rounded-xl font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[9px] text-slate-500 uppercase font-black">Description / Remarque</label>
+                    <label className="text-xs font-medium text-stone-600">Description / Remarque</label>
                     <input 
                       type="text" 
                       placeholder="Ex: Offre de fin d'année" 
                       value={newPromoDesc}
                       onChange={(e) => setNewPromoDesc(e.target.value)}
-                      className="w-full bg-white border border-black p-2 rounded-none"
+                      className="w-full bg-white border border-stone-200/80 p-2.5 rounded-xl text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     />
                   </div>
                 </div>
                 <div className="flex justify-end">
                   <button 
                     type="submit"
-                    className="px-4 py-2 bg-black text-white hover:bg-zinc-800 border-2 border-black font-black uppercase text-[9px] tracking-widest cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-colors"
+                    className="btn-fox-primary text-xs"
                   >
-                    AJOUTER CODE PROMO
+                    Ajouter code promo
                   </button>
                 </div>
               </form>
 
               <div className="space-y-3">
-                <span className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">
-                  Liste des Codes Promotionnels Actifs
+                <span className="text-xs font-bold text-stone-900 block">
+                  Liste des codes promotionnels actifs
                 </span>
                 {filteredPromoCodes.length > 0 ? (
-                  <div className="overflow-x-auto border border-black/10">
+                  <div className="overflow-x-auto rounded-2xl border border-stone-200/80">
                     <table className="w-full text-left text-xs border-collapse">
                       <thead>
-                        <tr className="bg-slate-100 text-slate-700 uppercase tracking-wider text-[9px] border-b border-black font-black">
+                        <tr className="bg-stone-50 text-stone-600 text-xs font-semibold border-b border-stone-200">
                           <th className="p-3">Code</th>
                           <th className="p-3">Description</th>
                           <th className="p-3">Réduction</th>
@@ -736,20 +736,20 @@ export default function SuperAdminSection() {
                           <th className="p-3 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-black/5 font-semibold">
+                      <tbody className="divide-y divide-stone-100">
                         {filteredPromoCodes.map((p) => (
-                          <tr key={p.code} className="hover:bg-slate-50/50 text-[11px]">
-                            <td className="p-3 font-mono font-black text-slate-950 uppercase">{p.code}</td>
-                            <td className="p-3 font-serif text-slate-600 italic font-medium">{p.description}</td>
-                            <td className="p-3 font-mono font-black text-emerald-700 font-semibold">-{Math.round(p.reduction * 100)}%</td>
+                          <tr key={p.code} className="hover:bg-stone-50/50 text-xs">
+                            <td className="p-3 font-mono font-bold text-stone-900 uppercase">{p.code}</td>
+                            <td className="p-3 text-stone-600">{p.description}</td>
+                            <td className="p-3 font-mono font-bold text-emerald-700">-{Math.round(p.reduction * 100)}%</td>
                             <td className="p-3">
                               <button
                                 onClick={() => togglePromoCode(p.code)}
-                                className={`px-2 py-0.5 text-[9px] font-black tracking-widest uppercase border border-black rounded-none cursor-pointer ${
-                                  p.actif ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500'
+                                className={`px-2.5 py-0.5 text-xs font-semibold rounded-full border cursor-pointer transition ${
+                                  p.actif ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-stone-100 text-stone-500 border-stone-200'
                                 }`}
                               >
-                                {p.actif ? 'ACTIF' : 'INACTIF'}
+                                {p.actif ? 'Actif' : 'Inactif'}
                               </button>
                             </td>
                             <td className="p-3 text-right">
@@ -759,7 +759,7 @@ export default function SuperAdminSection() {
                                     deletePromoCode(p.code);
                                   }
                                 }}
-                                className="text-[9px] font-black uppercase text-rose-600 hover:underline cursor-pointer"
+                                className="text-xs font-semibold text-rose-600 hover:underline cursor-pointer"
                               >
                                 Supprimer
                               </button>
@@ -770,7 +770,7 @@ export default function SuperAdminSection() {
                     </table>
                   </div>
                 ) : (
-                  <div className="text-center py-8 text-slate-500 font-serif italic text-xs">
+                  <div className="text-center py-8 text-stone-400 text-xs">
                     Aucun code promotionnel ne correspond à votre recherche.
                   </div>
                 )}
@@ -785,104 +785,104 @@ export default function SuperAdminSection() {
 
       {/* REGISTRATION FORM MODAL */}
       {isNewTenantFormOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] w-full max-w-lg p-6 space-y-4 animate-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 bg-stone-950/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="card-fox rounded-3xl border border-stone-200/80 shadow-2xl w-full max-w-lg p-6 space-y-4 animate-in zoom-in-95 duration-150">
             
-            <div className="flex justify-between items-start border-b-2 border-black pb-2">
+            <div className="flex justify-between items-start border-b border-stone-100 pb-3">
               <div>
-                <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 block">PANEL SUPER-ADMIN</span>
-                <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 font-display">
+                <span className="text-xs font-semibold text-[#F05A22] block">Panel Super-Admin</span>
+                <h3 className="text-base font-bold text-stone-900">
                   Créer une nouvelle société (Atelier / Maison)
                 </h3>
               </div>
-              <button onClick={() => setIsNewTenantFormOpen(false)} className="p-1 border border-black hover:bg-slate-100 cursor-pointer">
+              <button onClick={() => setIsNewTenantFormOpen(false)} className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer">
                 ✕
               </button>
             </div>
 
             <form onSubmit={handleCreateTenant} className="space-y-4 text-xs font-semibold">
               
-              <div className="space-y-1.5">
-                <span className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">DÉTAILS COMPAGNIE</span>
-                <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-2">
+                <span className="text-xs font-bold text-stone-800 block">Détails compagnie</span>
+                <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[9px] text-slate-600 block">Raison sociale *</label>
+                    <label className="text-xs text-stone-600 block">Raison sociale *</label>
                     <input 
                       type="text" 
                       required 
                       placeholder="Ex: Atelier Fanta Couture" 
                       value={newRaison}
                       onChange={(e) => setNewRaison(e.target.value)}
-                      className="w-full bg-white border border-black p-2 rounded-none"
+                      className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] p-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[9px] text-slate-600 block">Secteur d'activité</label>
+                    <label className="text-xs text-stone-600 block">Secteur d'activité</label>
                     <input 
                       type="text" 
                       placeholder="Ex: Broderie, Prêt-à-porter" 
                       value={newSecteur}
                       onChange={(e) => setNewSecteur(e.target.value)}
-                      className="w-full bg-white border border-black p-2 rounded-none"
+                      className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] p-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     />
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[9px] text-slate-600 block">Adresse physique</label>
+                  <label className="text-xs text-stone-600 block">Adresse physique</label>
                   <input 
                     type="text" 
                     placeholder="Ex: Rue 12, Plateau, Abidjan" 
                     value={newAdresse}
                     onChange={(e) => setNewAdresse(e.target.value)}
-                    className="w-full bg-white border border-black p-2 rounded-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] p-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   />
                 </div>
               </div>
 
-              <div className="space-y-1.5 border-t border-black/10 pt-3">
-                <span className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">PREMIER COMPTE ADMINISTRATEUR (TENANT)</span>
+              <div className="space-y-2 border-t border-stone-100 pt-3">
+                <span className="text-xs font-bold text-stone-800 block">Premier compte administrateur (Tenant)</span>
                 <div className="space-y-1">
-                  <label className="text-[9px] text-slate-600 block">Nom du gérant principal</label>
+                  <label className="text-xs text-stone-600 block">Nom du gérant principal</label>
                   <input 
                     type="text" 
                     placeholder="Ex: Fanta Sylla" 
                     value={newAdminNom}
                     onChange={(e) => setNewAdminNom(e.target.value)}
-                    className="w-full bg-white border border-black p-2 rounded-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] p-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[9px] text-slate-600 block">Adresse Email *</label>
+                    <label className="text-xs text-stone-600 block">Adresse Email *</label>
                     <input 
                       type="email" 
                       required 
                       placeholder="fanta@couture.ci" 
                       value={newAdminEmail}
                       onChange={(e) => setNewAdminEmail(e.target.value)}
-                      className="w-full bg-white border border-black p-2 rounded-none"
+                      className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] p-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-[9px] text-slate-600 block">Mot de Passe *</label>
+                    <label className="text-xs text-stone-600 block">Mot de Passe *</label>
                     <input 
                       type="password" 
                       required 
                       placeholder="••••••••" 
                       value={newAdminPass}
                       onChange={(e) => setNewAdminPass(e.target.value)}
-                      className="w-full bg-white border border-black p-2 rounded-none"
+                      className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] p-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-1 bg-slate-50 p-3 border border-slate-300">
-                <label className="text-[9px] font-black uppercase tracking-wider text-slate-700 block">Formule d'Onboarding</label>
+              <div className="space-y-1 bg-[#FBF8F3] p-3 rounded-2xl border border-stone-200/80">
+                <label className="text-xs font-bold text-stone-800 block">Formule d'Onboarding</label>
                 <select
                   value={newFormule}
                   onChange={(e) => setNewFormule(e.target.value as FormuleSaaS)}
-                  className="w-full bg-white border border-black p-2 rounded-none font-bold"
+                  className="w-full bg-white border border-stone-200/80 rounded-xl p-2.5 text-xs font-semibold text-stone-900 focus:outline-none"
                 >
                   <option value="essai">Période d'Essai Gratuit (15 jours)</option>
                   <option value="mensuel">Abonnement Mensuel actif ({pricing.mensuel} FCFA)</option>
@@ -890,19 +890,19 @@ export default function SuperAdminSection() {
                 </select>
               </div>
 
-              <div className="flex justify-end gap-3 pt-3 border-t border-slate-200">
+              <div className="flex justify-end gap-3 pt-3 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsNewTenantFormOpen(false)}
-                  className="px-4 py-2 border border-black hover:bg-slate-100 uppercase text-[10px] tracking-widest font-bold cursor-pointer"
+                  className="px-4 py-2.5 rounded-xl border border-stone-200/80 text-stone-700 hover:bg-stone-50 text-xs font-semibold cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-black hover:bg-zinc-800 text-white hover:text-white border-2 border-black font-black uppercase text-[10px] tracking-widest cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                  className="btn-fox-primary text-xs !py-2.5 !px-5"
                 >
-                  CRÉER L'ESPACE
+                  Créer l'espace
                 </button>
               </div>
 

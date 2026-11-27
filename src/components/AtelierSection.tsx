@@ -144,41 +144,41 @@ export default function AtelierSection() {
                         </div>
 
                         {/* Client name */}
-                        <div className="flex items-center gap-2 text-xs text-slate-950 bg-atelier-beige p-2 rounded-none border border-black">
-                          <div className={`w-6 h-6 rounded-none border border-black flex items-center justify-center font-black font-display text-[10px] ${client?.avatarColor}`}>
+                        <div className="flex items-center gap-2 text-xs text-stone-900 bg-white p-2 rounded-xl border border-stone-200/80">
+                          <div className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] text-white ${client?.avatarColor || 'bg-stone-800'}`}>
                             {client ? `${client.prenom[0]}${client.nom[0]}` : '??'}
                           </div>
-                          <span className="font-black uppercase tracking-wider text-[10px]">{client ? `${client.prenom} ${client.nom}` : 'Client'}</span>
+                          <span className="font-semibold text-xs text-stone-800">{client ? `${client.prenom} ${client.nom}` : 'Client'}</span>
                         </div>
 
                         {/* Progress Bar */}
                         <div className="space-y-1">
-                          <div className="flex justify-between text-[9px] text-slate-500 font-mono font-black uppercase tracking-widest">
+                          <div className="flex justify-between text-[11px] text-stone-500 font-medium">
                             <span>Avancement</span>
-                            <span>{percent}%</span>
+                            <span className="font-bold text-stone-700">{percent}%</span>
                           </div>
-                          <div className="h-3 w-full bg-slate-100 rounded-none border border-black overflow-hidden">
+                          <div className="h-2 w-full bg-stone-200/70 rounded-full overflow-hidden">
                             <div 
                               style={{ width: `${percent}%` }} 
-                              className={`h-full rounded-none transition-all duration-300 ${
-                                percent === 100 ? 'bg-emerald-500' : 'bg-atelier-gold'
+                              className={`h-full rounded-full transition-all duration-300 ${
+                                percent === 100 ? 'bg-emerald-500' : 'bg-[#F05A22]'
                               }`}
                             ></div>
                           </div>
                         </div>
 
                         {/* Interactive Steps Tick List */}
-                        <div className="pt-2 border-t-2 border-black space-y-2">
-                          <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest block">Étapes de fabrication :</span>
+                        <div className="pt-2 border-t border-stone-200/60 space-y-2">
+                          <span className="text-xs font-semibold text-stone-600 block">Étapes de fabrication :</span>
                           <div className="grid grid-cols-2 gap-1.5">
                             {order.etapesProduction.map(step => {
                               return (
                                 <div
                                   key={step.id}
-                                  className={`p-1.5 rounded-none border border-black flex flex-col justify-between h-[64px] transition-all ${
-                                    step.statut === 'termine' ? 'bg-emerald-600 text-white' :
-                                    step.statut === 'en_cours' ? 'bg-indigo-600 text-white animate-pulse' :
-                                    'bg-white text-slate-500 hover:bg-slate-50'
+                                  className={`p-2 rounded-xl border flex flex-col justify-between h-[68px] transition-all ${
+                                    step.statut === 'termine' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' :
+                                    step.statut === 'en_cours' ? 'bg-orange-50 border-orange-200 text-[#F05A22]' :
+                                    'bg-white border-stone-200/80 text-stone-600 hover:border-stone-300'
                                   }`}
                                 >
                                   {/* Status Trigger Click Area */}
@@ -194,8 +194,8 @@ export default function AtelierSection() {
                                     title="Changer le statut de l'étape"
                                   >
                                     <div className="flex items-center justify-between">
-                                      <span className="capitalize block font-black leading-none truncate max-w-[80px] text-[9px]">{step.libelle}</span>
-                                      <span className="text-[7px] opacity-75 font-mono">
+                                      <span className="capitalize block font-bold leading-none truncate max-w-[80px] text-xs">{step.libelle}</span>
+                                      <span className="text-[10px] opacity-75 font-mono">
                                         {step.statut === 'termine' ? '✓' : step.statut === 'en_cours' ? '●' : '○'}
                                       </span>
                                     </div>
@@ -208,16 +208,16 @@ export default function AtelierSection() {
                                     onChange={(e) => {
                                       updateEtapeProduction(order.id, step.id, { responsableId: e.target.value });
                                     }}
-                                    className={`text-[8px] font-black uppercase tracking-tight bg-transparent focus:outline-none w-full border-t border-dotted mt-1 pt-0.5 outline-none ${
+                                    className={`text-[10px] font-medium bg-transparent focus:outline-none w-full border-t border-stone-200/60 mt-1 pt-1 outline-none ${
                                       step.statut === 'termine' || step.statut === 'en_cours'
-                                        ? 'text-white border-white/30'
-                                        : 'text-slate-800 border-slate-300'
+                                        ? 'text-stone-800 border-stone-300'
+                                        : 'text-stone-600 border-stone-200'
                                     }`}
                                   >
-                                    <option value="" className="text-slate-950 font-sans">NON ASSIGNÉ</option>
+                                    <option value="" className="text-stone-800 font-sans">Non assigné</option>
                                     {employes.filter(e => e.statut === 'actif').map(emp => (
-                                      <option key={emp.id} value={emp.id} className="text-slate-950 font-sans text-[10px]">
-                                        {emp.prenom.toUpperCase()}
+                                      <option key={emp.id} value={emp.id} className="text-stone-800 font-sans text-xs">
+                                        {emp.prenom}
                                       </option>
                                     ))}
                                   </select>
@@ -228,8 +228,8 @@ export default function AtelierSection() {
                         </div>
 
                         {/* Fast forward transition controls */}
-                        <div className="pt-2 border-t-2 border-black flex items-center justify-between text-xs text-slate-500">
-                          <span className="flex items-center gap-1 font-mono font-black text-[9px] uppercase tracking-wider">
+                        <div className="pt-2.5 border-t border-stone-200/60 flex items-center justify-between text-xs text-stone-500">
+                          <span className="flex items-center gap-1 font-mono text-[11px] text-stone-500">
                             Échéance: {order.delaiLivraison ? order.delaiLivraison.split('-').reverse().slice(0, 2).join('/') : 'N/A'}
                           </span>
                           
@@ -237,37 +237,37 @@ export default function AtelierSection() {
                             {(order.statut === 'attente' || order.statut === 'devis' || order.statut === 'confirmee' || order.statut === 'en_coupe') && (
                               <button 
                                 onClick={() => updateCommandeStatut(order.id, 'en_assemblage')}
-                                className="px-2 py-1 bg-atelier-gold text-slate-950 hover:bg-black hover:text-white border border-black rounded-none font-black text-[9px] uppercase tracking-widest flex items-center gap-0.5 cursor-pointer"
+                                className="px-2.5 py-1 bg-orange-50 text-[#F05A22] hover:bg-[#F05A22] hover:text-white border border-orange-200/80 rounded-lg font-semibold text-xs flex items-center gap-0.5 cursor-pointer transition"
                                 title="Passer en couture / assemblage"
                               >
-                                Couture <ChevronRight className="h-2.5 w-2.5" />
+                                Couture <ChevronRight className="h-3 w-3" />
                               </button>
                             )}
                             {(order.statut === 'production' || order.statut === 'en_assemblage') && (
                               <button 
                                 onClick={() => updateCommandeStatut(order.id, 'essayage')}
-                                className="px-2 py-1 bg-indigo-600 text-white hover:bg-black border border-black rounded-none font-black text-[9px] uppercase tracking-widest flex items-center gap-0.5 cursor-pointer"
+                                className="px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white border border-blue-200/80 rounded-lg font-semibold text-xs flex items-center gap-0.5 cursor-pointer transition"
                                 title="Convoquer pour essayage"
                               >
-                                Essayage <ChevronRight className="h-2.5 w-2.5" />
+                                Essayage <ChevronRight className="h-3 w-3" />
                               </button>
                             )}
                             {order.statut === 'essayage' && (
                               <button 
                                 onClick={() => updateCommandeStatut(order.id, 'pret')}
-                                className="px-2 py-1 bg-emerald-600 text-white hover:bg-black border border-black rounded-none font-black text-[9px] uppercase tracking-widest flex items-center gap-0.5 cursor-pointer"
+                                className="px-2.5 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white border border-emerald-200/80 rounded-lg font-semibold text-xs flex items-center gap-0.5 cursor-pointer transition"
                                 title="Confection validée et prête pour retrait"
                               >
-                                Prêt <ChevronRight className="h-2.5 w-2.5" />
+                                Prêt <ChevronRight className="h-3 w-3" />
                               </button>
                             )}
                             {order.statut === 'pret' && (
                               <button 
                                 onClick={() => updateCommandeStatut(order.id, 'livre')}
-                                className="px-2 py-1 bg-black text-white hover:bg-emerald-600 border border-black rounded-none font-black text-[9px] uppercase tracking-widest flex items-center gap-0.5 cursor-pointer"
+                                className="px-2.5 py-1 bg-stone-900 text-white hover:bg-emerald-600 rounded-lg font-semibold text-xs flex items-center gap-0.5 cursor-pointer transition"
                                 title="Marquer comme livré au client"
                               >
-                                Livré <ChevronRight className="h-2.5 w-2.5" />
+                                Livré <ChevronRight className="h-3 w-3" />
                               </button>
                             )}
                           </div>
@@ -276,9 +276,9 @@ export default function AtelierSection() {
                     );
                   })
                 ) : (
-                  <div className="text-center py-12 text-slate-500 border border-dashed border-black rounded-none bg-white">
-                    <HelpCircle className="h-8 w-8 mx-auto mb-2 opacity-60" />
-                    <p className="text-xs font-black uppercase tracking-widest">Aucun vêtement à ce stade</p>
+                  <div className="text-center py-12 text-stone-400 border border-dashed border-stone-200/80 rounded-2xl bg-white">
+                    <HelpCircle className="h-8 w-8 mx-auto mb-2 opacity-60 text-stone-300" />
+                    <p className="text-xs font-semibold text-stone-500">Aucun vêtement à ce stade</p>
                   </div>
                 )}
               </div>

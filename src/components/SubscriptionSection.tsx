@@ -227,33 +227,33 @@ L'Atelier Haute Couture sur Nuage.
   return (
     <div className="space-y-8">
       {/* Visual Identity Title */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <div className="card-fox p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Abonnement de l'Atelier</span>
-          <h2 className="text-xl font-black uppercase tracking-tight text-slate-900 flex items-center gap-2 mt-1 font-display">
-            <Building className="h-6 w-6 text-atelier-gold-dark" /> {activeTenant.raisonSociale}
+          <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Abonnement de l'Atelier</span>
+          <h2 className="text-xl font-bold text-stone-900 flex items-center gap-2 mt-1">
+            <Building className="h-5 w-5 text-[#F05A22]" /> {activeTenant.raisonSociale}
           </h2>
-          <p className="text-xs text-slate-500 mt-1 font-serif italic">{activeTenant.secteur} — {activeTenant.adresse}</p>
+          <p className="text-xs text-stone-500 mt-0.5">{activeTenant.secteur} — {activeTenant.adresse}</p>
         </div>
         <div className="flex items-center gap-2">
           {activeTenant.statut === 'actif' && (
-            <span className="px-3 py-1.5 bg-emerald-100 text-emerald-800 border border-emerald-500 font-bold uppercase tracking-widest text-[9px] flex items-center gap-1">
-              <CheckCircle className="h-3.5 w-3.5" /> ABONNEMENT ACTIF
+            <span className="px-3 py-1.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full font-semibold text-xs flex items-center gap-1.5">
+              <CheckCircle className="h-3.5 w-3.5 text-emerald-600" /> Abonnement actif
             </span>
           )}
           {activeTenant.statut === 'essai' && (
-            <span className="px-3 py-1.5 bg-amber-50 text-amber-800 border border-amber-500 font-bold uppercase tracking-widest text-[9px] flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5" /> ESSAI GRATUIT : {diffDays} JOURS RESTANTS
+            <span className="px-3 py-1.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-full font-semibold text-xs flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5 text-amber-600" /> Essai gratuit : {diffDays} jours restants
             </span>
           )}
           {activeTenant.statut === 'suspendu' && (
-            <span className="px-3 py-1.5 bg-rose-100 text-rose-800 border border-rose-500 font-bold uppercase tracking-widest text-[9px] flex items-center gap-1">
-              <AlertTriangle className="h-3.5 w-3.5 animate-bounce" /> ACCÈS RESTREINT (SUSPENDU)
+            <span className="px-3 py-1.5 bg-rose-50 text-rose-800 border border-rose-200 rounded-full font-semibold text-xs flex items-center gap-1.5">
+              <AlertTriangle className="h-3.5 w-3.5 text-rose-600 animate-bounce" /> Accès restreint
             </span>
           )}
           {activeTenant.statut === 'resilie' && (
-            <span className="px-3 py-1.5 bg-slate-100 text-slate-800 border border-slate-500 font-bold uppercase tracking-widest text-[9px] flex items-center gap-1">
-              <ShieldAlert className="h-3.5 w-3.5" /> ABONNEMENT RÉSILIÉ
+            <span className="px-3 py-1.5 bg-stone-100 text-stone-800 border border-stone-200 rounded-full font-semibold text-xs flex items-center gap-1.5">
+              <ShieldAlert className="h-3.5 w-3.5 text-stone-500" /> Abonnement résilié
             </span>
           )}
         </div>
@@ -261,12 +261,12 @@ L'Atelier Haute Couture sur Nuage.
 
       {/* Subscription Warnings / Suspended Screens */}
       {isExpired && (
-        <div className="bg-rose-50 p-6 border-2 border-rose-600 space-y-4 animate-pulse">
+        <div className="bg-rose-50 p-6 rounded-3xl border border-rose-200 space-y-4">
           <div className="flex gap-3">
-            <AlertTriangle className="h-8 w-8 text-rose-600 flex-shrink-0" />
+            <AlertTriangle className="h-7 w-7 text-rose-600 flex-shrink-0" />
             <div>
-              <h4 className="font-black text-rose-950 uppercase text-xs tracking-wider">Période d'essai expirée ou paiement manquant !</h4>
-              <p className="text-xs text-rose-800 font-serif mt-1">
+              <h4 className="font-bold text-rose-950 text-sm">Période d'essai expirée ou paiement manquant !</h4>
+              <p className="text-xs text-rose-800 mt-1 leading-relaxed">
                 L'accès complet de votre atelier <strong>{activeTenant.raisonSociale}</strong> a été restreint. Afin de continuer à enregistrer vos clients, modifier les fiches de mesures, ou planifier les essayages, veuillez souscrire à une formule payante ci-dessous.
               </p>
             </div>
@@ -276,9 +276,9 @@ L'Atelier Haute Couture sur Nuage.
               setPaymentPeriod('mensuel');
               setIsPayModalOpen(true);
             }}
-            className="w-full sm:w-auto px-6 py-3 bg-rose-600 text-white font-black uppercase text-[10px] tracking-widest border-2 border-black hover:bg-black transition cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+            className="btn-fox-primary"
           >
-            S'ABONNER MAINTENANT (À PARTIR DE 7000 FCFA)
+            S'abonner maintenant (à partir de 4 000 FCFA)
           </button>
         </div>
       )}
@@ -287,74 +287,74 @@ L'Atelier Haute Couture sur Nuage.
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Core Subscription state card */}
-        <div className="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4 lg:col-span-2">
-          <h3 className="text-xs font-black uppercase tracking-widest text-slate-950 border-b border-black pb-2">Formule de Facturation</h3>
+        <div className="card-fox p-6 space-y-5 lg:col-span-2">
+          <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3">Formule de Facturation</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             
             {/* Current details */}
-            <div className="space-y-3 bg-slate-50 p-4 border border-slate-300">
-              <span className="text-[9px] uppercase tracking-wider text-slate-400 font-bold block">DÉTAILS ACTUELS</span>
+            <div className="space-y-3 bg-[#FBF8F3] p-4.5 rounded-2xl border border-stone-200/70">
+              <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold block">Détails actuels</span>
               
-              <div className="space-y-1">
-                <span className="text-xs text-slate-600 block">Formule active :</span>
-                <span className="text-sm font-black uppercase text-slate-900 block font-mono">
+              <div className="space-y-0.5">
+                <span className="text-xs text-stone-500 block">Formule active :</span>
+                <span className="text-sm font-bold text-stone-900 block font-mono">
                   {activeTenant.formule === 'essai' ? 'Essai gratuit 15 jours' : activeTenant.formule === 'annuel' ? 'Abonnement Annuel' : 'Abonnement Mensuel'}
                 </span>
               </div>
 
-              <div className="space-y-1">
-                <span className="text-xs text-slate-600 block">Prochaine échéance :</span>
-                <span className="text-sm font-black text-slate-900 block font-mono flex items-center gap-1.5">
-                  <Calendar className="h-4 w-4 text-slate-600" /> {activeTenant.dateExpiration}
+              <div className="space-y-0.5">
+                <span className="text-xs text-stone-500 block">Prochaine échéance :</span>
+                <span className="text-sm font-bold text-stone-900 block font-mono flex items-center gap-1.5">
+                  <Calendar className="h-4 w-4 text-[#F05A22]" /> {activeTenant.dateExpiration}
                   {diffDays > 0 && (
-                    <span className="text-[9px] font-bold text-slate-500 italic">({diffDays} jours)</span>
+                    <span className="text-xs text-stone-500 font-normal">({diffDays} jours)</span>
                   )}
                 </span>
               </div>
 
-              <div className="space-y-1">
-                <span className="text-xs text-slate-600 block">Date d'inscription :</span>
-                <span className="text-xs text-slate-700 block font-mono">{activeTenant.dateInscription}</span>
+              <div className="space-y-0.5">
+                <span className="text-xs text-stone-500 block">Date d'inscription :</span>
+                <span className="text-xs text-stone-700 block font-mono">{activeTenant.dateInscription}</span>
               </div>
             </div>
 
             {/* Quick Actions */}
-            <div className="flex flex-col justify-between p-4 border-2 border-dashed border-black">
-              <span className="text-[9px] uppercase tracking-wider text-slate-400 font-bold block">ACTIONS RAPIDES</span>
+            <div className="flex flex-col justify-between p-4.5 rounded-2xl border border-dashed border-stone-300 bg-white">
+              <span className="text-[10px] uppercase tracking-wider text-stone-400 font-bold block">Actions rapides</span>
               
               <div className="space-y-2 mt-4 md:mt-0">
                 <button
                   onClick={() => setIsPayModalOpen(true)}
-                  className="w-full px-4 py-2.5 bg-black text-white hover:bg-atelier-gold hover:text-black border-2 border-black font-black uppercase text-[10px] tracking-widest transition cursor-pointer flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                  className="btn-fox-primary !w-full !py-2.5 flex items-center justify-center gap-1.5"
                 >
-                  <Wallet className="h-4 w-4" /> RECHARGER / PAYER
+                  <Wallet className="h-4 w-4" /> Recharger / Payer
                 </button>
 
                 {activeTenant.statut === 'essai' && (
                   <button
                     onClick={handleExtendTrial}
                     disabled={hasRequestedExtension}
-                    className="w-full px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black border-2 border-black font-black uppercase text-[9px] tracking-widest transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] disabled:shadow-none"
+                    className="w-full px-4 py-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-xl font-semibold text-xs transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
                   >
-                    <RefreshCw className="h-3 w-3" />
-                    {hasRequestedExtension ? 'EXTENSION UTILISÉE' : "EXTENDEZ L'ESSAI (+7J)"}
+                    <RefreshCw className="h-3.5 w-3.5" />
+                    {hasRequestedExtension ? 'Extension déjà utilisée' : "Étendre l'essai (+7 jours)"}
                   </button>
                 )}
 
                 {activeTenant.formule === 'mensuel' && (
                   <button
                     onClick={() => handleChangeFormuleDirect('annuel')}
-                    className="w-full px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-400 font-bold uppercase text-[9px] tracking-widest transition cursor-pointer"
+                    className="w-full px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl font-semibold text-xs transition cursor-pointer"
                   >
-                    Passer à l'Annuel (Économisez 10 000 FCFA)
+                    Passer à l'Annuel (Économisez 20 000 FCFA)
                   </button>
                 )}
 
                 {activeTenant.formule === 'annuel' && (
                   <button
                     onClick={() => handleChangeFormuleDirect('mensuel')}
-                    className="w-full px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-400 font-bold uppercase text-[9px] tracking-widest transition cursor-pointer"
+                    className="w-full px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl font-semibold text-xs transition cursor-pointer"
                   >
                     Repasser au Mensuel
                   </button>
@@ -362,9 +362,9 @@ L'Atelier Haute Couture sur Nuage.
 
                 <button
                   onClick={handleResilier}
-                  className="w-full text-center text-rose-600 hover:text-rose-800 font-black uppercase text-[9px] tracking-widest cursor-pointer underline hover:no-underline pt-2"
+                  className="w-full text-center text-rose-600 hover:text-rose-800 font-semibold text-xs cursor-pointer underline hover:no-underline pt-1"
                 >
-                  Résilier l'Abonnement
+                  Résilier l'abonnement
                 </button>
               </div>
             </div>
@@ -373,11 +373,11 @@ L'Atelier Haute Couture sur Nuage.
         </div>
 
         {/* Pricing Guide Panel */}
-        <div className="bg-slate-900 text-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between">
+        <div className="bg-[#191716] text-[#FAF8F5] p-6 rounded-3xl flex flex-col justify-between">
           <div className="space-y-4">
-            <div className="flex items-center gap-2 border-b border-zinc-800 pb-2">
-              <Sparkles className="h-5 w-5 text-atelier-gold" />
-              <h3 className="text-xs font-black uppercase tracking-widest text-white">Formules Atelier (CDC)</h3>
+            <div className="flex items-center gap-2 border-b border-stone-800 pb-3">
+              <Sparkles className="h-5 w-5 text-[#F05A22]" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-stone-200">Formules Fox Couture</h3>
             </div>
             
             <div className="space-y-3">
@@ -387,13 +387,13 @@ L'Atelier Haute Couture sur Nuage.
                   setSelectedTier('essentiel');
                   setIsPayModalOpen(true);
                 }}
-                className={`p-3 border-2 cursor-pointer transition ${selectedTier === 'essentiel' ? 'border-atelier-gold bg-zinc-950' : 'border-zinc-800 bg-zinc-950/60 hover:border-zinc-700'}`}
+                className={`p-3.5 rounded-2xl border cursor-pointer transition ${selectedTier === 'essentiel' ? 'border-[#F05A22] bg-stone-900' : 'border-stone-800 bg-stone-900/60 hover:border-stone-700'}`}
               >
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-200">Essentiel</span>
-                  <span className="font-mono text-sm font-black text-white">4 000 FCFA <span className="text-[10px] font-normal text-zinc-400">/mois</span></span>
+                  <span className="text-xs font-bold text-stone-200">Essentiel</span>
+                  <span className="font-mono text-sm font-bold text-white">4 000 FCFA <span className="text-xs font-normal text-stone-400">/mois</span></span>
                 </div>
-                <p className="text-[10px] text-zinc-400 font-serif italic mt-1">Tailleur indépendant, clients illimités & WhatsApp standard.</p>
+                <p className="text-xs text-stone-400 mt-1">Tailleur indépendant, clients illimités & WhatsApp standard.</p>
               </div>
 
               {/* Pro */}
@@ -402,33 +402,33 @@ L'Atelier Haute Couture sur Nuage.
                   setSelectedTier('pro');
                   setIsPayModalOpen(true);
                 }}
-                className="p-3 bg-atelier-gold text-slate-950 border-2 border-black rounded-none relative overflow-hidden cursor-pointer hover:bg-yellow-400 transition"
+                className="p-3.5 bg-[#F05A22] text-white rounded-2xl relative overflow-hidden cursor-pointer hover:bg-[#d94e1b] transition shadow-md"
               >
-                <div className="absolute top-0 right-0 bg-red-600 text-white font-black uppercase text-[8px] px-2 py-0.5 tracking-wider shadow-sm">
-                  RECOMMANDÉ
+                <div className="absolute top-2 right-2 bg-white text-[#F05A22] font-bold text-[9px] px-2 py-0.5 rounded-full">
+                  Recommandé
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-black uppercase tracking-wider text-slate-900">Pro Atelier</span>
-                  <span className="font-mono text-sm font-black text-slate-950">10 000 FCFA <span className="text-[10px] font-normal text-slate-800">/mois</span></span>
+                <div className="flex justify-between items-center pr-20">
+                  <span className="text-xs font-bold">Pro Atelier</span>
+                  <span className="font-mono text-sm font-bold">10 000 FCFA <span className="text-xs font-normal opacity-90">/mois</span></span>
                 </div>
-                <p className="text-[10px] text-slate-900 font-serif font-bold mt-1 flex items-center gap-1">
-                  Multi-utilisateurs (Chef, Couturier, Coupeur, Vendeur), Caisse & Trésorerie Wave/OM, Alertes stock.
+                <p className="text-xs opacity-90 mt-1 leading-relaxed">
+                  Multi-utilisateurs (Tailleur, Coupeur, Caisse), Caisse tactile Wave/OM & Alertes stock.
                 </p>
               </div>
 
               {/* Entreprise */}
-              <div className="p-3 bg-zinc-950 border border-zinc-800 text-zinc-300">
+              <div className="p-3.5 bg-stone-900 border border-stone-800 rounded-2xl text-stone-300">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-300">Entreprise</span>
-                  <span className="font-mono text-xs font-black text-atelier-gold">Sur Devis</span>
+                  <span className="text-xs font-bold text-stone-300">Entreprise</span>
+                  <span className="font-mono text-xs font-bold text-[#F05A22]">Sur devis</span>
                 </div>
-                <p className="text-[10px] text-zinc-500 font-serif italic mt-1">Réseau multi-boutiques & support WhatsApp dédié 7j/7.</p>
+                <p className="text-xs text-stone-500 mt-1">Réseau multi-boutiques & support WhatsApp dédié 7j/7.</p>
               </div>
             </div>
           </div>
 
-          <div className="text-[10px] text-zinc-400 pt-4 font-serif leading-relaxed">
-            Note: Paiement instantané via Wave, Orange Money ou virement. Aucune carte bancaire obligatoire.
+          <div className="text-xs text-stone-400 pt-4 leading-relaxed">
+            Note: Paiement instantané via Wave, Orange Money ou Espèces. Aucune carte bancaire obligatoire.
           </div>
         </div>
 
@@ -466,30 +466,30 @@ L'Atelier Haute Couture sur Nuage.
           </div>
 
           {/* 2. Essentiel */}
-          <div className="border-2 border-slate-900 p-4 flex flex-col justify-between bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-            <div className="space-y-3">
-              <span className="text-[9px] font-black uppercase tracking-widest text-blue-800 bg-blue-100 px-2 py-0.5">SOLO / INDÉPENDANT</span>
+          <div className="card-fox rounded-3xl p-6 shadow-card flex flex-col justify-between">
+            <div className="space-y-3.5">
+              <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">Solo / Indépendant</span>
               <div>
-                <h4 className="text-base font-black text-slate-900">4 000 FCFA <span className="text-[10px] font-normal text-slate-500">/mois</span></h4>
-                <span className="text-[10px] text-slate-500 font-mono">ou 40 000 FCFA/an (-2 mois)</span>
+                <h4 className="text-xl font-bold text-stone-900">4 000 FCFA <span className="text-xs font-normal text-stone-500">/mois</span></h4>
+                <span className="text-xs text-stone-500 font-medium">ou 40 000 FCFA/an (-2 mois)</span>
               </div>
-              <p className="text-[11px] text-slate-600 font-serif">Idéal pour le tailleur artisan travaillant seul dans son atelier.</p>
-              <ul className="text-xs space-y-1.5 text-slate-700 pt-2 border-t border-slate-200">
-                <li>✓ Clients & Mesures illimités</li>
-                <li>✓ WhatsApp-First (reçus & avis)</li>
-                <li>✓ Gestion des commandes & devis</li>
-                <li>✓ Alertes essayages</li>
-                <li className="text-slate-400">✗ Gestion d'équipe d'atelier</li>
-                <li className="text-slate-400">✗ Caisse & stocks avancés</li>
+              <p className="text-xs text-stone-600">Idéal pour le tailleur artisan travaillant seul dans son atelier.</p>
+              <ul className="text-xs space-y-2 text-stone-700 pt-3 border-t border-stone-100">
+                <li className="flex items-center gap-2">✓ Clients & Mesures illimités</li>
+                <li className="flex items-center gap-2">✓ WhatsApp direct (reçus & avis)</li>
+                <li className="flex items-center gap-2">✓ Gestion des commandes & devis</li>
+                <li className="flex items-center gap-2">✓ Alertes essayages</li>
+                <li className="text-stone-400 flex items-center gap-2">✗ Multi-utilisateurs</li>
+                <li className="text-stone-400 flex items-center gap-2">✗ Caisse & stocks avancés</li>
               </ul>
             </div>
-            <div className="pt-4">
+            <div className="pt-5">
               <button
                 onClick={() => {
                   setSelectedTier('essentiel');
                   setIsPayModalOpen(true);
                 }}
-                className="w-full py-2 bg-black hover:bg-slate-800 text-white font-black uppercase text-[10px] tracking-wider cursor-pointer border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                className="w-full py-2.5 bg-white hover:bg-stone-50 text-stone-800 font-semibold text-xs rounded-xl border border-stone-200/80 transition cursor-pointer shadow-xs"
               >
                 Choisir Essentiel
               </button>
@@ -497,33 +497,33 @@ L'Atelier Haute Couture sur Nuage.
           </div>
 
           {/* 3. Pro */}
-          <div className="border-2 border-black p-4 flex flex-col justify-between bg-amber-50 relative shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <div className="absolute -top-3 right-3 bg-red-600 text-white font-black uppercase text-[8px] px-2 py-0.5 tracking-wider shadow">
-              LE PLUS POPULAIRE
+          <div className="card-fox rounded-3xl p-6 shadow-card flex flex-col justify-between relative border-2 border-[#F05A22]">
+            <div className="absolute -top-3 right-4 bg-[#F05A22] text-white font-semibold text-[10px] px-3 py-0.5 rounded-full shadow-xs">
+              Le plus populaire
             </div>
-            <div className="space-y-3">
-              <span className="text-[9px] font-black uppercase tracking-widest text-amber-900 bg-atelier-gold px-2 py-0.5">ATELIER & ÉQUIPE</span>
+            <div className="space-y-3.5">
+              <span className="text-[11px] font-semibold text-[#F05A22] bg-[#FDF4EE] px-2.5 py-0.5 rounded-full border border-[#F05A22]/20">Atelier & Équipe</span>
               <div>
-                <h4 className="text-base font-black text-slate-900">10 000 FCFA <span className="text-[10px] font-normal text-slate-500">/mois</span></h4>
-                <span className="text-[10px] text-emerald-700 font-mono font-bold">ou 100 000 FCFA/an (-2 mois)</span>
+                <h4 className="text-xl font-bold text-stone-900">10 000 FCFA <span className="text-xs font-normal text-stone-500">/mois</span></h4>
+                <span className="text-xs text-emerald-600 font-semibold">ou 100 000 FCFA/an (-2 mois offerts)</span>
               </div>
-              <p className="text-[11px] text-slate-700 font-serif font-medium">Pour l'atelier avec couturiers, chef d'atelier et vendeurs.</p>
-              <ul className="text-xs space-y-1.5 text-slate-800 pt-2 border-t border-amber-300">
-                <li>✓ Tout Essentiel inclus</li>
-                <li>✓ <strong>Multi-utilisateurs</strong> (5 rôles)</li>
-                <li>✓ <strong>Caisse Journalière</strong> & Wave/OM</li>
-                <li>✓ <strong>Gestion Stocks</strong> bazin, fils</li>
-                <li>✓ Tableaux de bord & Retards</li>
-                <li>✓ Synchronisation Cloud Supabase</li>
+              <p className="text-xs text-stone-600">Pour l'atelier avec couturiers, chef d'atelier et vendeurs.</p>
+              <ul className="text-xs space-y-2 text-stone-800 pt-3 border-t border-stone-100">
+                <li className="flex items-center gap-2 font-medium">✓ Tout Essentiel inclus</li>
+                <li className="flex items-center gap-2">✓ Multi-utilisateurs (5 rôles)</li>
+                <li className="flex items-center gap-2">✓ Caisse tactile & Wave/OM</li>
+                <li className="flex items-center gap-2">✓ Gestion stocks bazin & fils</li>
+                <li className="flex items-center gap-2">✓ Tableaux de bord & Relances</li>
+                <li className="flex items-center gap-2">✓ Synchronisation sécurisée</li>
               </ul>
             </div>
-            <div className="pt-4">
+            <div className="pt-5">
               <button
                 onClick={() => {
                   setSelectedTier('pro');
                   setIsPayModalOpen(true);
                 }}
-                className="w-full py-2 bg-atelier-gold hover:bg-yellow-400 text-black font-black uppercase text-[10px] tracking-wider cursor-pointer border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                className="w-full py-2.5 btn-fox-primary text-xs font-semibold rounded-xl cursor-pointer"
               >
                 Activer Formule Pro ★
               </button>
@@ -531,27 +531,27 @@ L'Atelier Haute Couture sur Nuage.
           </div>
 
           {/* 4. Entreprise */}
-          <div className="border-2 border-slate-900 p-4 flex flex-col justify-between bg-slate-900 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-            <div className="space-y-3">
-              <span className="text-[9px] font-black uppercase tracking-widest text-zinc-900 bg-zinc-200 px-2 py-0.5">RÉSEAU MULTI-SITES</span>
-              <h4 className="text-base font-black text-atelier-gold">Sur Devis</h4>
-              <p className="text-[11px] text-zinc-300 font-serif">Réseaux d'ateliers, franchises & maisons de haute couture internationales.</p>
-              <ul className="text-xs space-y-1.5 text-zinc-300 pt-2 border-t border-zinc-700">
-                <li>✓ Multi-ateliers isolés</li>
-                <li>✓ Support WhatsApp dédié 7j/7</li>
-                <li>✓ Formation de l'équipe sur place</li>
-                <li>✓ Migration & catalogue sur-mesure</li>
-                <li>✓ SLA & Déploiement personnalisé</li>
+          <div className="bg-[#161412] text-white rounded-3xl p-6 shadow-card flex flex-col justify-between">
+            <div className="space-y-3.5">
+              <span className="text-[11px] font-semibold text-stone-300 bg-stone-800 px-2.5 py-0.5 rounded-full border border-stone-700">Réseau multi-ateliers</span>
+              <h4 className="text-xl font-bold text-[#F05A22]">Sur Devis</h4>
+              <p className="text-xs text-stone-300">Réseaux d'ateliers, franchises & maisons de couture internationales.</p>
+              <ul className="text-xs space-y-2 text-stone-300 pt-3 border-t border-stone-800">
+                <li className="flex items-center gap-2">✓ Multi-ateliers isolés</li>
+                <li className="flex items-center gap-2">✓ Support WhatsApp prioritaire 7j/7</li>
+                <li className="flex items-center gap-2">✓ Formation équipe sur place</li>
+                <li className="flex items-center gap-2">✓ Catalogue & migration sur-mesure</li>
+                <li className="flex items-center gap-2">✓ SLA personnalisé</li>
               </ul>
             </div>
-            <div className="pt-4">
+            <div className="pt-5">
               <a
                 href="https://wa.me/221770000000?text=Bonjour%20Tech%20Fox%2C%20je%20souhaite%20un%20devis%20pour%20la%20formule%20Entreprise%20FoxCouture"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full block text-center py-2 bg-white hover:bg-zinc-200 text-black font-black uppercase text-[10px] tracking-wider cursor-pointer border border-white"
+                className="w-full block text-center py-2.5 bg-white hover:bg-stone-100 text-stone-900 font-semibold text-xs rounded-xl transition cursor-pointer shadow-xs"
               >
-                Demander un Devis WhatsApp
+                Demander un devis WhatsApp
               </a>
             </div>
           </div>
@@ -560,43 +560,45 @@ L'Atelier Haute Couture sur Nuage.
       </div>
 
       {/* Transaction History Log */}
-      <div className="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
-        <h3 className="text-xs font-black uppercase tracking-widest text-slate-950 border-b border-black pb-2 flex items-center justify-between">
-          <span>Historique des Paiements SaaS</span>
-          <span className="text-[10px] font-mono text-slate-500 font-normal">({activeTenant.paiements.length} transactions)</span>
-        </h3>
+      <div className="card-fox rounded-3xl p-6 shadow-card space-y-4">
+        <div className="border-b border-stone-100 pb-3 flex items-center justify-between">
+          <h3 className="text-base font-semibold text-stone-900">
+            Historique des paiements d'abonnement
+          </h3>
+          <span className="text-xs text-stone-500 font-medium">({activeTenant.paiements.length} transaction{activeTenant.paiements.length > 1 ? 's' : ''})</span>
+        </div>
 
         {activeTenant.paiements.length > 0 ? (
-          <div className="overflow-x-auto">
+          <div className="rounded-2xl border border-stone-200/80 overflow-hidden bg-white">
             <table className="w-full text-left text-xs">
-              <thead>
-                <tr className="border-b-2 border-black bg-slate-50">
-                  <th className="p-3 font-black uppercase tracking-wider">Date</th>
-                  <th className="p-3 font-black uppercase tracking-wider">Référence</th>
-                  <th className="p-3 font-black uppercase tracking-wider">Facture</th>
-                  <th className="p-3 font-black uppercase tracking-wider">Moyen</th>
-                  <th className="p-3 font-black uppercase tracking-wider">Montant</th>
-                  <th className="p-3 font-black uppercase tracking-wider text-center">Reçu</th>
+              <thead className="bg-[#FBF8F3] text-stone-500 font-semibold text-[11px] border-b border-stone-200/80">
+                <tr>
+                  <th className="p-3.5">Date</th>
+                  <th className="p-3.5">Référence</th>
+                  <th className="p-3.5">Facture</th>
+                  <th className="p-3.5">Moyen</th>
+                  <th className="p-3.5">Montant</th>
+                  <th className="p-3.5 text-center">Reçu</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-black/10">
+              <tbody className="divide-y divide-stone-100">
                 {activeTenant.paiements.map((pay) => (
-                  <tr key={pay.id} className="hover:bg-slate-50/50">
-                    <td className="p-3 font-mono">{pay.date}</td>
-                    <td className="p-3 font-mono font-bold text-slate-900">{pay.reference}</td>
-                    <td className="p-3 font-mono">{pay.factureNumero}</td>
-                    <td className="p-3 uppercase">
-                      <span className="px-2 py-0.5 border border-slate-300 text-[10px] font-bold tracking-widest bg-slate-100 text-slate-700">
+                  <tr key={pay.id} className="hover:bg-stone-50/70 transition">
+                    <td className="p-3.5 text-stone-600">{pay.date}</td>
+                    <td className="p-3.5 font-semibold text-stone-900">{pay.reference}</td>
+                    <td className="p-3.5 text-stone-600">#{pay.factureNumero}</td>
+                    <td className="p-3.5">
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#FBF8F3] text-stone-700 border border-stone-200/80">
                         {pay.moyen.replace('_', ' ')}
                       </span>
                     </td>
-                    <td className="p-3 font-mono font-black text-slate-900">{pay.montant} FCFA</td>
-                    <td className="p-3 text-center">
+                    <td className="p-3.5 font-bold text-stone-900">{pay.montant} FCFA</td>
+                    <td className="p-3.5 text-center">
                       <button
                         onClick={() => handleDownloadReceipt(pay)}
-                        className="p-1.5 hover:bg-slate-200 border border-slate-300 rounded-none text-slate-700 cursor-pointer transition flex items-center gap-1 mx-auto text-[10px] font-bold"
+                        className="py-1 px-3 hover:bg-stone-50 border border-stone-200/80 rounded-xl text-stone-700 cursor-pointer transition inline-flex items-center gap-1.5 text-xs font-semibold shadow-xs"
                       >
-                        <Download className="h-3 w-3" /> Télécharger
+                        <Download className="h-3.5 w-3.5 text-[#F05A22]" /> Télécharger
                       </button>
                     </td>
                   </tr>
@@ -605,7 +607,7 @@ L'Atelier Haute Couture sur Nuage.
             </table>
           </div>
         ) : (
-          <div className="text-center py-8 text-slate-500 font-serif italic text-xs">
+          <div className="text-center py-10 rounded-2xl border border-dashed border-stone-200 bg-[#FBF8F3] text-stone-500 text-xs">
             Aucun paiement enregistré pour l'instant. Vous êtes actuellement en période d'essai gratuit.
           </div>
         )}
@@ -613,14 +615,14 @@ L'Atelier Haute Couture sur Nuage.
 
       {/* MODAL / BOTTOM SHEET FOR PAYMENT SIMULATION */}
       {isPayModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] w-full max-w-lg p-6 space-y-6 animate-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="card-fox rounded-3xl border border-stone-200/80 shadow-2xl w-full max-w-lg p-6 space-y-5 animate-in zoom-in-95 duration-150">
             
-            <div className="flex justify-between items-start border-b-2 border-black pb-3">
+            <div className="flex justify-between items-start border-b border-stone-100 pb-3">
               <div>
-                <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 block">SIMULATION DE TRANSACTION</span>
-                <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 font-display">
-                  S'abonner à FOX COUTURE
+                <span className="text-[10px] font-semibold text-stone-500 block mb-0.5">Activation immédiate</span>
+                <h3 className="text-base font-semibold text-stone-900">
+                  S'abonner à Fox Couture
                 </h3>
               </div>
               <button 
@@ -628,19 +630,19 @@ L'Atelier Haute Couture sur Nuage.
                   setIsPayModalOpen(false);
                   setPaymentSuccess(false);
                 }}
-                className="p-1 border border-black hover:bg-slate-100 cursor-pointer"
+                className="p-1.5 text-stone-400 hover:text-stone-700 rounded-full hover:bg-stone-100 transition cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             {paymentSuccess ? (
-              <div className="space-y-4 text-center py-4">
-                <CheckCircle className="h-12 w-12 text-emerald-600 mx-auto animate-bounce" />
-                <h4 className="font-black uppercase text-sm text-slate-950">Paiement Validé avec Succès !</h4>
-                <p className="text-xs font-serif text-slate-600 max-w-md mx-auto">
-                  Votre transaction pour la formule <strong>{TIER_PRICES[selectedTier].nom}</strong> ({paymentPeriod === 'mensuel' ? 'Mensuel' : 'Annuel'}) d'un montant de <strong>{getPlanPrice()} FCFA</strong> a été enregistrée avec succès sous la référence <strong>{generatedRef}</strong>.
-                  Votre atelier est désormais <strong>ACTIF</strong>.
+              <div className="space-y-4 text-center py-5">
+                <CheckCircle className="h-12 w-12 text-emerald-600 mx-auto" />
+                <h4 className="font-semibold text-base text-stone-900">Paiement validé avec succès !</h4>
+                <p className="text-xs text-stone-600 max-w-md mx-auto leading-relaxed">
+                  Votre transaction pour la formule <strong>{TIER_PRICES[selectedTier].nom}</strong> ({paymentPeriod === 'mensuel' ? 'Mensuel' : 'Annuel'}) d'un montant de <strong>{getPlanPrice()} FCFA</strong> a été enregistrée sous la référence <strong>{generatedRef}</strong>.
+                  Votre atelier est désormais <strong>Actif</strong>.
                 </p>
                 <div className="pt-2">
                   <button
@@ -648,9 +650,9 @@ L'Atelier Haute Couture sur Nuage.
                       setIsPayModalOpen(false);
                       setPaymentSuccess(false);
                     }}
-                    className="px-6 py-2 bg-black text-white hover:bg-zinc-800 font-black uppercase text-[10px] tracking-widest border-2 border-black cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                    className="px-6 py-2.5 btn-fox-primary text-xs font-semibold rounded-xl cursor-pointer"
                   >
-                    FERMER LE GUICHET
+                    Fermer et continuer
                   </button>
                 </div>
               </div>
@@ -660,11 +662,11 @@ L'Atelier Haute Couture sur Nuage.
                 {/* Mode and Pricing Selection */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">FORMULE</label>
+                    <label className="text-xs font-semibold text-stone-700 block">Formule</label>
                     <select
                       value={selectedTier}
                       onChange={(e) => setSelectedTier(e.target.value as any)}
-                      className="w-full bg-white border-2 border-black p-2 rounded-none font-bold"
+                      className="w-full bg-[#FBF8F3] border border-stone-200/80 p-2.5 rounded-xl text-xs text-stone-800 font-medium focus:outline-hidden focus:border-[#F05A22]"
                     >
                       <option value="essentiel">Essentiel (4k / mois)</option>
                       <option value="pro">Pro Atelier (10k / mois)</option>
@@ -672,11 +674,11 @@ L'Atelier Haute Couture sur Nuage.
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">PÉRIODE</label>
+                    <label className="text-xs font-semibold text-stone-700 block">Période</label>
                     <select
                       value={paymentPeriod}
                       onChange={(e) => setPaymentPeriod(e.target.value as any)}
-                      className="w-full bg-white border-2 border-black p-2 rounded-none font-bold"
+                      className="w-full bg-[#FBF8F3] border border-stone-200/80 p-2.5 rounded-xl text-xs text-stone-800 font-medium focus:outline-hidden focus:border-[#F05A22]"
                     >
                       <option value="mensuel">Mensuel ({TIER_PRICES[selectedTier].mensuel} FCFA)</option>
                       <option value="annuel">Annuel ({TIER_PRICES[selectedTier].annuel} FCFA - 2 mois offerts)</option>
@@ -684,14 +686,14 @@ L'Atelier Haute Couture sur Nuage.
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">MOYEN DE PAIEMENT</label>
+                    <label className="text-xs font-semibold text-stone-700 block">Moyen de paiement</label>
                     <select
                       value={paymentMoyen}
                       onChange={(e) => setPaymentMoyen(e.target.value as any)}
-                      className="w-full bg-white border-2 border-black p-2 rounded-none font-bold"
+                      className="w-full bg-[#FBF8F3] border border-stone-200/80 p-2.5 rounded-xl text-xs text-stone-800 font-medium focus:outline-hidden focus:border-[#F05A22]"
                     >
                       <option value="mobile_money">Wave / Orange Money</option>
-                      <option value="carte">Carte Bancaire (VISA / Mastercard)</option>
+                      <option value="carte">Carte Bancaire (CB)</option>
                       <option value="virement">Virement Bancaire</option>
                     </select>
                   </div>
@@ -699,53 +701,53 @@ L'Atelier Haute Couture sur Nuage.
 
                 {/* Simulated Field Input based on Mode */}
                 {paymentMoyen === 'mobile_money' && (
-                  <div className="space-y-1.5 bg-slate-50 p-4 border border-slate-300">
-                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-700 block">NUMÉRO MOBILE MONEY</label>
+                  <div className="space-y-1.5 bg-[#FBF8F3] p-3.5 rounded-2xl border border-stone-200/60">
+                    <label className="text-xs font-semibold text-stone-700 block">Numéro Mobile Money</label>
                     <input
                       type="tel"
                       required
                       placeholder="+221 77 123 45 67"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full bg-white border border-black p-2 rounded-none font-mono font-bold"
+                      className="w-full bg-white border border-stone-200/80 p-2.5 rounded-xl text-xs font-semibold text-stone-900 focus:outline-hidden focus:border-[#F05A22]"
                     />
-                    <span className="text-[9px] text-slate-500 italic font-serif">Saisissez votre numéro pour recevoir l'invite de validation de paiement.</span>
+                    <span className="text-[11px] text-stone-500 font-normal">Saisissez votre numéro pour recevoir l'invite de validation sur votre téléphone.</span>
                   </div>
                 )}
 
                 {paymentMoyen === 'carte' && (
-                  <div className="space-y-3 bg-slate-50 p-4 border border-slate-300">
+                  <div className="space-y-3 bg-[#FBF8F3] p-3.5 rounded-2xl border border-stone-200/60">
                     <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-700 block">NUMÉRO DE CARTE</label>
+                      <label className="text-xs font-semibold text-stone-700 block">Numéro de carte</label>
                       <input
                         type="text"
                         required
                         placeholder="4242 4242 4242 4242"
                         value={cardNumber}
                         onChange={(e) => setCardNumber(e.target.value)}
-                        className="w-full bg-white border border-black p-2 rounded-none font-mono"
+                        className="w-full bg-white border border-stone-200/80 p-2.5 rounded-xl text-xs font-medium text-stone-900 focus:outline-hidden focus:border-[#F05A22]"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div className="space-y-1">
-                        <label className="text-[9px] font-black uppercase text-slate-700">TITULAIRE</label>
+                        <label className="text-[11px] font-semibold text-stone-700">Titulaire</label>
                         <input
                           type="text"
                           required
                           placeholder="Nom complet"
                           value={cardHolder}
                           onChange={(e) => setCardHolder(e.target.value)}
-                          className="w-full bg-white border border-black p-2 rounded-none uppercase text-[10px]"
+                          className="w-full bg-white border border-stone-200/80 p-2 rounded-xl text-xs font-medium"
                         />
                       </div>
                       <div className="grid grid-cols-2 gap-1.5">
                         <div className="space-y-1">
-                          <label className="text-[9px] font-black uppercase text-slate-700">EXP</label>
-                          <input type="text" required placeholder="MM/AA" className="w-full bg-white border border-black p-2 rounded-none font-mono text-[10px] text-center" />
+                          <label className="text-[11px] font-semibold text-stone-700">Expiration</label>
+                          <input type="text" required placeholder="MM/AA" className="w-full bg-white border border-stone-200/80 p-2 rounded-xl text-xs text-center font-medium" />
                         </div>
                         <div className="space-y-1">
-                          <label className="text-[9px] font-black uppercase text-slate-700">CVC</label>
-                          <input type="password" required maxLength={3} placeholder="•••" className="w-full bg-white border border-black p-2 rounded-none font-mono text-[10px] text-center" />
+                          <label className="text-[11px] font-semibold text-stone-700">CVC</label>
+                          <input type="password" required maxLength={3} placeholder="•••" className="w-full bg-white border border-stone-200/80 p-2 rounded-xl text-xs text-center font-medium" />
                         </div>
                       </div>
                     </div>
@@ -753,70 +755,70 @@ L'Atelier Haute Couture sur Nuage.
                 )}
 
                 {paymentMoyen === 'virement' && (
-                  <div className="bg-amber-50 p-4 border border-amber-300 space-y-2">
-                    <p className="text-[10px] font-serif italic text-amber-900 leading-relaxed">
-                      Pour régler par virement, effectuez l'envoi vers le compte de la plateforme (FOX SAAS) :
-                      <br /><strong className="font-mono">IBAN: SN92 3000 1000 4567 8901 2345 67</strong>
-                      <br />Indiquez le nom de votre société comme référence. Dès validation, votre espace est automatiquement rechargé.
+                  <div className="bg-amber-50 p-3.5 rounded-2xl border border-amber-200/60 space-y-2">
+                    <p className="text-xs text-amber-900 leading-relaxed font-normal">
+                      Effectuez le virement vers le compte bancaire Fox Couture :
+                      <br /><strong className="font-mono font-semibold">IBAN: SN92 3000 1000 4567 8901 2345 67</strong>
+                      <br />Indiquez le nom de votre atelier comme référence de paiement.
                     </p>
                     <div className="space-y-1">
-                      <label className="text-[10px] font-black uppercase tracking-wider text-slate-700 block">RÉFÉRENCE DE LA PREUVE DE VIREMENT</label>
+                      <label className="text-xs font-semibold text-stone-700 block">Référence de virement</label>
                       <input
                         type="text"
                         required
                         placeholder="REF-VIR-XXXXXX"
-                        className="w-full bg-white border border-black p-2 rounded-none font-mono font-bold"
+                        className="w-full bg-white border border-stone-200/80 p-2.5 rounded-xl text-xs font-medium text-stone-900"
                       />
                     </div>
                   </div>
                 )}
 
                 {/* Code Promo Block */}
-                <div className="space-y-1 bg-slate-50 p-3 border border-slate-300">
-                  <label className="text-[10px] font-black uppercase tracking-wider text-slate-700 block">Code Promo / Réduction</label>
+                <div className="space-y-1 bg-[#FBF8F3] p-3 rounded-2xl border border-stone-200/60">
+                  <label className="text-xs font-semibold text-stone-700 block">Code Promo / Réduction</label>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       placeholder="Ex: BIENVENUE15, VIP50"
                       value={promoInput}
                       onChange={(e) => setPromoInput(e.target.value)}
-                      className="flex-1 bg-white border border-black p-1.5 rounded-none font-mono text-[11px] uppercase"
+                      className="flex-1 bg-white border border-stone-200/80 p-2 rounded-xl text-xs font-medium uppercase"
                     />
                     <button
                       type="button"
                       onClick={handleApplyPromo}
-                      className="px-3 py-1.5 bg-black text-white hover:bg-atelier-gold hover:text-black font-black uppercase text-[9px] tracking-wider border border-black transition cursor-pointer"
+                      className="px-3.5 py-2 bg-[#161412] hover:bg-stone-800 text-white font-semibold text-xs rounded-xl transition cursor-pointer"
                     >
                       Appliquer
                     </button>
                   </div>
                   {appliedPromo && (
-                    <span className="text-[10px] text-emerald-600 font-bold block mt-1">
+                    <span className="text-[11px] text-emerald-600 font-semibold block mt-1">
                       ✓ Code {appliedPromo} appliqué (-{promoDiscount * 100}%) !
                     </span>
                   )}
                   {promoError && (
-                    <span className="text-[10px] text-rose-600 font-bold block mt-1">
+                    <span className="text-[11px] text-rose-600 font-semibold block mt-1">
                       ✗ {promoError}
                     </span>
                   )}
                 </div>
 
-                <div className="pt-2 flex justify-between items-center border-t border-slate-200">
+                <div className="pt-2 flex justify-between items-center border-t border-stone-100">
                   <div className="flex flex-col">
-                    <span className="text-[10px] text-slate-400 uppercase font-black">Total à débiter</span>
-                    <span className="text-xs text-slate-600">
+                    <span className="text-xs text-stone-400 font-medium">Total à débiter</span>
+                    <span className="text-xs text-stone-600">
                       {promoDiscount > 0 ? (
                         <>
-                          <span className="line-through text-slate-400 mr-1.5 font-mono">
+                          <span className="line-through text-stone-400 mr-1.5 font-medium">
                             {paymentPeriod === 'mensuel' ? TIER_PRICES[selectedTier].mensuel : TIER_PRICES[selectedTier].annuel} FCFA
                           </span>
-                          <strong className="font-mono text-emerald-600 text-sm">
+                          <strong className="text-emerald-600 text-sm font-bold">
                             {getPlanPrice()} FCFA
                           </strong>
                         </>
                       ) : (
-                        <strong className="font-mono text-slate-900 text-sm">
+                        <strong className="text-stone-900 text-sm font-bold">
                           {getPlanPrice()} FCFA
                         </strong>
                       )}
@@ -825,15 +827,15 @@ L'Atelier Haute Couture sur Nuage.
                   <button
                     type="submit"
                     disabled={isProcessing}
-                    className="px-6 py-3 bg-black text-white hover:bg-atelier-gold hover:text-black border-2 border-black font-black uppercase text-[10px] tracking-widest transition cursor-pointer flex items-center gap-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] disabled:opacity-50"
+                    className="px-6 py-2.5 btn-fox-primary text-xs font-semibold rounded-xl transition cursor-pointer flex items-center gap-2 disabled:opacity-50"
                   >
                     {isProcessing ? (
                       <>
-                        <RefreshCw className="h-3.5 w-3.5 animate-spin" /> SÉCURISATION...
+                        <RefreshCw className="h-4 w-4 animate-spin" /> Traitement...
                       </>
                     ) : (
                       <>
-                        <CheckCircle className="h-4 w-4" /> CONFIRMER LE RÈGLEMENT
+                        <CheckCircle className="h-4 w-4" /> Confirmer le règlement
                       </>
                     )}
                   </button>

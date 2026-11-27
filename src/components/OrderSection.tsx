@@ -60,6 +60,31 @@ export default function OrderSection() {
     return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`;
   };
 
+  const getStatusBadge = (statut: StatutCommande) => {
+    switch (statut) {
+      case 'attente':
+      case 'devis':
+        return { label: 'En attente', bg: 'bg-stone-100 text-stone-700 border-stone-200' };
+      case 'confirmee':
+        return { label: 'Confirmée', bg: 'bg-blue-50 text-blue-700 border-blue-200' };
+      case 'en_coupe':
+        return { label: 'En coupe', bg: 'bg-purple-50 text-purple-700 border-purple-200' };
+      case 'en_assemblage':
+      case 'production':
+        return { label: 'En couture', bg: 'bg-amber-50 text-amber-700 border-amber-200' };
+      case 'essayage':
+        return { label: 'Essayage', bg: 'bg-orange-50 text-orange-700 border-orange-200' };
+      case 'pret':
+        return { label: 'Prête', bg: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
+      case 'livre':
+        return { label: 'Livrée', bg: 'bg-teal-50 text-teal-700 border-teal-200' };
+      case 'annule':
+        return { label: 'Annulée', bg: 'bg-rose-50 text-rose-700 border-rose-200' };
+      default:
+        return { label: statut, bg: 'bg-stone-100 text-stone-700 border-stone-200' };
+    }
+  };
+
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<StatutCommande | 'all'>('all');
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(commandes[0]?.id || null);
@@ -513,6 +538,7 @@ export default function OrderSection() {
           {filteredOrders.length > 0 ? (
             filteredOrders.map(order => {
               const client = clients.find(c => c.id === order.clientId);
+              const badge = getStatusBadge(order.statut);
               
               return (
                 <div 
@@ -521,42 +547,33 @@ export default function OrderSection() {
                     setSelectedOrderId(order.id);
                     setActiveMobileView('detail');
                   }}
-                  className={`p-4 flex flex-col gap-2.5 cursor-pointer transition ${
-                    selectedOrderId === order.id ? 'bg-atelier-beige border-l-4 border-black' : 'hover:bg-slate-50'
+                  className={`p-4 flex flex-col gap-2 cursor-pointer transition ${
+                    selectedOrderId === order.id ? 'bg-[#FDF4EE] border-l-4 border-[#F05A22]' : 'hover:bg-stone-50/70'
                   }`}
                 >
                   <div className="flex justify-between items-start">
-                    <span className="text-xs font-mono font-black text-slate-600">
+                    <span className="text-xs font-mono font-semibold text-stone-500">
                       {order.reference}
                     </span>
-                    <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-none border border-black ${
-                      order.statut === 'attente' ? 'bg-white text-slate-700' :
-                      order.statut === 'production' ? 'bg-indigo-600 text-white' :
-                      order.statut === 'pret' ? 'bg-atelier-gold text-slate-950' :
-                      order.statut === 'livre' ? 'bg-emerald-600 text-white' :
-                      'bg-rose-600 text-white'
-                    }`}>
-                      {order.statut === 'attente' ? 'En attente' :
-                       order.statut === 'production' ? 'En atelier' :
-                       order.statut === 'pret' ? 'Prêt !' :
-                       order.statut === 'livre' ? 'Livré' : 'Annulé'}
+                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${badge.bg}`}>
+                      {badge.label}
                     </span>
                   </div>
 
                   <div>
-                    <h4 className="text-xs font-black uppercase tracking-wider text-slate-950 font-display">
+                    <h4 className="text-xs font-bold text-stone-900 line-clamp-1">
                       {order.modeleNom}
                     </h4>
-                    <p className="text-xs text-slate-600 mt-1 flex items-center gap-1 font-mono uppercase">
-                      <User className="h-3 w-3 inline text-black" /> {client ? `${client.prenom} ${client.nom}` : 'Client inconnu'}
+                    <p className="text-xs text-stone-600 mt-0.5 flex items-center gap-1.5 font-medium">
+                      <User className="h-3 w-3 text-stone-400" /> {client ? `${client.prenom} ${client.nom}` : 'Client inconnu'}
                     </p>
                   </div>
 
-                  <div className="flex justify-between items-center text-xs text-slate-600 mt-1 font-mono pt-2 border-t border-dashed border-black/45">
+                  <div className="flex justify-between items-center text-xs text-stone-500 mt-1 pt-2 border-t border-stone-200/60 font-medium">
                     <span className="flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5 text-black" /> {order.delaiLivraison.split('-').reverse().join('/')}
+                      <Calendar className="h-3.5 w-3.5 text-stone-400" /> {order.delaiLivraison.split('-').reverse().join('/')}
                     </span>
-                    <strong className="text-slate-950 font-black font-mono">
+                    <strong className="text-stone-900 font-bold font-mono">
                       {formatFCFA(order.montantTotal)}
                     </strong>
                   </div>
@@ -564,9 +581,9 @@ export default function OrderSection() {
               );
             })
           ) : (
-            <div className="text-center py-12 text-slate-500 bg-slate-50">
-              <Scissors className="h-10 w-10 mx-auto mb-2 text-black opacity-60" />
-              <p className="text-xs font-black uppercase tracking-widest">Aucune commande répertoriée</p>
+            <div className="text-center py-12 text-stone-400">
+              <Scissors className="h-8 w-8 mx-auto mb-2 text-stone-300" />
+              <p className="text-xs font-medium">Aucune commande répertoriée</p>
             </div>
           )}
         </div>
@@ -582,42 +599,42 @@ export default function OrderSection() {
             <div className="block lg:hidden">
               <button
                 onClick={() => setActiveMobileView('list')}
-                className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 border-2 border-black rounded-none text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                className="w-full py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-800 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer transition-colors"
               >
                 ← Retour à la liste des commandes
               </button>
             </div>
             {/* Header detail */}
-            <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-6">
-              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-6 border-b-2 border-black">
+            <div className="card-fox p-6 space-y-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-6 border-b border-stone-100">
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="text-xs font-mono font-black bg-black text-atelier-gold px-2 py-1 rounded-none border border-black">
+                    <span className="text-xs font-mono font-bold bg-[#191716] text-[#FAF8F5] px-2.5 py-0.5 rounded-lg">
                       Réf: {selectedOrder.reference}
                     </span>
-                    <span className="text-[10px] text-slate-600 font-mono uppercase font-black">
+                    <span className="text-xs text-stone-500 font-medium">
                       Créée le {selectedOrder.dateCommande.split('-').reverse().join('/')}
                     </span>
                   </div>
-                  <h2 className="text-lg font-black uppercase tracking-tight text-slate-950 font-display">
+                  <h2 className="text-xl font-bold text-stone-900 tracking-tight">
                     {selectedOrder.modeleNom}
                   </h2>
                 </div>
 
                 {/* Change Status select */}
-                <div className="flex gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <button
                     onClick={printOrderAtelierSheet}
-                    className="p-2.5 rounded-none border-2 border-black text-slate-950 bg-white hover:bg-black hover:text-white transition cursor-pointer flex items-center justify-center"
+                    className="p-2 rounded-xl border border-stone-200 bg-white hover:bg-stone-50 text-stone-700 transition cursor-pointer flex items-center justify-center shadow-xs"
                     title="Imprimer la Fiche d'Atelier"
                   >
-                    <Printer className="h-4.5 w-4.5" />
+                    <Printer className="h-4 w-4" />
                   </button>
 
                   <select
                     value={selectedOrder.statut}
                     onChange={(e) => updateCommandeStatut(selectedOrder.id, e.target.value as StatutCommande)}
-                    className="bg-white text-slate-950 border-2 border-black rounded-none px-3 py-2 text-[10px] font-black uppercase tracking-widest focus:outline-none"
+                    className="bg-[#FBF8F3] text-stone-800 border border-stone-200/80 rounded-xl px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#F05A22] cursor-pointer"
                   >
                     <option value="devis">1. Devis</option>
                     <option value="confirmee">2. Confirmée</option>
@@ -636,7 +653,7 @@ export default function OrderSection() {
                         setSelectedOrderId(commandes.find(c => c.id !== selectedOrder.id)?.id || null);
                       }
                     }}
-                    className="px-3 py-2 bg-rose-600 text-white rounded-none border-2 border-black hover:bg-black hover:text-white transition font-black uppercase tracking-widest text-[9px] cursor-pointer"
+                    className="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-xl border border-rose-200 text-xs font-semibold transition cursor-pointer"
                     title="Supprimer la commande"
                   >
                     Supprimer
@@ -645,22 +662,22 @@ export default function OrderSection() {
               </div>
 
               {/* Grid Client, Fabric & Delivery Date */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-                <div className="flex flex-col p-4 bg-slate-50 border-2 border-black rounded-none">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 text-sm">
+                <div className="flex flex-col p-4.5 bg-[#FBF8F3] border border-stone-200/70 rounded-2xl justify-between">
                   <div className="flex items-start gap-3">
-                    <div className="p-2.5 rounded-none bg-black text-white border border-black mt-1">
-                      <User className="h-4.5 w-4.5 text-atelier-gold" />
+                    <div className="w-9 h-9 rounded-xl bg-[#191716] text-[#FAF8F5] flex items-center justify-center shrink-0 mt-0.5">
+                      <User className="h-4 w-4 text-[#F05A22]" />
                     </div>
                     <div>
-                      <span className="text-[9px] text-slate-600 uppercase font-black tracking-wider block">Client</span>
-                      <span className="font-black text-slate-950 font-display text-xs mt-0.5 block">
-                        {orderClient ? `${orderClient.prenom} ${orderClient.nom}`.toUpperCase() : 'CLIENT INCONNU'}
+                      <span className="text-[10px] font-semibold text-stone-400 block uppercase tracking-wider">Client</span>
+                      <span className="font-bold text-stone-900 text-xs mt-0.5 block">
+                        {orderClient ? `${orderClient.prenom} ${orderClient.nom}` : 'Client inconnu'}
                       </span>
-                      <span className="text-[10px] text-slate-600 font-mono mt-0.5 block">{orderClient?.telephone}</span>
+                      <span className="text-xs text-stone-500 font-mono mt-0.5 block">{orderClient?.telephone}</span>
                     </div>
                   </div>
                   {orderClient && (
-                    <div className="mt-3 pt-2 border-t border-black/10 flex flex-wrap gap-1.5">
+                    <div className="mt-3.5 pt-3 border-t border-stone-200/60 flex flex-wrap gap-1.5">
                       <a
                         href={buildWhatsAppLink(
                           orderClient.telephone,
@@ -677,11 +694,11 @@ export default function OrderSection() {
                         )}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex-1 text-center py-1.5 px-2 bg-white hover:bg-emerald-600 hover:text-white text-slate-950 text-[8px] font-black uppercase tracking-wider border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition inline-flex items-center justify-center gap-1 cursor-pointer"
+                        className="flex-1 text-center py-1.5 px-2 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-stone-800 text-[11px] font-semibold rounded-xl border border-stone-200/80 transition inline-flex items-center justify-center gap-1 cursor-pointer"
                         title="Envoyer le reçu de commande par WhatsApp"
                       >
-                        <MessageCircle className="h-3 w-3 text-emerald-600" />
-                        Reçu WhatsApp
+                        <MessageCircle className="h-3.5 w-3.5 text-emerald-600" />
+                        Reçu
                       </a>
                       <a
                         href={buildWhatsAppLink(
@@ -695,7 +712,7 @@ export default function OrderSection() {
                         )}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex-1 text-center py-1.5 px-2 bg-white hover:bg-atelier-gold text-slate-950 text-[8px] font-black uppercase tracking-wider border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition inline-flex items-center justify-center gap-1 cursor-pointer"
+                        className="flex-1 text-center py-1.5 px-2 bg-white hover:bg-orange-50 hover:border-orange-200 text-stone-800 text-[11px] font-semibold rounded-xl border border-stone-200/80 transition inline-flex items-center justify-center gap-1 cursor-pointer"
                         title="Inviter le client à l'essayage par WhatsApp"
                       >
                         👗 Essayage
@@ -713,7 +730,7 @@ export default function OrderSection() {
                         )}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex-1 text-center py-1.5 px-2 bg-white hover:bg-emerald-600 hover:text-white text-slate-950 text-[8px] font-black uppercase tracking-wider border border-black shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition inline-flex items-center justify-center gap-1 cursor-pointer"
+                        className="flex-1 text-center py-1.5 px-2 bg-white hover:bg-emerald-50 hover:border-emerald-300 text-stone-800 text-[11px] font-semibold rounded-xl border border-stone-200/80 transition inline-flex items-center justify-center gap-1 cursor-pointer"
                         title="Avertir que la commande est prête pour livraison par WhatsApp"
                       >
                         📦 Prêt
@@ -732,45 +749,45 @@ export default function OrderSection() {
                           )}
                           target="_blank"
                           rel="noreferrer"
-                          className="w-full text-center py-1.5 px-2 bg-amber-50 hover:bg-amber-500 hover:text-black text-amber-900 text-[8px] font-black uppercase tracking-wider border border-amber-600 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition inline-flex items-center justify-center gap-1 cursor-pointer mt-1"
+                          className="w-full text-center py-1.5 px-2.5 bg-[#FDF4EE] hover:bg-[#FEECE0] text-[#F05A22] text-[11px] font-semibold rounded-xl border border-[#F05A22]/30 transition inline-flex items-center justify-center gap-1 cursor-pointer mt-1"
                           title="Envoyer un rappel de solde restant dû par WhatsApp"
                         >
-                          💰 Relance Solde ({selectedOrder.soldeDu.toLocaleString('fr-FR')} F)
+                          💰 Relance Solde ({formatFCFA(selectedOrder.soldeDu)})
                         </a>
                       )}
                     </div>
                   )}
                 </div>
 
-                <div className="flex items-start gap-3 p-4 bg-slate-50 border-2 border-black rounded-none">
-                  <div className="p-2.5 rounded-none bg-black text-white border border-black mt-1">
-                    <BookOpen className="h-4.5 w-4.5 text-atelier-gold" />
+                <div className="flex items-start gap-3 p-4.5 bg-[#FBF8F3] border border-stone-200/70 rounded-2xl">
+                  <div className="w-9 h-9 rounded-xl bg-[#191716] text-[#FAF8F5] flex items-center justify-center shrink-0 mt-0.5">
+                    <BookOpen className="h-4 w-4 text-[#F05A22]" />
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-600 uppercase font-black tracking-wider block">Matière & Métrage</span>
-                    <span className="font-black text-slate-950 text-xs mt-0.5 block">
-                      {selectedOrder.tissuNom.toUpperCase()}
+                    <span className="text-[10px] font-semibold text-stone-400 block uppercase tracking-wider">Matière & Métrage</span>
+                    <span className="font-bold text-stone-900 text-xs mt-0.5 block">
+                      {selectedOrder.tissuNom}
                     </span>
-                    <span className="text-[10px] text-slate-600 font-mono mt-0.5 block">Métrage : {selectedOrder.metrageRequis} m</span>
+                    <span className="text-xs text-stone-500 font-mono mt-0.5 block">Métrage : {selectedOrder.metrageRequis} m</span>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-4 bg-slate-50 border-2 border-black rounded-none">
-                  <div className="p-2.5 rounded-none bg-black text-white border border-black mt-1">
-                    <Calendar className="h-4.5 w-4.5 text-atelier-gold" />
+                <div className="flex items-start gap-3 p-4.5 bg-[#FBF8F3] border border-stone-200/70 rounded-2xl">
+                  <div className="w-9 h-9 rounded-xl bg-[#191716] text-[#FAF8F5] flex items-center justify-center shrink-0 mt-0.5">
+                    <Calendar className="h-4 w-4 text-[#F05A22]" />
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-600 uppercase font-black tracking-wider block">Livraison Prévue</span>
-                    <span className="font-black text-slate-950 text-xs mt-0.5 block font-mono">
+                    <span className="text-[10px] font-semibold text-stone-400 block uppercase tracking-wider">Livraison Prévue</span>
+                    <span className="font-bold text-stone-900 text-xs mt-0.5 block font-mono">
                       {selectedOrder.delaiLivraison.split('-').reverse().join('/')}
                     </span>
                     {new Date(selectedOrder.delaiLivraison) < new Date() && selectedOrder.statut !== 'livre' ? (
-                      <span className="text-[8px] text-white bg-rose-600 border border-black font-black uppercase tracking-widest px-1.5 py-0.5 mt-1 inline-flex items-center gap-0.5">
-                        <AlertCircle className="h-3 w-3" /> RETARDÉ
+                      <span className="text-[10px] text-rose-700 bg-rose-50 border border-rose-200 font-semibold px-2 py-0.5 rounded-full mt-1.5 inline-flex items-center gap-1">
+                        <AlertCircle className="h-3 w-3" /> En retard
                       </span>
                     ) : (
-                      <span className="text-[8px] text-slate-950 bg-atelier-gold border border-black font-black uppercase tracking-widest px-1.5 py-0.5 mt-1 inline-block">
-                        À TEMPS
+                      <span className="text-[10px] text-emerald-700 bg-emerald-50 border border-emerald-200 font-semibold px-2 py-0.5 rounded-full mt-1.5 inline-block">
+                        À temps
                       </span>
                     )}
                   </div>
@@ -780,32 +797,32 @@ export default function OrderSection() {
 
             {/* Associated Accessories Display */}
             {selectedOrder.fournituresAssociees && selectedOrder.fournituresAssociees.length > 0 && (
-              <div className="bg-slate-50 border-2 border-black p-4 rounded-none space-y-3">
-                <h4 className="text-xs font-black uppercase tracking-widest text-slate-950 flex items-center gap-1.5 border-b border-black pb-2 font-display">
-                  <Scissors className="h-4 w-4" /> ACCESSOIRES & FOURNITURES ASSOCIÉS
+              <div className="bg-[#FBF8F3] border border-stone-200/80 p-5 rounded-2xl space-y-3">
+                <h4 className="text-xs font-bold text-stone-800 flex items-center gap-1.5 border-b border-stone-200 pb-2">
+                  <Scissors className="h-4 w-4 text-[#F05A22]" /> Accessoires & fournitures associés
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {selectedOrder.fournituresAssociees.map((supply, idx) => {
                     const item = tissus.find(t => t.id === supply.tissuId);
                     if (!item) return null;
                     return (
-                      <div key={idx} className="bg-white border-2 border-black p-2.5 flex justify-between items-center shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                      <div key={idx} className="bg-white border border-stone-200/80 rounded-xl p-3 flex justify-between items-center shadow-xs">
                         <div className="space-y-0.5 min-w-0">
-                          <span className="text-[8px] font-black uppercase bg-black text-atelier-gold px-1.5 py-0.5 inline-block rounded-none border border-black mb-1">
+                          <span className="text-[9px] font-semibold bg-stone-100 text-stone-700 px-1.5 py-0.5 inline-block rounded-md mb-1">
                             {item.categorie === 'bouton' ? 'Bouton' :
                              item.categorie === 'fermeture' ? 'Fermeture' :
                              item.categorie === 'fil' ? 'Fil' :
                              item.categorie === 'elastic' ? 'Élastique' : 'Accessoire'}
                           </span>
-                          <span className="text-xs font-black text-slate-950 block uppercase tracking-wide truncate">
+                          <span className="text-xs font-semibold text-stone-900 block truncate">
                             {item.designation}
                           </span>
-                          <span className="text-[9px] text-slate-500 font-mono block uppercase">
+                          <span className="text-[10px] text-stone-500 font-mono block">
                             Teinte : {item.couleur}
                           </span>
                         </div>
                         <div className="text-right shrink-0">
-                          <span className="text-xs font-mono font-black bg-slate-100 border-2 border-black px-2 py-1 inline-block text-slate-950 shadow-[1px_1px_0px_0px_rgba(0,0,0,1)]">
+                          <span className="text-xs font-mono font-bold bg-[#FBF8F3] border border-stone-200 px-2 py-1 inline-block rounded-lg text-stone-900">
                             {supply.quantite} {item.unite || 'pièces'}
                           </span>
                         </div>
@@ -817,22 +834,21 @@ export default function OrderSection() {
             )}
 
             {/* AI Custom Confection & Styling Guide Section */}
-            <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
-              <h3 className="text-sm font-black uppercase tracking-tight text-slate-950 border-b-2 border-black pb-3 font-display flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-atelier-gold-dark" /> NOTICE STYLISME & DIRECTION IA (FOX COUTURE)
+            <div className="card-fox p-6 space-y-4">
+              <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3 flex items-center gap-2">
+                <Sparkles className="h-4.5 w-4.5 text-[#F05A22]" /> Notice de stylisme & confection assistée par IA
               </h3>
 
               {aiAdvice[selectedOrder.id] ? (
-                <div className="bg-slate-50 p-5 rounded-none border-2 border-black space-y-4 relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-atelier-gold/10 rounded-full blur-3xl pointer-events-none"></div>
-                  <div className="flex justify-between items-center border-b-2 border-black pb-2">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-950 flex items-center gap-1.5">
-                      <Sparkles className="h-4 w-4 text-atelier-gold-dark animate-pulse" /> Recommandation Artistique & Technique
+                <div className="bg-[#FBF8F3] p-5 rounded-2xl border border-stone-200/80 space-y-4 relative overflow-hidden">
+                  <div className="flex justify-between items-center border-b border-stone-200 pb-2">
+                    <span className="text-xs font-semibold text-stone-900 flex items-center gap-1.5">
+                      <Sparkles className="h-4 w-4 text-[#F05A22]" /> Recommandation stylistique & technique
                     </span>
                     <button
                       onClick={() => handleFetchAiConfectionAdvice(selectedOrder)}
                       disabled={loadingAdvice[selectedOrder.id]}
-                      className="text-[9px] font-black uppercase tracking-widest text-slate-600 hover:text-black hover:underline cursor-pointer disabled:opacity-50"
+                      className="text-xs font-semibold text-stone-600 hover:text-[#F05A22] cursor-pointer disabled:opacity-50 transition"
                     >
                       {loadingAdvice[selectedOrder.id] ? 'Génération...' : 'Réanalyser'}
                     </button>
@@ -841,32 +857,32 @@ export default function OrderSection() {
                   {renderFormattedAdvice(aiAdvice[selectedOrder.id])}
                 </div>
               ) : (
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-atelier-beige/40 p-5 rounded-none border-2 border-dashed border-black">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#FBF8F3] p-5 rounded-2xl border border-stone-200/80">
                   <div className="space-y-1">
-                    <span className="text-xs font-black uppercase tracking-widest text-slate-900 flex items-center gap-1">
-                      <Sparkles className="h-4 w-4 text-atelier-gold-dark" /> Assistant de Direction Artistique
+                    <span className="text-xs font-bold text-stone-900 flex items-center gap-1.5">
+                      <Sparkles className="h-4 w-4 text-[#F05A22]" /> Assistant stylisme & coupe
                     </span>
-                    <p className="text-[11px] text-slate-600 font-serif italic max-w-xl">
-                      Générez une notice sur-mesure pour ce modèle : suggestions d'accessoires (boutons, doublures), spécificités techniques d'atelier pour le tissu {selectedOrder.tissuNom} et plan d'assemblage suggéré.
+                    <p className="text-xs text-stone-600 max-w-xl leading-relaxed">
+                      Générez une notice sur-mesure pour ce modèle : accessoires recommandés, particularités techniques d'assemblage pour le tissu {selectedOrder.tissuNom}.
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => handleFetchAiConfectionAdvice(selectedOrder)}
                     disabled={loadingAdvice[selectedOrder.id]}
-                    className="w-full md:w-auto px-4 py-2.5 bg-black text-white hover:bg-atelier-gold hover:text-black border-2 border-black rounded-none text-[10px] font-black uppercase tracking-widest transition flex items-center justify-center gap-1.5 cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] disabled:opacity-50"
+                    className="btn-fox-primary !py-2.5 !px-4 shrink-0"
                   >
                     {loadingAdvice[selectedOrder.id] ? (
                       <>
-                        <svg className="animate-spin -ml-1 mr-2 h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        GÉNÉRATION...
+                        Génération...
                       </>
                     ) : (
                       <>
-                        <Sparkles className="h-3.5 w-3.5" /> CRÉER DIRECTIVE IA
+                        <Sparkles className="h-4 w-4" /> Créer notice IA
                       </>
                     )}
                   </button>
@@ -875,41 +891,41 @@ export default function OrderSection() {
             </div>
 
             {/* Production steps section */}
-            <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-6">
-              <h3 className="text-sm font-black uppercase tracking-tight text-slate-950 border-b-2 border-black pb-3 font-display flex items-center gap-2">
-                <Layers className="h-5 w-5 text-black" /> ÉTAPES DE CONFECTION ATELIER
+            <div className="card-fox p-6 space-y-6">
+              <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3 flex items-center gap-2">
+                <Layers className="h-4.5 w-4.5 text-[#F05A22]" /> Étapes de confection en atelier
               </h3>
 
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {selectedOrder.etapesProduction.map((step, idx) => {
                   const tailor = employes.find(e => e.id === step.responsableId);
                   
                   return (
                     <div 
                       key={step.id} 
-                      className={`p-4 rounded-none flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-2 border-black ${
-                        step.statut === 'termine' ? 'bg-emerald-500/10' :
-                        step.statut === 'en_cours' ? 'bg-indigo-500/10' :
-                        'bg-slate-50'
+                      className={`p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border transition ${
+                        step.statut === 'termine' ? 'bg-emerald-50/50 border-emerald-200/80' :
+                        step.statut === 'en_cours' ? 'bg-[#FDF4EE] border-[#F05A22]/40' :
+                        'bg-[#FBF8F3] border-stone-200/70'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-none flex items-center justify-center font-black text-xs border-2 border-black ${
-                          step.statut === 'termine' ? 'bg-emerald-500 text-white' :
-                          step.statut === 'en_cours' ? 'bg-indigo-600 text-white animate-pulse' :
-                          'bg-white text-slate-950'
+                        <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs ${
+                          step.statut === 'termine' ? 'bg-emerald-600 text-white' :
+                          step.statut === 'en_cours' ? 'bg-[#F05A22] text-white animate-pulse' :
+                          'bg-stone-200 text-stone-700'
                         }`}>
                           {idx + 1}
                         </div>
                         <div>
-                          <h4 className="text-xs font-black uppercase tracking-widest text-slate-950">
-                            Étape {idx + 1} : {step.libelle}
+                          <h4 className="text-xs font-bold text-stone-900">
+                            {step.libelle}
                           </h4>
-                          <p className="text-[11px] text-slate-600 font-serif italic mt-0.5">
-                            Tailleur : <span className="font-sans font-black uppercase tracking-wider">{tailor ? `${tailor.prenom} ${tailor.nom}` : 'Non assigné'}</span>
+                          <p className="text-xs text-stone-500 mt-0.5">
+                            Tailleur : <span className="font-semibold text-stone-700">{tailor ? `${tailor.prenom} ${tailor.nom}` : 'Non assigné'}</span>
                           </p>
                           {(step.dateDebut || step.dateFin) && (
-                            <p className="text-[9px] text-slate-600 font-mono mt-1">
+                            <p className="text-[10px] text-stone-400 font-mono mt-0.5">
                               {step.dateDebut && `Début: ${step.dateDebut.split('-').reverse().join('/')}`}
                               {step.dateFin && ` | Fin: ${step.dateFin.split('-').reverse().join('/')}`}
                             </p>
@@ -922,8 +938,8 @@ export default function OrderSection() {
                         <button
                           type="button"
                           onClick={() => updateEtapeProduction(selectedOrder.id, step.id, { statut: 'a_faire' })}
-                          className={`px-2 py-1 rounded-none text-[9px] font-black uppercase tracking-widest cursor-pointer border-2 border-black ${
-                            step.statut === 'a_faire' ? 'bg-white text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' : 'bg-transparent text-slate-500 border-transparent hover:bg-slate-100'
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer transition ${
+                            step.statut === 'a_faire' ? 'bg-white text-stone-900 shadow-xs border border-stone-200' : 'text-stone-500 hover:text-stone-900'
                           }`}
                         >
                           À faire
@@ -931,8 +947,8 @@ export default function OrderSection() {
                         <button
                           type="button"
                           onClick={() => updateEtapeProduction(selectedOrder.id, step.id, { statut: 'en_cours' })}
-                          className={`px-2 py-1 rounded-none text-[9px] font-black uppercase tracking-widest cursor-pointer border-2 border-black ${
-                            step.statut === 'en_cours' ? 'bg-indigo-600 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border-black' : 'bg-transparent text-slate-500 border-transparent hover:bg-slate-100'
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer transition ${
+                            step.statut === 'en_cours' ? 'bg-[#F05A22] text-white shadow-xs' : 'text-stone-500 hover:text-stone-900'
                           }`}
                         >
                           En cours
@@ -940,8 +956,8 @@ export default function OrderSection() {
                         <button
                           type="button"
                           onClick={() => updateEtapeProduction(selectedOrder.id, step.id, { statut: 'termine' })}
-                          className={`px-2 py-1 rounded-none text-[9px] font-black uppercase tracking-widest cursor-pointer border-2 border-black ${
-                            step.statut === 'termine' ? 'bg-emerald-500 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] border-black' : 'bg-transparent text-slate-500 border-transparent hover:bg-slate-100'
+                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer transition ${
+                            step.statut === 'termine' ? 'bg-emerald-600 text-white shadow-xs' : 'text-stone-500 hover:text-stone-900'
                           }`}
                         >
                           Terminé
@@ -954,23 +970,23 @@ export default function OrderSection() {
             </div>
 
             {/* Financial summaries info */}
-            <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
-              <h3 className="text-sm font-black uppercase tracking-tight text-slate-950 border-b-2 border-black pb-3 font-display flex items-center gap-2">
-                <Coins className="h-5 w-5 text-black" /> RÈGLEMENT & FACTURATION
+            <div className="card-fox p-6 space-y-4">
+              <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3 flex items-center gap-2">
+                <Coins className="h-4.5 w-4.5 text-[#F05A22]" /> Règlement & facturation
               </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                <div className="bg-slate-50 p-4 border-2 border-black rounded-none">
-                  <span className="text-[10px] text-slate-600 font-black uppercase tracking-wider block">CONFECTION</span>
-                  <span className="text-base font-black text-slate-950 font-mono mt-1 block">{formatFCFA(selectedOrder.montantTotal)}</span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="bg-[#FBF8F3] p-4.5 rounded-2xl border border-stone-200/70">
+                  <span className="text-xs text-stone-500 font-semibold block">Montant Total</span>
+                  <span className="text-lg font-bold text-stone-900 font-mono mt-1 block">{formatFCFA(selectedOrder.montantTotal)}</span>
                 </div>
-                <div className="bg-emerald-50 p-4 border-2 border-black rounded-none">
-                  <span className="text-[10px] text-emerald-800 font-black uppercase tracking-wider block">ACOMPTES</span>
-                  <span className="text-base font-black text-emerald-950 font-mono mt-1 block">{formatFCFA(selectedOrder.acompteVerse)}</span>
+                <div className="bg-emerald-50/60 p-4.5 rounded-2xl border border-emerald-200/70">
+                  <span className="text-xs text-emerald-700 font-semibold block">Acompte versé</span>
+                  <span className="text-lg font-bold text-emerald-950 font-mono mt-1 block">{formatFCFA(selectedOrder.acompteVerse)}</span>
                 </div>
-                <div className={`${selectedOrder.soldeDu > 0 ? 'bg-rose-50 border-rose-600' : 'bg-emerald-50 border-emerald-600'} p-4 border-2 rounded-none`}>
-                  <span className="text-[10px] text-slate-600 font-black uppercase tracking-wider block">SOLDE RESTANT</span>
-                  <span className={`text-base font-black font-mono mt-1 block ${selectedOrder.soldeDu > 0 ? 'text-rose-600' : 'text-emerald-800'}`}>
+                <div className={`${selectedOrder.soldeDu > 0 ? 'bg-[#FDF4EE] border-[#F05A22]/40' : 'bg-emerald-50/60 border-emerald-200/70'} p-4.5 rounded-2xl border`}>
+                  <span className="text-xs font-semibold block text-stone-600">Solde restant</span>
+                  <span className={`text-lg font-bold font-mono mt-1 block ${selectedOrder.soldeDu > 0 ? 'text-[#F05A22]' : 'text-emerald-700'}`}>
                     {formatFCFA(selectedOrder.soldeDu)}
                   </span>
                 </div>
@@ -992,35 +1008,35 @@ export default function OrderSection() {
               const marginPercent = selectedOrder.montantTotal > 0 ? Math.round((margin / selectedOrder.montantTotal) * 100) : 0;
 
               return (
-                <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
-                  <h3 className="text-sm font-black uppercase tracking-tight text-slate-950 border-b-2 border-black pb-3 font-display flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5 text-black" /> ANALYSE DES COÛTS & MARGE BÉNÉFICIAIRE
+                <div className="card-fox p-6 space-y-4">
+                  <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3 flex items-center gap-2">
+                    <TrendingUp className="h-4.5 w-4.5 text-[#F05A22]" /> Analyse des coûts & marge bénéficiaire
                   </h3>
 
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
-                    <div className="bg-slate-50 p-3 border border-black/10 rounded-none">
-                      <span className="text-[9px] text-slate-500 block">COÛT DES MATIÈRES</span>
-                      <strong className="font-mono text-sm block mt-0.5">{formatFCFA(totalMaterialsCost)}</strong>
-                      <span className="text-[8px] text-slate-400 block mt-1">Tissu: {formatFCFA(fabricCost)} | Fourn.: {formatFCFA(suppliesCost)}</span>
+                    <div className="bg-[#FBF8F3] p-4 rounded-2xl border border-stone-200/70">
+                      <span className="text-[11px] text-stone-500 font-medium block">Coût des matières</span>
+                      <strong className="font-mono text-base block mt-0.5 text-stone-900">{formatFCFA(totalMaterialsCost)}</strong>
+                      <span className="text-[10px] text-stone-400 block mt-1">Tissu: {formatFCFA(fabricCost)} | Fourn.: {formatFCFA(suppliesCost)}</span>
                     </div>
-                    <div className="bg-slate-50 p-3 border border-black/10 rounded-none">
-                      <span className="text-[9px] text-slate-500 block">MAIN D'ŒUVRE (COUTURIERS)</span>
-                      <strong className="font-mono text-sm block mt-0.5">{formatFCFA(laborCost)}</strong>
-                      <span className="text-[8px] text-slate-400 block mt-1">Estimations façonnage</span>
+                    <div className="bg-[#FBF8F3] p-4 rounded-2xl border border-stone-200/70">
+                      <span className="text-[11px] text-stone-500 font-medium block">Main d'œuvre</span>
+                      <strong className="font-mono text-base block mt-0.5 text-stone-900">{formatFCFA(laborCost)}</strong>
+                      <span className="text-[10px] text-stone-400 block mt-1">Façonnage atelier</span>
                     </div>
-                    <div className="bg-slate-950 text-white p-3 border border-black rounded-none">
-                      <span className="text-[9px] text-zinc-400 block">PRIX DE REVIENT TOTAL</span>
-                      <strong className="font-mono text-sm block mt-0.5 text-atelier-gold">{formatFCFA(totalCost)}</strong>
-                      <span className="text-[8px] text-zinc-400 block mt-1">Matières + Labor</span>
+                    <div className="bg-[#191716] text-[#FAF8F5] p-4 rounded-2xl">
+                      <span className="text-[11px] text-stone-400 font-medium block">Prix de revient</span>
+                      <strong className="font-mono text-base block mt-0.5 text-[#F05A22]">{formatFCFA(totalCost)}</strong>
+                      <span className="text-[10px] text-stone-400 block mt-1">Matières + main-d'œuvre</span>
                     </div>
-                    <div className={`p-3 border-2 rounded-none flex flex-col justify-between ${
-                      margin >= 0 ? 'bg-emerald-50 border-emerald-500 text-emerald-800' : 'bg-rose-50 border-rose-500 text-rose-800'
+                    <div className={`p-4 rounded-2xl border flex flex-col justify-between ${
+                      margin >= 0 ? 'bg-emerald-50/60 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-200 text-rose-900'
                     }`}>
                       <div>
-                        <span className="text-[9px] block">MARGE BRUTE RÉELLE</span>
-                        <strong className="font-mono text-sm block mt-0.5">{formatFCFA(margin)}</strong>
+                        <span className="text-[11px] font-medium block">Marge brute</span>
+                        <strong className="font-mono text-base block mt-0.5">{formatFCFA(margin)}</strong>
                       </div>
-                      <span className="text-[9px] font-black uppercase tracking-wider mt-1">{marginPercent}% de rentabilité</span>
+                      <span className="text-xs font-bold mt-1 text-emerald-700">{marginPercent}% de rentabilité</span>
                     </div>
                   </div>
                 </div>
@@ -1029,16 +1045,16 @@ export default function OrderSection() {
 
             {/* Display measurements used */}
             {orderMeasure && (
-              <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-4">
-                <h3 className="text-sm font-black uppercase tracking-tight text-slate-950 font-display flex items-center gap-1.5 pb-2 border-b-2 border-black">
-                  <Layers className="h-4.5 w-4.5" /> MENSURATIONS COUPE
+              <div className="card-fox p-6 space-y-4">
+                <h3 className="text-sm font-bold text-stone-900 flex items-center gap-2 pb-3 border-b border-stone-100">
+                  <Layers className="h-4.5 w-4.5 text-[#F05A22]" /> Mensurations appliquées
                 </h3>
                 
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
                   {Object.entries(orderMeasure.mensurations).map(([key, value]) => (
-                    <div key={key} className="bg-slate-50 p-2.5 border border-black rounded-none text-center">
-                      <span className="text-[9px] text-slate-600 font-black uppercase block truncate">{key.replace(/([A-Z])/g, ' $1')}</span>
-                      <span className="text-xs font-black text-slate-950 font-mono mt-0.5 block">{value} cm</span>
+                    <div key={key} className="bg-[#FBF8F3] p-3 rounded-xl border border-stone-200/60 text-center">
+                      <span className="text-[10px] text-stone-500 font-medium block capitalize truncate">{key.replace(/([A-Z])/g, ' $1')}</span>
+                      <span className="text-sm font-bold text-stone-900 font-mono mt-0.5 block">{value} cm</span>
                     </div>
                   ))}
                 </div>
@@ -1046,36 +1062,36 @@ export default function OrderSection() {
             )}
           </>
         ) : (
-          <div className="bg-white rounded-none p-12 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-center text-slate-500">
-            <Scissors className="h-12 w-12 mx-auto mb-4 text-black opacity-60" />
-            <h3 className="text-xs font-black uppercase tracking-widest text-slate-950">Aucune Commande Sélectionnée</h3>
-            <p className="text-xs font-serif italic text-slate-600 mt-1">Sélectionnez une commande dans la liste de gauche.</p>
+          <div className="card-fox p-12 text-center text-stone-400">
+            <Scissors className="h-10 w-10 mx-auto mb-3 text-stone-300" />
+            <h3 className="text-sm font-bold text-stone-900">Aucune commande sélectionnée</h3>
+            <p className="text-xs text-stone-500 mt-1">Sélectionnez une commande dans la liste pour voir les détails.</p>
           </div>
         )}
       </div>
 
       {/* MODAL: CREATE ORDER */}
       {isOrderModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in fade-in zoom-in-95 duration-150">
-            <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 mb-6 font-display">
-              Créer une Nouvelle Commande
+        <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-stone-200/80 animate-in fade-in zoom-in-95 duration-150">
+            <h3 className="text-lg font-bold text-stone-900 mb-6">
+              Créer une nouvelle commande
             </h3>
 
             <form onSubmit={handleCreateOrder} className="space-y-4">
               {/* Client Selector */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Client Donneur d'Ordre *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Client *</label>
                 <select 
                   value={clientId}
                   onChange={(e) => handleClientChange(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2.5 text-xs font-black uppercase tracking-widest focus:outline-none"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2.5 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   required
                 >
-                  <option value="">SÉLECTIONNER UN CLIENT DANS LA LISTE...</option>
+                  <option value="">Sélectionner un client...</option>
                   {clients.map(c => (
                     <option key={c.id} value={c.id}>
-                      {c.prenom.toUpperCase()} {c.nom.toUpperCase()} ({c.telephone})
+                      {c.prenom} {c.nom} ({c.telephone})
                     </option>
                   ))}
                 </select>
@@ -1084,51 +1100,51 @@ export default function OrderSection() {
               {/* Model & Category */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="sm:col-span-2 space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Désignation du Modèle *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Désignation du modèle *</label>
                   <input 
                     type="text"
                     required
                     value={modeleNom}
                     onChange={(e) => setModeleNom(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none"
-                    placeholder="Ex: Costume Mariage 3 Pièces, Robe de Bal"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
+                    placeholder="Ex: Costume 3 pièces, Robe de soirée, Boubou VIP..."
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Catégorie *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Catégorie *</label>
                   <select
                     value={modeleCategorie}
                     onChange={(e) => setModeleCategorie(e.target.value as any)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   >
-                    <option value="homme">HOMME</option>
-                    <option value="femme">FEMME</option>
-                    <option value="enfant">ENFANT</option>
+                    <option value="homme">Homme</option>
+                    <option value="femme">Femme</option>
+                    <option value="enfant">Enfant</option>
                   </select>
                 </div>
               </div>
 
               {/* Fiche Mesure selector based on chosen client */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Fiche de mesures à appliquer *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Fiche de mesures à appliquer *</label>
                 <select
                   value={ficheMesureId}
                   onChange={(e) => setFicheMesureId(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   required
                 >
-                  <option value="">SÉLECTIONNER UNE FICHE DE MESURES...</option>
+                  <option value="">Sélectionner une fiche de mesures...</option>
                   {ficheMesures
                     .filter(m => m.clientId === clientId)
                     .map(m => (
                       <option key={m.id} value={m.id}>
-                        {m.typeVetement.replace('_', ' ').toUpperCase()} (PRISE LE {m.datePrise.split('-').reverse().join('/')})
+                        {m.typeVetement.replace('_', ' ')} (prise le {m.datePrise.split('-').reverse().join('/')})
                       </option>
                     ))}
                 </select>
                 {clientId && ficheMesures.filter(m => m.clientId === clientId).length === 0 && (
-                  <p className="text-[10px] text-rose-600 font-black uppercase tracking-widest mt-1">
+                  <p className="text-xs text-rose-600 font-medium mt-1">
                     Attention : Ce client n'a pas encore de fiche de mesures. Créez d'abord ses mesures dans le volet Clients.
                   </p>
                 )}
@@ -1137,25 +1153,25 @@ export default function OrderSection() {
               {/* Fabric Stock Selector */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Sélectionner un tissu de l'inventaire</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Tissu utilisé</label>
                   <select
                     value={tissuId}
                     onChange={(e) => setTissuId(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   >
                     <option value="">Tissu fourni par le client (hors stock)</option>
                     {tissus
                       .filter(t => !t.categorie || t.categorie === 'tissu')
                       .map(t => (
                         <option key={t.id} value={t.id}>
-                          {t.designation.toUpperCase()} ({t.couleur.toUpperCase()}) — RESTE {t.quantiteDisponible} {t.unite || 'm'}
+                          {t.designation} ({t.couleur}) — Reste {t.quantiteDisponible} {t.unite || 'm'}
                         </option>
                       ))}
                   </select>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Métrage requis (m)</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Métrage requis (m)</label>
                   <input
                     type="number"
                     step="0.1"
@@ -1163,44 +1179,44 @@ export default function OrderSection() {
                     required
                     value={metrageRequis}
                     onChange={(e) => setMetrageRequis(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   />
                 </div>
               </div>
 
               {/* Accessories & Additional Supplies */}
-              <div className="border-2 border-black p-4 bg-slate-50 space-y-3">
-                <span className="text-[10px] font-black uppercase tracking-widest text-slate-900 block">
-                  Accessoires & Fournitures Supplémentaires (Boutons, fermetures, fils, etc.)
+              <div className="border border-stone-200/80 p-4 bg-[#FBF8F3] rounded-2xl space-y-3">
+                <span className="text-xs font-semibold text-stone-800 block">
+                  Accessoires & fournitures supplémentaires (boutons, zip, fil...)
                 </span>
 
                 <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-end">
                   <div className="flex-1 space-y-1.5">
-                    <label className="text-[9px] font-black uppercase text-slate-500 block">Choisir un accessoire</label>
+                    <label className="text-[11px] font-medium text-stone-500 block">Choisir un accessoire</label>
                     <select
                       value={tempSupplyId}
                       onChange={(e) => setTempSupplyId(e.target.value)}
-                      className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase focus:outline-none"
+                      className="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-medium text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     >
                       <option value="">-- Sélectionner --</option>
                       {tissus
                         .filter(t => t.categorie && t.categorie !== 'tissu')
                         .map(t => (
                           <option key={t.id} value={t.id}>
-                            {t.designation.toUpperCase()} ({t.couleur.toUpperCase()}) — DISPO: {t.quantiteDisponible} {t.unite || 'pièces'}
+                            {t.designation} ({t.couleur}) — Dispo: {t.quantiteDisponible} {t.unite || 'pièces'}
                           </option>
                         ))}
                     </select>
                   </div>
 
                   <div className="w-full sm:w-24 space-y-1.5">
-                    <label className="text-[9px] font-black uppercase text-slate-500 block">Quantité</label>
+                    <label className="text-[11px] font-medium text-stone-500 block">Quantité</label>
                     <input
                       type="number"
                       min="1"
                       value={tempSupplyQty}
                       onChange={(e) => setTempSupplyQty(Math.max(1, parseInt(e.target.value) || 1))}
-                      className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                      className="w-full bg-white border border-stone-200 rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     />
                   </div>
 
@@ -1226,7 +1242,7 @@ export default function OrderSection() {
                       setTempSupplyId('');
                       setTempSupplyQty(1);
                     }}
-                    className="px-4 py-2 bg-black text-white hover:bg-atelier-gold hover:text-black border-2 border-black rounded-none text-xs font-black uppercase tracking-widest cursor-pointer transition flex items-center justify-center gap-1 shrink-0"
+                    className="px-4 py-2 bg-stone-900 hover:bg-[#F05A22] text-white rounded-xl text-xs font-semibold cursor-pointer transition flex items-center justify-center gap-1 shrink-0"
                   >
                     Ajouter
                   </button>
@@ -1234,30 +1250,30 @@ export default function OrderSection() {
 
                 {/* List of associated supplies */}
                 {associatedSupplies.length > 0 && (
-                  <div className="space-y-2 max-h-36 overflow-y-auto border-t-2 border-dashed border-black pt-3">
+                  <div className="space-y-2 max-h-36 overflow-y-auto border-t border-stone-200 pt-3">
                     {associatedSupplies.map((supply, idx) => {
                       const item = tissus.find(t => t.id === supply.tissuId);
                       if (!item) return null;
                       return (
-                        <div key={idx} className="flex justify-between items-center bg-white p-2 border-2 border-black">
+                        <div key={idx} className="flex justify-between items-center bg-white p-2.5 rounded-xl border border-stone-200">
                           <div className="flex items-center gap-2">
-                            <span className="text-[9px] font-black bg-black text-white px-1.5 py-0.5 uppercase">
+                            <span className="text-[10px] font-semibold bg-stone-100 text-stone-700 px-1.5 py-0.5 rounded-md">
                               {item.categorie === 'bouton' ? 'Bouton' :
                                item.categorie === 'fermeture' ? 'Fermeture' :
                                item.categorie === 'fil' ? 'Fil' :
                                item.categorie === 'elastic' ? 'Élastique' : 'Accessoire'}
                             </span>
-                            <span className="text-xs font-black uppercase">{item.designation}</span>
-                            <span className="text-[10px] text-slate-500 font-mono">({item.couleur})</span>
+                            <span className="text-xs font-semibold text-stone-800">{item.designation}</span>
+                            <span className="text-[11px] text-stone-500 font-mono">({item.couleur})</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <span className="text-xs font-mono font-black bg-atelier-gold border border-black px-1.5 py-0.5 text-slate-950">
+                            <span className="text-xs font-mono font-bold bg-[#FBF8F3] border border-stone-200 px-2 py-0.5 rounded-lg text-stone-800">
                               {supply.quantite} {item.unite || 'pièces'}
                             </span>
                             <button
                               type="button"
                               onClick={() => setAssociatedSupplies(associatedSupplies.filter((_, i) => i !== idx))}
-                              className="text-rose-600 hover:text-white hover:bg-rose-600 px-1 border border-transparent hover:border-black text-[10px] font-black uppercase tracking-wider cursor-pointer"
+                              className="text-rose-600 hover:text-rose-800 text-xs font-semibold cursor-pointer"
                             >
                               Retirer
                             </button>
@@ -1272,35 +1288,35 @@ export default function OrderSection() {
               {/* Price, Deposit & Deadline */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Montant Total (FCFA) *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Montant Total (FCFA) *</label>
                   <input
                     type="number"
                     required
                     value={montantTotal}
                     onChange={(e) => setMontantTotal(parseInt(e.target.value) || 0)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-mono font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Acompte versé</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Acompte versé</label>
                   <input
                     type="number"
                     required
                     value={acompteVerse}
                     onChange={(e) => setAcompteVerse(parseInt(e.target.value) || 0)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-mono font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Délai de Livraison *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Délai de Livraison *</label>
                   <input
                     type="date"
                     required
                     value={delaiLivraison}
                     onChange={(e) => setDelaiLivraison(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-mono font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                   />
                 </div>
               </div>
@@ -1308,36 +1324,36 @@ export default function OrderSection() {
               {/* Labor Cost row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Coût Main d'œuvre couturiers (FCFA)</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Coût main-d'œuvre couturiers (FCFA)</label>
                   <input
                     type="number"
                     value={coutMainOeuvre}
                     onChange={(e) => setCoutMainOeuvre(parseInt(e.target.value) || 0)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs font-mono font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
                     placeholder="0"
                   />
                 </div>
               </div>
 
               {/* Profitability live preview card */}
-              <div className="bg-slate-50 border-2 border-black p-4 space-y-2">
-                <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 block">📊 Analyse prévisionnelle des coûts & marge</span>
-                <div className="grid grid-cols-3 gap-2 text-[11px] font-mono">
+              <div className="bg-[#FBF8F3] border border-stone-200/80 p-4 rounded-2xl space-y-2">
+                <span className="text-xs font-bold text-stone-700 block">📊 Analyse prévisionnelle des coûts & marge</span>
+                <div className="grid grid-cols-3 gap-2 text-xs font-mono">
                   <div>
-                    <span className="text-[9px] text-slate-500 block">Matières :</span>
+                    <span className="text-[10px] text-stone-500 font-sans block">Matières :</span>
                     <strong>{formatFCFA(totalMaterialsCost)}</strong>
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-500 block">Main-d'œuvre :</span>
+                    <span className="text-[10px] text-stone-500 font-sans block">Main-d'œuvre :</span>
                     <strong>{formatFCFA(coutMainOeuvre)}</strong>
                   </div>
                   <div>
-                    <span className="text-[9px] text-slate-500 block">Prix Revient :</span>
+                    <span className="text-[10px] text-stone-500 font-sans block">Prix Revient :</span>
                     <strong>{formatFCFA(totalCostOfProduction)}</strong>
                   </div>
                 </div>
-                <div className={`mt-2 p-2 border border-black/10 flex items-center justify-between text-xs font-black uppercase tracking-wider ${
-                  grossMargin >= 0 ? 'bg-emerald-50 text-emerald-800' : 'bg-rose-50 text-rose-800 animate-pulse'
+                <div className={`mt-2 p-2.5 rounded-xl border flex items-center justify-between text-xs font-bold ${
+                  grossMargin >= 0 ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-rose-50 text-rose-800 border-rose-200'
                 }`}>
                   <span>Marge brute prévisionnelle :</span>
                   <span>{formatFCFA(grossMargin)} ({marginPercent}%)</span>
@@ -1345,27 +1361,27 @@ export default function OrderSection() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Remarques ou consignes de couture</label>
+                <label className="text-xs font-semibold text-stone-700 block">Remarques ou consignes de couture</label>
                 <textarea
                   value={remarquesProduction}
                   onChange={(e) => setRemarquesProduction(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none h-20"
+                  className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#F05A22] h-20"
                   placeholder="Drapé ajusté à la main, broderies dorées au col..."
                 />
               </div>
 
               {/* Actions buttons */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsOrderModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-none border-2 border-black text-slate-950 hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-none bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs transition cursor-pointer"
+                  className="btn-fox-primary flex-1 !py-2.5"
                 >
                   Créer la commande
                 </button>

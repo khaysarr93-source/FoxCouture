@@ -14,6 +14,7 @@ import {
   X
 } from 'lucide-react';
 import { useStore } from '../store';
+import FoxLogo from './FoxLogo';
 
 interface OnboardingModalProps {
   isOpen: boolean;
@@ -91,26 +92,24 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] max-w-2xl w-full flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="bg-white rounded-3xl border border-stone-200/80 shadow-2xl max-w-2xl w-full flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
         
         {/* Header */}
-        <div className="bg-black text-white p-6 border-b-2 border-black flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-atelier-gold text-black flex items-center justify-center font-black text-lg border-2 border-white">
-              FC
-            </div>
+        <div className="bg-[#161412] text-white p-6 border-b border-stone-800 flex justify-between items-center">
+          <div className="flex items-center gap-3.5">
+            <FoxLogo size={42} showText={false} />
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black uppercase tracking-widest text-atelier-gold">Foxe'Couture Afrique</span>
-                <span className="text-[9px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded font-mono">Étape {step} sur 3</span>
+                <span className="text-[11px] font-semibold tracking-wider text-[#F05A22]">Fox Couture</span>
+                <span className="text-[10px] bg-white/10 text-stone-300 px-2.5 py-0.5 rounded-full font-medium">Étape {step} sur 3</span>
               </div>
-              <h2 className="text-lg font-black uppercase tracking-tight">Configuration de Votre Atelier</h2>
+              <h2 className="text-base font-bold text-white tracking-tight">Configuration de votre atelier</h2>
             </div>
           </div>
           <button 
             onClick={onClose}
-            className="text-zinc-400 hover:text-white transition p-1"
+            className="text-stone-400 hover:text-white transition p-2 rounded-xl hover:bg-white/10"
             title="Passer pour le moment"
           >
             <X className="w-5 h-5" />
@@ -118,15 +117,24 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
         </div>
 
         {/* Step indicator bar */}
-        <div className="grid grid-cols-3 bg-zinc-100 border-b-2 border-black text-center text-[10px] font-black uppercase tracking-wider">
-          <div className={`p-2.5 border-r border-black flex items-center justify-center gap-1.5 ${step === 1 ? 'bg-atelier-gold text-black' : step > 1 ? 'bg-emerald-100 text-emerald-900' : 'text-zinc-500'}`}>
-            {step > 1 ? <Check className="w-3.5 h-3.5" /> : '1.'} Identité Atelier
+        <div className="grid grid-cols-3 bg-stone-50 border-b border-stone-200/80 text-center text-xs font-semibold">
+          <div className={`p-3 border-r border-stone-200/80 flex items-center justify-center gap-2 transition-colors ${
+            step === 1 ? 'bg-[#F05A22]/10 text-[#F05A22]' : step > 1 ? 'bg-emerald-50 text-emerald-700' : 'text-stone-400'
+          }`}>
+            {step > 1 ? <Check className="w-4 h-4 text-emerald-600" /> : <span className="w-5 h-5 rounded-full bg-[#F05A22] text-white text-[10px] flex items-center justify-center font-bold">1</span>}
+            <span>Identité</span>
           </div>
-          <div className={`p-2.5 border-r border-black flex items-center justify-center gap-1.5 ${step === 2 ? 'bg-atelier-gold text-black' : step > 2 ? 'bg-emerald-100 text-emerald-900' : 'text-zinc-500'}`}>
-            {step > 2 ? <Check className="w-3.5 h-3.5" /> : '2.'} Spécialités & Mesures
+          <div className={`p-3 border-r border-stone-200/80 flex items-center justify-center gap-2 transition-colors ${
+            step === 2 ? 'bg-[#F05A22]/10 text-[#F05A22]' : step > 2 ? 'bg-emerald-50 text-emerald-700' : 'text-stone-400'
+          }`}>
+            {step > 2 ? <Check className="w-4 h-4 text-emerald-600" /> : <span className={`w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-bold ${step === 2 ? 'bg-[#F05A22] text-white' : 'bg-stone-200 text-stone-600'}`}>2</span>}
+            <span>Spécialités</span>
           </div>
-          <div className={`p-2.5 flex items-center justify-center gap-1.5 ${step === 3 ? 'bg-atelier-gold text-black' : 'text-zinc-500'}`}>
-            3. Caisse & WhatsApp
+          <div className={`p-3 flex items-center justify-center gap-2 transition-colors ${
+            step === 3 ? 'bg-[#F05A22]/10 text-[#F05A22]' : 'text-stone-400'
+          }`}>
+            <span className={`w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-bold ${step === 3 ? 'bg-[#F05A22] text-white' : 'bg-stone-200 text-stone-600'}`}>3</span>
+            <span>Caisse & WhatsApp</span>
           </div>
         </div>
 
@@ -134,68 +142,68 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
         <div className="p-6 overflow-y-auto flex-1 space-y-6">
           {step === 1 && (
             <div className="space-y-4">
-              <div className="bg-amber-50 border border-amber-300 p-4 rounded-none text-xs text-amber-900 flex gap-3">
-                <Sparkles className="w-5 h-5 text-atelier-gold-dark flex-shrink-0 mt-0.5" />
-                <p>
-                  Bienvenue sur <strong>Foxe'Couture</strong>, la solution tout-en-un pensée pour les tailleurs et créateurs en Afrique de l'Ouest. Définissez les coordonnées de votre atelier pour personnaliser vos reçus et fiches de mesures.
+              <div className="bg-[#F05A22]/5 border border-[#F05A22]/20 p-4 rounded-2xl text-xs text-stone-700 flex gap-3">
+                <Sparkles className="w-5 h-5 text-[#F05A22] flex-shrink-0 mt-0.5" />
+                <p className="leading-relaxed">
+                  Bienvenue sur <strong>Fox Couture</strong>, la solution pensée pour les créateurs et ateliers de confection. Renseignez les coordonnées de votre atelier pour personnaliser automatiquement vos reçus, devis et fiches de mesures.
                 </p>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-3.5">
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-700 mb-1">
-                    Nom de l'Atelier / Maison de Couture *
+                  <label className="block text-xs font-semibold text-stone-700 mb-1.5">
+                    Nom de l'atelier ou maison de couture *
                   </label>
                   <input
                     type="text"
                     value={atelierNom}
                     onChange={(e) => setAtelierNom(e.target.value)}
-                    placeholder="Ex: Maison Sarr Couture, Dakar Élégance..."
-                    className="w-full px-3 py-2.5 border-2 border-black text-sm font-bold focus:outline-none focus:ring-2 focus:ring-atelier-gold"
+                    placeholder="Ex: Maison Fox Couture, Atelier Sarr..."
+                    className="w-full px-4 py-2.5 rounded-xl border border-stone-200/80 bg-[#FBF8F3] text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-700 mb-1">
-                    Slogan ou Spécialité
+                  <label className="block text-xs font-semibold text-stone-700 mb-1.5">
+                    Slogan ou spécialité
                   </label>
                   <input
                     type="text"
                     value={slogan}
                     onChange={(e) => setSlogan(e.target.value)}
-                    placeholder="Ex: Haute Couture Sénégalaise & Confection Bazin"
-                    className="w-full px-3 py-2 border-2 border-black text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-atelier-gold"
+                    placeholder="Ex: Haute Confection & Modèles Africains"
+                    className="w-full px-4 py-2.5 rounded-xl border border-stone-200/80 bg-[#FBF8F3] text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-700 mb-1">
-                      Téléphone WhatsApp Principal *
+                    <label className="block text-xs font-semibold text-stone-700 mb-1.5">
+                      Téléphone WhatsApp principal *
                     </label>
                     <div className="relative">
-                      <Phone className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+                      <Phone className="w-4 h-4 absolute left-3.5 top-3 text-stone-400" />
                       <input
                         type="text"
                         value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
                         placeholder="+221 77 123 45 67"
-                        className="w-full pl-9 pr-3 py-2 border-2 border-black text-xs font-bold font-mono focus:outline-none focus:ring-2 focus:ring-atelier-gold"
+                        className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200/80 bg-[#FBF8F3] text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                       />
                     </div>
-                    <span className="text-[9px] text-slate-500 italic mt-0.5 block">Format avec indicatif pays (+221 pour le Sénégal)</span>
+                    <span className="text-[11px] text-stone-400 mt-1 block">Avec indicatif pays (ex: +221 pour le Sénégal)</span>
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-black uppercase tracking-wider text-slate-700 mb-1">
-                      Devise Monétaire
+                    <label className="block text-xs font-semibold text-stone-700 mb-1.5">
+                      Devise monétaire
                     </label>
                     <select
                       value={devise}
                       onChange={(e) => setDevise(e.target.value)}
-                      className="w-full px-3 py-2 border-2 border-black text-xs font-bold focus:outline-none focus:ring-2 focus:ring-atelier-gold bg-white"
+                      className="w-full px-4 py-2.5 rounded-xl border border-stone-200/80 bg-[#FBF8F3] text-sm font-semibold text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     >
-                      <option value="FCFA">FCFA (XOF / XAF) — Afrique de l'Ouest</option>
+                      <option value="FCFA">FCFA (XOF / XAF)</option>
                       <option value="GNF">GNF — Franc Guinéen</option>
                       <option value="EUR">EUR (€) — Euro</option>
                       <option value="USD">USD ($) — Dollar US</option>
@@ -204,17 +212,17 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-wider text-slate-700 mb-1">
-                    Adresse / Quartier / Ville
+                  <label className="block text-xs font-semibold text-stone-700 mb-1.5">
+                    Adresse ou quartier
                   </label>
                   <div className="relative">
-                    <MapPin className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+                    <MapPin className="w-4 h-4 absolute left-3.5 top-3 text-stone-400" />
                     <input
                       type="text"
                       value={adresse}
                       onChange={(e) => setAdresse(e.target.value)}
-                      placeholder="Ex: Rue 10 x Blaise Diagne, Médina, Dakar"
-                      className="w-full pl-9 pr-3 py-2 border-2 border-black text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-atelier-gold"
+                      placeholder="Ex: Médina, Dakar, Sénégal"
+                      className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200/80 bg-[#FBF8F3] text-sm text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     />
                   </div>
                 </div>
@@ -225,11 +233,11 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
           {step === 2 && (
             <div className="space-y-4">
               <div>
-                <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 mb-1">
-                  Sélectionnez vos modèles & tenues phares
+                <h3 className="text-sm font-bold text-stone-900 mb-0.5">
+                  Vos créations et tenues phares
                 </h3>
-                <p className="text-xs text-slate-600 font-serif">
-                  Foxe'Couture pré-remplit les gabarits de mesures adaptés aux standards sénégalais et africains.
+                <p className="text-xs text-stone-500">
+                  Fox Couture pré-charge automatiquement les gabarits de mesures adaptés à votre atelier.
                 </p>
               </div>
 
@@ -238,34 +246,34 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
                   {
                     id: 'grand_boubou',
                     nom: 'Grand Boubou 3 Pièces',
-                    desc: 'Bazin riche, sous-boubou & pantalon thiaya',
+                    desc: 'Bazin riche, sous-boubou et pantalon',
                     genre: 'Homme & Cérémonie',
                     mesures: 'Encolure, Longueur boubou, Tour de bras'
                   },
                   {
                     id: 'kaftan',
-                    nom: 'Kaftan Sénégalais',
+                    nom: 'Kaftan Traditionnel',
                     desc: 'Kaftan moderne ou traditionnel 1 ou 2 pièces',
-                    genre: 'Homme & Mixte',
+                    genre: 'Mixte',
                     mesures: 'Épaule, Poitrine, Manches, Longueur'
                   },
                   {
                     id: 'taille_basse',
-                    nom: 'Taille Basse Sénégalaise',
-                    desc: 'Jupe serrée & corsage avec broderie fine',
+                    nom: 'Taille Basse',
+                    desc: 'Jupe cintrée et corsage avec broderie fine',
                     genre: 'Femme',
-                    mesures: 'Tour de taille, Hanches, Longueur jupe'
+                    mesures: 'Tour de taille, Bassin, Longueur jupe'
                   },
                   {
                     id: 'ndokette',
                     nom: 'Ndokette / Marinière',
-                    desc: 'Robe ample traditionnelle élégante',
+                    desc: 'Robe ample traditionnelle fluide',
                     genre: 'Femme & Cérémonie',
                     mesures: 'Carrure, Poitrine, Longueur robe'
                   },
                   {
                     id: 'costume',
-                    nom: 'Costume Africain / Veste',
+                    nom: 'Costume & Veste',
                     desc: 'Veste cintrée tissu wax ou laine, col mao',
                     genre: 'Homme / Femme',
                     mesures: 'Épaule, Poitrine, Longueur veste, Pantalon'
@@ -283,24 +291,24 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
                     <div
                       key={item.id}
                       onClick={() => toggleSpecialite(item.id)}
-                      className={`p-3 border-2 cursor-pointer transition flex items-start gap-3 select-none ${
+                      className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 select-none ${
                         selected 
-                          ? 'border-black bg-amber-50 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]' 
-                          : 'border-slate-300 hover:border-black bg-white'
+                          ? 'border-[#F05A22] bg-[#F05A22]/5 shadow-sm' 
+                          : 'border-stone-200/80 bg-white hover:border-stone-300'
                       }`}
                     >
-                      <div className={`w-5 h-5 mt-0.5 border-2 flex items-center justify-center flex-shrink-0 ${
-                        selected ? 'bg-black text-white border-black' : 'border-slate-400 bg-white'
+                      <div className={`w-5 h-5 mt-0.5 rounded-lg border flex items-center justify-center flex-shrink-0 transition-colors ${
+                        selected ? 'bg-[#F05A22] text-white border-[#F05A22]' : 'border-stone-300 bg-white'
                       }`}>
                         {selected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                          <h4 className="text-xs font-black uppercase text-slate-900">{item.nom}</h4>
-                          <span className="text-[9px] bg-slate-200 px-1.5 py-0.5 text-slate-800 font-bold uppercase">{item.genre}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-1">
+                          <h4 className="text-xs font-bold text-stone-900 truncate">{item.nom}</h4>
+                          <span className="text-[10px] bg-stone-100 text-stone-600 px-2 py-0.5 rounded-md font-medium shrink-0">{item.genre}</span>
                         </div>
-                        <p className="text-[11px] text-slate-600 mt-0.5">{item.desc}</p>
-                        <span className="text-[9px] text-amber-900 font-mono block mt-1">Mesures: {item.mesures}</span>
+                        <p className="text-[11px] text-stone-500 mt-0.5 leading-snug">{item.desc}</p>
+                        <span className="text-[10px] text-[#F05A22] font-medium block mt-1">Mesures: {item.mesures}</span>
                       </div>
                     </div>
                   );
@@ -312,26 +320,26 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
           {step === 3 && (
             <div className="space-y-4">
               <div>
-                <h3 className="text-xs font-black uppercase tracking-wider text-slate-900 mb-1">
-                  Caisse Journalière & Notifications WhatsApp
+                <h3 className="text-sm font-bold text-stone-900 mb-0.5">
+                  Caisse journalière & WhatsApp
                 </h3>
-                <p className="text-xs text-slate-600 font-serif">
-                  Activez vos modes de paiement locaux favoris et communiquez en direct avec vos clients via WhatsApp.
+                <p className="text-xs text-stone-500">
+                  Activez vos modes de paiement et communiquez en direct avec vos clients via WhatsApp.
                 </p>
               </div>
 
               {/* Modes de paiement */}
               <div className="space-y-2">
-                <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 block">
-                  Moyens de paiement acceptés à l'Atelier
+                <span className="text-xs font-semibold text-stone-700 block">
+                  Modes de paiement acceptés
                 </span>
                 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {[
-                    { key: 'wave', label: 'Wave', color: 'bg-sky-50 border-sky-400 text-sky-900' },
-                    { key: 'orange_money', label: 'Orange Money', color: 'bg-orange-50 border-orange-400 text-orange-900' },
-                    { key: 'especes', label: 'Espèces (Cash)', color: 'bg-emerald-50 border-emerald-400 text-emerald-900' },
-                    { key: 'virement', label: 'Virement / Carte', color: 'bg-purple-50 border-purple-400 text-purple-900' },
+                    { key: 'wave', label: 'Wave', color: 'bg-sky-50 text-sky-900 border-sky-200' },
+                    { key: 'orange_money', label: 'Orange Money', color: 'bg-orange-50 text-orange-900 border-orange-200' },
+                    { key: 'especes', label: 'Espèces', color: 'bg-emerald-50 text-emerald-900 border-emerald-200' },
+                    { key: 'virement', label: 'Carte / Virement', color: 'bg-stone-50 text-stone-900 border-stone-200' },
                   ].map((m) => {
                     const active = (modesPaiement as any)[m.key];
                     return (
@@ -339,50 +347,52 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
                         key={m.key}
                         type="button"
                         onClick={() => setModesPaiement(prev => ({ ...prev, [m.key]: !active }))}
-                        className={`p-3 border-2 font-black uppercase text-xs text-center transition flex flex-col items-center gap-1 ${
-                          active ? `${m.color} border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]` : 'border-slate-200 bg-white text-slate-400'
+                        className={`p-3 rounded-2xl border text-xs text-center transition-all flex flex-col items-center gap-1 ${
+                          active ? `${m.color} border-[#F05A22] shadow-sm font-bold` : 'border-stone-200 bg-white text-stone-400 font-medium'
                         }`}
                       >
                         <span className="text-xs">{m.label}</span>
-                        <span className="text-[9px] font-normal">{active ? '✓ Activé' : 'Désactivé'}</span>
+                        <span className="text-[10px] opacity-80">{active ? '✓ Activé' : 'Désactivé'}</span>
                       </button>
                     );
                   })}
                 </div>
               </div>
 
-              {/* WhatsApp-First toggle */}
-              <div className="border-2 border-black p-4 bg-emerald-50 space-y-2">
+              {/* WhatsApp toggle */}
+              <div className="rounded-2xl border border-emerald-200 p-4 bg-emerald-50/70 space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <MessageCircle className="w-5 h-5 text-emerald-700" />
-                    <span className="text-xs font-black uppercase text-emerald-950">WhatsApp-First Activé</span>
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center">
+                      <MessageCircle className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-emerald-950 block">Notifications WhatsApp</span>
+                      <span className="text-[11px] text-emerald-700">Envoi en 1 clic des reçus et invitations d'essayage</span>
+                    </div>
                   </div>
                   <input
                     type="checkbox"
                     checked={whatsappAuto}
                     onChange={(e) => setWhatsappAuto(e.target.checked)}
-                    className="w-4 h-4 accent-emerald-600 cursor-pointer"
+                    className="w-4 h-4 accent-emerald-600 rounded cursor-pointer"
                   />
                 </div>
-                <p className="text-xs text-emerald-900 font-serif">
-                  Permet en un clic d'envoyer le reçu de caisse, l'invitation à l'essayage, l'avis de tenue prête et la relance du solde dû directement sur le WhatsApp du client.
-                </p>
               </div>
 
               {/* Résumé de validation */}
-              <div className="bg-slate-50 border border-slate-300 p-3 text-xs text-slate-700 space-y-1">
+              <div className="bg-[#FBF8F3] rounded-2xl border border-stone-200/80 p-4 text-xs text-stone-600 space-y-1.5">
                 <div className="flex justify-between">
-                  <span className="font-bold">Atelier :</span>
-                  <span className="font-black text-black">{atelierNom}</span>
+                  <span className="text-stone-500">Atelier :</span>
+                  <span className="font-bold text-stone-900">{atelierNom}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="font-bold">Contact :</span>
-                  <span className="font-mono text-black">{telephone}</span>
+                  <span className="text-stone-500">Contact :</span>
+                  <span className="font-semibold text-stone-800">{telephone}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="font-bold">Spécialités :</span>
-                  <span className="text-black font-semibold">{specialites.length} modèles actifs</span>
+                  <span className="text-stone-500">Spécialités :</span>
+                  <span className="font-semibold text-[#F05A22]">{specialites.length} modèles sélectionnés</span>
                 </div>
               </div>
             </div>
@@ -390,18 +400,18 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 bg-zinc-50 border-t-2 border-black flex justify-between items-center gap-3">
+        <div className="p-4 bg-stone-50 border-t border-stone-200/80 flex justify-between items-center gap-3">
           {step > 1 ? (
             <button
               onClick={() => setStep((step - 1) as any)}
-              className="px-4 py-2 border-2 border-black font-black uppercase text-[10px] tracking-wider bg-white hover:bg-slate-100 transition flex items-center gap-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+              className="px-4 py-2.5 rounded-xl border border-stone-300 font-semibold text-xs text-stone-700 bg-white hover:bg-stone-100 transition flex items-center gap-2"
             >
-              <ArrowLeft className="w-3.5 h-3.5" /> Précédent
+              <ArrowLeft className="w-4 h-4" /> Précédent
             </button>
           ) : (
             <button
               onClick={onClose}
-              className="text-slate-500 hover:text-black font-black uppercase text-[10px] tracking-wider underline cursor-pointer"
+              className="text-stone-500 hover:text-stone-900 font-medium text-xs underline cursor-pointer"
             >
               Passer la configuration
             </button>
@@ -410,16 +420,18 @@ export default function OnboardingModal({ isOpen, onClose }: OnboardingModalProp
           {step < 3 ? (
             <button
               onClick={() => setStep((step + 1) as any)}
-              className="px-6 py-2 bg-black text-white hover:bg-atelier-gold hover:text-black border-2 border-black font-black uppercase text-[10px] tracking-widest transition flex items-center gap-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] cursor-pointer"
+              className="btn-fox-primary flex items-center gap-2"
             >
-              Suivant <ArrowRight className="w-3.5 h-3.5" />
+              <span>Suivant</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
           ) : (
             <button
               onClick={handleFinish}
-              className="px-6 py-2.5 bg-emerald-600 text-white hover:bg-emerald-700 border-2 border-black font-black uppercase text-[10px] tracking-widest transition flex items-center gap-2 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] cursor-pointer"
+              className="btn-fox-primary flex items-center gap-2"
             >
-              <CheckCircle2 className="w-4 h-4" /> Ouvrir mon Atelier
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Ouvrir mon atelier</span>
             </button>
           )}
         </div>

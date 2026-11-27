@@ -208,9 +208,9 @@ export default function StockSection() {
                 setFournAdresse('');
                 setIsFournModalOpen(true);
               }}
-              className="px-3.5 py-2 bg-atelier-gold text-slate-950 border-2 border-black rounded-none text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition flex items-center gap-1 cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+              className="btn-fox-primary text-xs"
             >
-              <Plus className="h-4 w-4" /> Nouveau Fournisseur
+              <Plus className="h-4 w-4 stroke-[3]" /> Nouveau Fournisseur
             </button>
           )}
         </div>
@@ -220,8 +220,8 @@ export default function StockSection() {
       {activeSubTab === 'tissus' && (
         <div className="space-y-6">
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 bg-white p-3 border-2 border-black rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mr-2 block w-full sm:w-auto">Filtrer par catégorie :</span>
+          <div className="flex flex-wrap items-center gap-1.5 bg-white p-3 border border-stone-200/60 rounded-2xl shadow-xs">
+            <span className="text-xs font-semibold text-stone-400 mr-2 block w-full sm:w-auto">Filtrer :</span>
             {[
               { id: 'all', label: 'Tout' },
               { id: 'tissu', label: 'Tissus' },
@@ -238,10 +238,10 @@ export default function StockSection() {
                 <button
                   key={cat.id}
                   onClick={() => setCategoryFilter(cat.id)}
-                  className={`px-3 py-1.5 text-[10px] font-black uppercase tracking-wider border-2 border-black transition cursor-pointer ${
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition cursor-pointer ${
                     categoryFilter === cat.id 
-                      ? 'bg-black text-white' 
-                      : 'bg-transparent text-slate-700 hover:bg-slate-50'
+                      ? 'bg-stone-900 text-white shadow-xs' 
+                      : 'bg-stone-50 text-stone-600 hover:bg-stone-100'
                   }`}
                 >
                   {cat.label} ({count})
@@ -251,11 +251,11 @@ export default function StockSection() {
           </div>
 
           {filteredTissus.length === 0 ? (
-            <div className="bg-white rounded-none p-12 border-2 border-black text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-              <p className="text-sm font-black uppercase tracking-widest text-slate-500">Aucun élément trouvé pour cette catégorie ou recherche.</p>
+            <div className="bg-white rounded-3xl p-12 border border-dashed border-stone-200 text-center shadow-xs">
+              <p className="text-xs font-semibold text-stone-500">Aucun élément trouvé pour cette catégorie ou recherche.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {filteredTissus.map(t => {
                 const lowStock = t.quantiteDisponible <= t.seuilAlerte;
                 const supplier = fournisseurs.find(f => f.id === t.fournisseurId);
@@ -266,15 +266,15 @@ export default function StockSection() {
                 const progressPercent = Math.min(100, (t.quantiteDisponible / maxScale) * 100);
 
                 return (
-                  <div key={t.id} className="bg-white rounded-none p-5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between transition">
+                  <div key={t.id} className="bg-white rounded-3xl p-5 border border-stone-200/70 shadow-xs flex flex-col justify-between hover:shadow-md transition">
                     <div className="space-y-4">
                       {/* Badge & Ref */}
                       <div className="flex justify-between items-start gap-2">
                         <div className="flex flex-wrap gap-1.5 items-center">
-                          <span className="text-[9px] font-mono font-black bg-black text-atelier-gold px-2 py-1 rounded-none border border-black">
+                          <span className="text-[10px] font-mono font-bold bg-stone-100 text-stone-700 px-2 py-0.5 rounded-md">
                             REF: {t.reference}
                           </span>
-                          <span className="text-[9px] font-black uppercase tracking-wider bg-slate-100 border border-black px-1.5 py-0.5 text-slate-800">
+                          <span className="text-[10px] font-semibold bg-stone-50 border border-stone-200/60 px-2 py-0.5 rounded-full text-stone-600">
                             {itemCategory === 'bouton' ? 'Bouton' :
                              itemCategory === 'fermeture' ? 'Fermeture' :
                              itemCategory === 'fil' ? 'Fil' :
@@ -284,42 +284,42 @@ export default function StockSection() {
                         </div>
                         
                         {lowStock ? (
-                          <span className="text-[9px] font-black uppercase tracking-widest text-white bg-rose-600 border border-black px-2 py-0.5 rounded-none flex items-center gap-0.5 shrink-0">
-                            <AlertTriangle className="h-3 w-3" /> STOCK BAS !
+                          <span className="text-[10px] font-bold text-rose-600 bg-rose-50 border border-rose-200/80 px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+                            <AlertTriangle className="h-3 w-3" /> Stock bas
                           </span>
                         ) : (
-                          <span className="text-[9px] font-black uppercase tracking-widest text-slate-950 bg-emerald-400 border border-black px-2 py-0.5 rounded-none shrink-0">
-                            DISP.
+                          <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full shrink-0">
+                            Disponible
                           </span>
                         )}
                       </div>
 
                       {/* Description */}
                       <div>
-                        <h3 className="text-sm font-black uppercase tracking-wider text-slate-950 font-display">
+                        <h3 className="text-sm font-bold text-stone-900">
                           {t.designation}
                         </h3>
-                        <p className="text-xs text-slate-600 mt-1 uppercase font-mono">Teinte / Spécif. : <span className="font-black text-slate-950">{t.couleur}</span></p>
+                        <p className="text-xs text-stone-500 mt-0.5">Teinte / Spécif. : <span className="font-semibold text-stone-800">{t.couleur}</span></p>
                       </div>
 
                       {/* Stock level bar */}
-                      <div className="space-y-1.5 bg-white p-3 rounded-none border-2 border-black">
-                        <div className="flex justify-between text-xs font-black uppercase tracking-widest">
-                          <span className="text-slate-600 font-sans">Stock dispo :</span>
-                          <span className={`font-mono font-black ${lowStock ? 'text-rose-600' : 'text-slate-950'}`}>
+                      <div className="space-y-2 bg-[#FBF8F3] p-3.5 rounded-2xl border border-stone-200/60">
+                        <div className="flex justify-between text-xs font-semibold">
+                          <span className="text-stone-500">Stock dispo :</span>
+                          <span className={`font-mono font-bold ${lowStock ? 'text-rose-600' : 'text-stone-900'}`}>
                             {t.quantiteDisponible} {t.unite || 'm'}
                           </span>
                         </div>
                         
-                        <div className="h-3 w-full bg-slate-200 rounded-none border border-black overflow-hidden">
+                        <div className="h-2 w-full bg-stone-200/70 rounded-full overflow-hidden">
                           <div 
                             style={{ width: `${progressPercent}%` }} 
-                            className={`h-full rounded-none transition-all duration-300 ${
-                              lowStock ? 'bg-rose-600' : 'bg-atelier-gold'
+                            className={`h-full rounded-full transition-all duration-300 ${
+                              lowStock ? 'bg-rose-500' : 'bg-[#F05A22]'
                             }`}
                           ></div>
                         </div>
-                        <div className="flex justify-between text-[9px] font-mono text-slate-600">
+                        <div className="flex justify-between text-[10px] font-mono text-stone-500">
                           <span>Seuil : {t.seuilAlerte} {t.unite || 'm'}</span>
                           <span>Prix : {formatFCFA(t.prixAchat)} / {t.unite || 'm'}</span>
                         </div>
@@ -327,25 +327,25 @@ export default function StockSection() {
 
                       {/* Supplier link */}
                       {supplier && (
-                        <div className="text-xs text-slate-600 flex items-center gap-1 font-mono uppercase font-black">
-                          <Briefcase className="h-3.5 w-3.5 text-black" /> {supplier.nom}
+                        <div className="text-xs text-stone-500 flex items-center gap-1.5 font-medium">
+                          <Briefcase className="h-3.5 w-3.5 text-stone-400" /> {supplier.nom}
                         </div>
                       )}
                     </div>
 
                     {/* Micro Adjust Stock Action */}
-                    <div className="mt-5 pt-4 border-t-2 border-black flex items-center justify-between">
+                    <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between">
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => adjustTissuStock(t.id, -1)}
-                          className="p-1.5 text-black hover:bg-slate-100 transition cursor-pointer"
+                          className="p-1 text-stone-500 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition cursor-pointer"
                           title={`Retirer 1 ${t.unite || 'm'}`}
                         >
                           <MinusCircle className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => adjustTissuStock(t.id, 1)}
-                          className="p-1.5 text-black hover:bg-slate-100 transition cursor-pointer"
+                          className="p-1 text-stone-500 hover:text-[#F05A22] hover:bg-orange-50 rounded-lg transition cursor-pointer"
                           title={`Ajouter 1 ${t.unite || 'm'}`}
                         >
                           <PlusCircle className="h-5 w-5" />
@@ -368,7 +368,7 @@ export default function StockSection() {
                             setUnite(t.unite || 'm');
                             setIsTissuModalOpen(true);
                           }}
-                          className="p-1.5 text-slate-800 hover:bg-slate-100 transition rounded-none cursor-pointer border border-transparent hover:border-black"
+                          className="p-1.5 text-stone-500 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition cursor-pointer"
                           title="Modifier l'article"
                         >
                           <Edit className="h-3.5 w-3.5" />
@@ -377,7 +377,7 @@ export default function StockSection() {
                           onClick={() => {
                             if (window.confirm('Voulez-vous supprimer cet article du stock ?')) deleteTissu(t.id);
                           }}
-                          className="p-1.5 text-rose-600 hover:bg-rose-600 hover:text-white transition rounded-none border border-transparent hover:border-black cursor-pointer"
+                          className="p-1.5 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
                           title="Supprimer l'article"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
@@ -394,12 +394,12 @@ export default function StockSection() {
 
       {/* FOURNISSEURS TAB PANEL */}
       {activeSubTab === 'fournisseurs' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {filteredFournisseurs.map(f => (
-            <div key={f.id} className="bg-white rounded-none p-5 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between transition">
+            <div key={f.id} className="bg-white rounded-3xl p-5 border border-stone-200/70 shadow-xs flex flex-col justify-between hover:shadow-md transition">
               <div className="space-y-4">
                 <div className="flex justify-between items-start">
-                  <h3 className="text-sm font-black uppercase tracking-wide text-slate-950 font-display">
+                  <h3 className="text-sm font-bold text-stone-900">
                     {f.nom}
                   </h3>
                   
@@ -415,7 +415,7 @@ export default function StockSection() {
                         setFournAdresse(f.adresse);
                         setIsFournModalOpen(true);
                       }}
-                      className="p-1.5 text-slate-800 hover:bg-slate-100 rounded-none border border-transparent hover:border-black transition cursor-pointer"
+                      className="p-1.5 text-stone-500 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition cursor-pointer"
                     >
                       <Edit className="h-3.5 w-3.5" />
                     </button>
@@ -423,7 +423,7 @@ export default function StockSection() {
                       onClick={() => {
                         if(window.confirm('Supprimer ce fournisseur ?')) deleteFournisseur(f.id);
                       }}
-                      className="p-1.5 text-rose-600 hover:bg-rose-600 hover:text-white rounded-none border border-transparent hover:border-black transition cursor-pointer"
+                      className="p-1.5 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </button>
@@ -431,24 +431,24 @@ export default function StockSection() {
                 </div>
 
                 {f.contact && (
-                  <p className="text-xs font-serif italic text-slate-700">Contact : <span className="font-sans font-black uppercase tracking-wider text-slate-950">{f.contact}</span></p>
+                  <p className="text-xs text-stone-500">Contact : <span className="font-semibold text-stone-800">{f.contact}</span></p>
                 )}
 
                 {/* Details Contacts */}
-                <div className="space-y-2 pt-3 border-t-2 border-black text-xs font-mono">
-                  <div className="flex items-center gap-2 text-slate-700">
-                    <Phone className="h-3.5 w-3.5 text-black" />
-                    <a href={`tel:${f.telephone}`} className="font-bold hover:underline">{f.telephone}</a>
+                <div className="space-y-2 pt-3 border-t border-stone-100 text-xs">
+                  <div className="flex items-center gap-2 text-stone-600 font-mono">
+                    <Phone className="h-3.5 w-3.5 text-[#F05A22]" />
+                    <a href={`tel:${f.telephone}`} className="font-semibold hover:underline text-stone-800">{f.telephone}</a>
                   </div>
                   {f.email && (
-                    <div className="flex items-center gap-2 text-slate-700">
-                      <Mail className="h-3.5 w-3.5 text-black" />
+                    <div className="flex items-center gap-2 text-stone-600 font-mono">
+                      <Mail className="h-3.5 w-3.5 text-[#F05A22]" />
                       <span>{f.email}</span>
                     </div>
                   )}
                   {f.adresse && (
-                    <div className="flex items-center gap-2 text-slate-700">
-                      <MapPin className="h-3.5 w-3.5 text-black flex-shrink-0" />
+                    <div className="flex items-center gap-2 text-stone-600">
+                      <MapPin className="h-3.5 w-3.5 text-[#F05A22] shrink-0" />
                       <span className="truncate">{f.adresse}</span>
                     </div>
                   )}
@@ -461,17 +461,17 @@ export default function StockSection() {
 
       {/* MODAL: TISSU FORM */}
       {isTissuModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none max-w-md w-full p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in fade-in zoom-in-95 duration-150">
-            <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 mb-6 font-display">
-              {editingTissu ? "Modifier l'article" : 'Enregistrer un Tissu ou une Fourniture'}
+        <div className="fixed inset-0 bg-stone-950/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="card-fox rounded-3xl max-w-md w-full p-6 border border-stone-200/80 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <h3 className="text-base font-bold text-stone-900 mb-5">
+              {editingTissu ? "Modifier l'article" : 'Enregistrer un tissu ou une fourniture'}
             </h3>
 
             <form onSubmit={handleTissuSubmit} className="space-y-4">
               {/* Category & Unit Selectors */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Catégorie *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Catégorie *</label>
                   <select
                     value={categorie}
                     onChange={(e) => {
@@ -488,7 +488,7 @@ export default function StockSection() {
                         setUnite('pièces');
                       }
                     }}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     required
                   >
                     <option value="tissu">Tissu (Mètres)</option>
@@ -501,71 +501,71 @@ export default function StockSection() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Unité de Mesure *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Unité de mesure *</label>
                   <input
                     type="text"
                     required
                     value={unite}
                     onChange={(e) => setUnite(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none font-black"
-                    placeholder="ex: m, pièces, bobines, boîtes..."
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
+                    placeholder="ex: m, pièces, bobines..."
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Référence SKU *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Référence SKU *</label>
                   <input
                     type="text"
                     required
                     value={tissuRef}
                     onChange={(e) => setTissuRef(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     placeholder="BAZ-099"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Désignation *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Désignation *</label>
                   <input
                     type="text"
                     required
                     value={designation}
                     onChange={(e) => setDesignation(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none"
-                    placeholder="Nom du tissu ou de la fourniture"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
+                    placeholder="Nom du tissu"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Teinte / Spécif. *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Teinte / Spécif. *</label>
                   <input
                     type="text"
                     required
                     value={couleur}
                     onChange={(e) => setCouleur(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none"
-                    placeholder="Bleu Royal, Doré, Invisible 50cm..."
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
+                    placeholder="Bleu Royal, Doré..."
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">
-                    Prix Achat (par {unite || 'unité'}, FCFA)
+                  <label className="text-xs font-semibold text-stone-700 block">
+                    Prix Achat ({unite || 'unité'})
                   </label>
                   <input
                     type="number"
                     value={prixAchat}
                     onChange={(e) => setPrixAchat(parseInt(e.target.value) || 0)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">
+                  <label className="text-xs font-semibold text-stone-700 block">
                     Qté disponible ({unite || 'unité'}) *
                   </label>
                   <input
@@ -574,12 +574,12 @@ export default function StockSection() {
                     required
                     value={quantiteDisponible}
                     onChange={(e) => setQuantiteDisponible(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">
-                    Alerte Seuil ({unite || 'unité'}) *
+                  <label className="text-xs font-semibold text-stone-700 block">
+                    Alerte seuil ({unite || 'unité'}) *
                   </label>
                   <input
                     type="number"
@@ -587,39 +587,39 @@ export default function StockSection() {
                     required
                     value={seuilAlerte}
                     onChange={(e) => setSeuilAlerte(parseFloat(e.target.value) || 0)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   />
                 </div>
               </div>
 
               {/* Supplier Selection */}
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Fournisseur d'achat *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Fournisseur d'achat *</label>
                 <select
                   value={fournisseurId}
                   onChange={(e) => setFournisseurId(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   required
                 >
-                  <option value="">SÉLECTIONNER UN FOURNISSEUR...</option>
+                  <option value="">Sélectionner un fournisseur...</option>
                   {fournisseurs.map(f => (
-                    <option key={f.id} value={f.id}>{f.nom.toUpperCase()}</option>
+                    <option key={f.id} value={f.id}>{f.nom}</option>
                   ))}
                 </select>
               </div>
 
               {/* Form Actions */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsTissuModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-none border-2 border-black text-slate-950 hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200/80 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-none bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs transition cursor-pointer"
+                  className="flex-1 btn-fox-primary !py-2.5"
                 >
                   Sauvegarder
                 </button>
@@ -631,83 +631,83 @@ export default function StockSection() {
 
       {/* MODAL: FOURNISSEUR FORM */}
       {isFournModalOpen && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-none flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-none max-w-md w-full p-6 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in fade-in zoom-in-95 duration-150">
-            <h3 className="text-lg font-black uppercase tracking-tight text-slate-950 mb-6 font-display">
-              {editingFourn ? 'Modifier le Fournisseur' : 'Créer un Nouveau Fournisseur'}
+        <div className="fixed inset-0 bg-stone-950/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
+          <div className="card-fox rounded-3xl max-w-md w-full p-6 border border-stone-200/80 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <h3 className="text-base font-bold text-stone-900 mb-5">
+              {editingFourn ? 'Modifier le fournisseur' : 'Créer un nouveau fournisseur'}
             </h3>
 
             <form onSubmit={handleFournSubmit} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Nom d'entreprise *</label>
+                <label className="text-xs font-semibold text-stone-700 block">Nom d'entreprise *</label>
                 <input
                   type="text"
                   required
                   value={fournNom}
                   onChange={(e) => setFournNom(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   placeholder="Établissements Diallo"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Interlocuteur de contact</label>
+                <label className="text-xs font-semibold text-stone-700 block">Interlocuteur de contact</label>
                 <input
                   type="text"
                   value={fournContact}
                   onChange={(e) => setFournContact(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   placeholder="Moustapha Diallo"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Téléphone *</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Téléphone *</label>
                   <input
                     type="text"
                     required
                     value={fournPhone}
                     onChange={(e) => setFournPhone(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-mono focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs font-mono text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     placeholder="+221 77 543 21"
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Adresse Email</label>
+                  <label className="text-xs font-semibold text-stone-700 block">Adresse email</label>
                   <input
                     type="email"
                     value={fournEmail}
                     onChange={(e) => setFournEmail(e.target.value)}
-                    className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none"
+                    className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                     placeholder="contact@diallotissus.sn"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 block">Adresse de l'entrepôt</label>
+                <label className="text-xs font-semibold text-stone-700 block">Adresse de l'entrepôt</label>
                 <input
                   type="text"
                   value={fournAdresse}
                   onChange={(e) => setFournAdresse(e.target.value)}
-                  className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs focus:outline-none"
+                  className="w-full rounded-xl border border-stone-200/80 bg-[#FBF8F3] px-3.5 py-2.5 text-xs text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]/20 focus:border-[#F05A22]"
                   placeholder="Marché Sandaga, Dakar"
                 />
               </div>
 
               {/* Form Actions */}
-              <div className="flex gap-3 pt-4 border-t-2 border-black">
+              <div className="flex gap-3 pt-4 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsFournModalOpen(false)}
-                  className="flex-1 py-2.5 rounded-none border-2 border-black text-slate-950 hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs cursor-pointer"
+                  className="flex-1 py-2.5 rounded-xl border border-stone-200/80 text-stone-700 hover:bg-stone-50 font-semibold text-xs cursor-pointer transition"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-none bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white font-black uppercase tracking-widest text-xs transition cursor-pointer"
+                  className="flex-1 btn-fox-primary !py-2.5"
                 >
                   Enregistrer
                 </button>
