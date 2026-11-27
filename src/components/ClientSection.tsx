@@ -17,7 +17,6 @@ import {
   Edit, 
   Trash2, 
   History, 
-  Sparkles, 
   Check, 
   Ruler, 
   BookOpen, 
@@ -74,98 +73,6 @@ export default function ClientSection() {
   const selectedClient = clients.find(c => c.id === selectedClientId);
   const clientMeasures = ficheMesures.filter(m => m.clientId === selectedClientId);
   const clientOrders = commandes.filter(o => o.clientId === selectedClientId);
-
-  // AI Sizing Advice States
-  const [aiAdvice, setAiAdvice] = useState<{ [measureId: string]: string }>({});
-  const [loadingAdvice, setLoadingAdvice] = useState<{ [measureId: string]: boolean }>({});
-
-  const handleFetchAiSizingAdvice = async (measure: FicheMesure) => {
-    if (!selectedClient) return;
-    setLoadingAdvice(prev => ({ ...prev, [measure.id]: true }));
-    try {
-      const response = await fetch('/api/conseil-tailleur', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          clientName: `${selectedClient.prenom} ${selectedClient.nom}`,
-          clientPreferences: selectedClient.preferences,
-          typeVetement: measure.typeVetement,
-          mensurations: measure.mensurations,
-          notes: measure.notes,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error('Erreur de communication avec le serveur de coupe IA.');
-      }
-      const data = await response.json();
-      setAiAdvice(prev => ({ ...prev, [measure.id]: data.advice }));
-    } catch (error: any) {
-      console.error(error);
-      setAiAdvice(prev => ({ ...prev, [measure.id]: "Erreur : Impossible d'obtenir des conseils de coupe pour le moment. Veuillez vérifier la clé d'API ou réessayer." }));
-    } finally {
-      setLoadingAdvice(prev => ({ ...prev, [measure.id]: false }));
-    }
-  };
-
-  const renderFormattedAdvice = (text: string) => {
-    if (!text) return null;
-    
-    // Split text by newlines
-    const lines = text.split('\n');
-    return (
-      <div className="space-y-3 font-serif text-sm text-slate-800 leading-relaxed">
-        {lines.map((line, idx) => {
-          let cleanLine = line.trim();
-          if (!cleanLine) return null;
-
-          // Check if line is a heading e.g. "### Heading" or "**Heading**"
-          const isHeading = cleanLine.startsWith('###') || (cleanLine.startsWith('**') && cleanLine.endsWith('**') && !cleanLine.includes(':'));
-          
-          if (isHeading) {
-            const displayTitle = cleanLine.replace(/###/g, '').replace(/\*\*/g, '').trim();
-            return (
-              <h4 key={idx} className="font-sans font-black uppercase text-[11px] tracking-wider text-slate-900 border-b border-black/10 pb-1 mt-4">
-                {displayTitle}
-              </h4>
-            );
-          }
-
-          // Check if line is a bullet point, e.g. starting with "- " or "* " or "1. "
-          const isBullet = cleanLine.startsWith('-') || cleanLine.startsWith('*') || /^\d+\.\s/.test(cleanLine);
-          
-          // Bold processing: replace **some text** with <strong>some text</strong>
-          const renderWithBold = (txt: string) => {
-            const parts = txt.split('**');
-            return parts.map((part, pIdx) => {
-              if (pIdx % 2 === 1) {
-                return <strong key={pIdx} className="font-extrabold text-slate-950">{part}</strong>;
-              }
-              return part;
-            });
-          };
-
-          if (isBullet) {
-            // strip bullet indicator
-            const bulletText = cleanLine.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '').trim();
-            return (
-              <div key={idx} className="flex items-start gap-2 pl-2">
-                <span className="text-atelier-gold-dark font-black mt-1">•</span>
-                <span>{renderWithBold(bulletText)}</span>
-              </div>
-            );
-          }
-
-          return (
-            <p key={idx} className="not-italic text-slate-700">
-              {renderWithBold(cleanLine)}
-            </p>
-          );
-        })}
-      </div>
-    );
-  };
 
   const filteredClients = clients.filter(c => {
     const term = searchTerm.toLowerCase();
@@ -601,26 +508,6 @@ export default function ClientSection() {
         </div>
       `).join('');
 
-    const formattedAdvice = aiAdvice[measure.id]
-      ? aiAdvice[measure.id]
-          .split('\n')
-          .map(line => {
-            const clean = line.trim();
-            if (!clean) return '';
-            if (clean.startsWith('###') || (clean.startsWith('**') && clean.endsWith('**') && !clean.includes(':'))) {
-              return `<h4 style="color: #E85D04; font-size: 12px; text-transform: uppercase; border-bottom: 1px solid #FFE4D0; padding-bottom: 3px; margin-top: 15px; margin-bottom: 8px;">${clean.replace(/###/g, '').replace(/\*\*/g, '').trim()}</h4>`;
-            }
-            const isBullet = clean.startsWith('-') || clean.startsWith('*');
-            const renderWithBold = (txt: string) => {
-              return txt.split('**').map((part, pIdx) => pIdx % 2 === 1 ? `<strong>${part}</strong>` : part).join('');
-            };
-            if (isBullet) {
-              return `<li style="font-size: 11px; margin-left: 15px; margin-bottom: 4px; color: #444;">${renderWithBold(clean.replace(/^[-*]\s+/, '').trim())}</li>`;
-            }
-            return `<p style="font-size: 11px; margin-bottom: 6px; color: #444; line-height: 1.4;">${renderWithBold(clean)}</p>`;
-          }).join('')
-      : '<p style="font-size: 11px; color: #999; font-style: italic;">Aucune analyse morphologique ou conseil de coupe n\'a été généré pour cette fiche.</p>';
-
     printWindow.document.write(`
       <html>
         <head>
@@ -669,11 +556,6 @@ export default function ClientSection() {
             <h2>Notes & Consignes de coupe</h2>
             <div class="notes-box">${measure.notes}</div>
           ` : ''}
-
-          <h2>Analyse de Coupe & Stylisme IA</h2>
-          <div style="background: #FFFDF9; border: 1px solid #FDF3E7; padding: 15px; border-radius: 4px; margin-top: 15px;">
-            ${formattedAdvice}
-          </div>
           
           <div class="footer">Document d'Atelier Confidentiel — Maison Fox Couture © ${new Date().getFullYear()}</div>
         </body>
@@ -1043,59 +925,6 @@ export default function ClientSection() {
                           <strong>Note de coupe :</strong> "{measure.notes}"
                         </p>
                       )}
-
-                      {/* AI Tailoring Advice Section */}
-                      <div className="mt-4 pt-4 border-t border-stone-200">
-                        {aiAdvice[measure.id] ? (
-                          <div className="bg-white p-4 rounded-xl border border-stone-200 space-y-3 relative overflow-hidden">
-                            <div className="flex justify-between items-center border-b border-stone-100 pb-2">
-                              <span className="text-xs font-semibold text-stone-900 flex items-center gap-1.5">
-                                <Sparkles className="h-4 w-4 text-[#F05A22]" /> Analyse de coupe & style IA
-                              </span>
-                              <button
-                                onClick={() => handleFetchAiSizingAdvice(measure)}
-                                disabled={loadingAdvice[measure.id]}
-                                className="text-xs font-semibold text-stone-600 hover:text-[#F05A22] cursor-pointer disabled:opacity-50 transition"
-                              >
-                                {loadingAdvice[measure.id] ? 'Analyse...' : 'Réanalyser'}
-                              </button>
-                            </div>
-                            
-                            {renderFormattedAdvice(aiAdvice[measure.id])}
-                          </div>
-                        ) : (
-                          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 rounded-xl border border-stone-200/80">
-                            <div className="space-y-0.5">
-                              <span className="text-xs font-bold text-stone-900 flex items-center gap-1.5">
-                                <Sparkles className="h-4 w-4 text-[#F05A22]" /> Assistant de coupe & stylisme IA
-                              </span>
-                              <p className="text-xs text-stone-500">
-                                Analyse morphologique, conseils d'ajustements d'atelier et suggestions de tissus.
-                              </p>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => handleFetchAiSizingAdvice(measure)}
-                              disabled={loadingAdvice[measure.id]}
-                              className="btn-fox-primary !py-2 !px-3 shrink-0"
-                            >
-                              {loadingAdvice[measure.id] ? (
-                                <>
-                                  <svg className="animate-spin -ml-1 mr-2 h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                  </svg>
-                                  Analyse...
-                                </>
-                              ) : (
-                                <>
-                                  <Sparkles className="h-3.5 w-3.5" /> Générer analyse IA
-                                </>
-                              )}
-                            </button>
-                          </div>
-                        )}
-                      </div>
                     </div>
                   ))}
                 </div>

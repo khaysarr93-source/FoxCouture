@@ -24,7 +24,6 @@ import {
   FileText, 
   BookOpen,
   DollarSign,
-  Sparkles,
   Printer,
   MessageCircle
 } from 'lucide-react';
@@ -120,100 +119,6 @@ export default function OrderSection() {
   const totalCostOfProduction = totalMaterialsCost + coutMainOeuvre;
   const grossMargin = montantTotal - totalCostOfProduction;
   const marginPercent = montantTotal > 0 ? Math.round((grossMargin / montantTotal) * 100) : 0;
-
-  // AI Confection Advice States
-  const [aiAdvice, setAiAdvice] = useState<{ [orderId: string]: string }>({});
-  const [loadingAdvice, setLoadingAdvice] = useState<{ [orderId: string]: boolean }>({});
-
-  const handleFetchAiConfectionAdvice = async (order: Commande) => {
-    const client = clients.find(c => c.id === order.clientId);
-    setLoadingAdvice(prev => ({ ...prev, [order.id]: true }));
-    try {
-      const response = await fetch('/api/conseil-confection', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          reference: order.reference,
-          modeleNom: order.modeleNom,
-          modeleCategorie: order.modeleCategorie,
-          tissuNom: order.tissuNom,
-          remarquesProduction: order.remarquesProduction,
-          clientName: client ? `${client.prenom} ${client.nom}` : undefined,
-          clientPreferences: client?.preferences,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error('Erreur de communication avec le serveur de couture.');
-      }
-      const data = await response.json();
-      setAiAdvice(prev => ({ ...prev, [order.id]: data.advice }));
-    } catch (error: any) {
-      console.error(error);
-      setAiAdvice(prev => ({ ...prev, [order.id]: "Erreur : Impossible de générer la notice de confection pour le moment. Veuillez réessayer." }));
-    } finally {
-      setLoadingAdvice(prev => ({ ...prev, [order.id]: false }));
-    }
-  };
-
-  const renderFormattedAdvice = (text: string) => {
-    if (!text) return null;
-    
-    // Split text by newlines
-    const lines = text.split('\n');
-    return (
-      <div className="space-y-3 font-serif text-sm text-slate-800 leading-relaxed">
-        {lines.map((line, idx) => {
-          let cleanLine = line.trim();
-          if (!cleanLine) return null;
-
-          // Check if line is a heading e.g. "### Heading" or "**Heading**"
-          const isHeading = cleanLine.startsWith('###') || (cleanLine.startsWith('**') && cleanLine.endsWith('**') && !cleanLine.includes(':'));
-          
-          if (isHeading) {
-            const displayTitle = cleanLine.replace(/###/g, '').replace(/\*\*/g, '').trim();
-            return (
-              <h4 key={idx} className="font-sans font-black uppercase text-[11px] tracking-wider text-slate-900 border-b border-black/10 pb-1 mt-4">
-                {displayTitle}
-              </h4>
-            );
-          }
-
-          // Check if line is a bullet point, e.g. starting with "- " or "* " or "1. "
-          const isBullet = cleanLine.startsWith('-') || cleanLine.startsWith('*') || /^\d+\.\s/.test(cleanLine);
-          
-          // Bold processing: replace **some text** with <strong>some text</strong>
-          const renderWithBold = (txt: string) => {
-            const parts = txt.split('**');
-            return parts.map((part, pIdx) => {
-              if (pIdx % 2 === 1) {
-                return <strong key={pIdx} className="font-extrabold text-slate-950">{part}</strong>;
-              }
-              return part;
-            });
-          };
-
-          if (isBullet) {
-            // strip bullet indicator
-            const bulletText = cleanLine.replace(/^[-*]\s+/, '').replace(/^\d+\.\s+/, '').trim();
-            return (
-              <div key={idx} className="flex items-start gap-2 pl-2">
-                <span className="text-atelier-gold-dark font-black mt-1">•</span>
-                <span>{renderWithBold(bulletText)}</span>
-              </div>
-            );
-          }
-
-          return (
-            <p key={idx} className="not-italic text-slate-700">
-              {renderWithBold(cleanLine)}
-            </p>
-          );
-        })}
-      </div>
-    );
-  };
 
   const selectedOrder = commandes.find(c => c.id === selectedOrderId);
   const orderClient = selectedOrder ? clients.find(cl => cl.id === selectedOrder.clientId) : null;
@@ -322,26 +227,6 @@ export default function OrderSection() {
         `;
       }).join('');
 
-    const formattedAdvice = aiAdvice[selectedOrder.id]
-      ? aiAdvice[selectedOrder.id]
-          .split('\n')
-          .map(line => {
-            const clean = line.trim();
-            if (!clean) return '';
-            if (clean.startsWith('###') || (clean.startsWith('**') && clean.endsWith('**') && !clean.includes(':'))) {
-              return `<h4 style="color: #E85D04; font-size: 12px; text-transform: uppercase; border-bottom: 1px solid #FFE4D0; padding-bottom: 3px; margin-top: 15px; margin-bottom: 8px;">${clean.replace(/###/g, '').replace(/\*\*/g, '').trim()}</h4>`;
-            }
-            const isBullet = clean.startsWith('-') || clean.startsWith('*');
-            const renderWithBold = (txt: string) => {
-              return txt.split('**').map((part, pIdx) => pIdx % 2 === 1 ? `<strong>${part}</strong>` : part).join('');
-            };
-            if (isBullet) {
-              return `<li style="font-size: 11px; margin-left: 15px; margin-bottom: 4px; color: #444;">${renderWithBold(clean.replace(/^[-*]\s+/, '').trim())}</li>`;
-            }
-            return `<p style="font-size: 11px; margin-bottom: 6px; color: #444; line-height: 1.4;">${renderWithBold(clean)}</p>`;
-          }).join('')
-      : '<p style="font-size: 11px; color: #999; font-style: italic;">Aucune notice de stylisme générée. Veuillez la générer dans l\'application pour l\'inclure.</p>';
-
     const suppliesHtml = selectedOrder.fournituresAssociees && selectedOrder.fournituresAssociees.length > 0
       ? selectedOrder.fournituresAssociees.map(supply => {
           const item = tissus.find(t => t.id === supply.tissuId);
@@ -418,12 +303,6 @@ export default function OrderSection() {
                 ${selectedOrder.remarquesProduction || 'Aucune remarque spécifique de production.'}
               </div>
             </div>
-            <div>
-              <h2>Notice stylisme & Confection IA</h2>
-              <div style="background: #FFFDF9; border: 1px solid #FDF3E7; padding: 12px; border-radius: 4px;">
-                ${formattedAdvice}
-              </div>
-            </div>
           </div>
 
           <div class="footer">
@@ -436,8 +315,74 @@ export default function OrderSection() {
   };
 
 
+  // Executive Order KPIs
+  const activeOrders = commandes.filter(c => c.statut !== 'livre' && c.statut !== 'annule');
+  const activeOrdersCount = activeOrders.length;
+  const inProductionCount = commandes.filter(c => ['en_coupe', 'en_assemblage', 'production'].includes(c.statut)).length;
+  const readyOrFittingCount = commandes.filter(c => ['essayage', 'pret'].includes(c.statut)).length;
+  const totalSoldeDu = activeOrders.reduce((sum, c) => sum + (c.soldeDu || Math.max(0, c.montantTotal - c.acompteVerse)), 0);
+
+  // Status counts for filter pills
+  const statusCounts = {
+    all: commandes.length,
+    devis: commandes.filter(c => c.statut === 'devis' || c.statut === 'attente').length,
+    confirmee: commandes.filter(c => c.statut === 'confirmee').length,
+    en_coupe: commandes.filter(c => c.statut === 'en_coupe').length,
+    en_assemblage: commandes.filter(c => c.statut === 'en_assemblage' || c.statut === 'production').length,
+    essayage: commandes.filter(c => c.statut === 'essayage').length,
+    pret: commandes.filter(c => c.statut === 'pret').length,
+    livre: commandes.filter(c => c.statut === 'livre').length,
+  };
+
   return (
     <div className="space-y-6">
+      {/* 4 Executive KPI Cards on top */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="card-fox p-5 bg-white border border-stone-200/80 rounded-2xl flex items-center justify-between shadow-xs">
+          <div>
+            <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider block">Commandes actives</span>
+            <strong className="text-2xl font-black text-stone-900 mt-1 block">{activeOrdersCount}</strong>
+            <span className="text-[11px] text-stone-400 mt-0.5 block">{commandes.length} au total</span>
+          </div>
+          <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-800 flex items-center justify-center">
+            <Scissors className="h-5 w-5 text-[#F05A22]" />
+          </div>
+        </div>
+
+        <div className="card-fox p-5 bg-white border border-stone-200/80 rounded-2xl flex items-center justify-between shadow-xs">
+          <div>
+            <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider block">En confection atelier</span>
+            <strong className="text-2xl font-black text-stone-900 mt-1 block">{inProductionCount}</strong>
+            <span className="text-[11px] text-purple-600 font-medium mt-0.5 block">Coupe & couture</span>
+          </div>
+          <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center">
+            <Layers className="h-5 w-5" />
+          </div>
+        </div>
+
+        <div className="card-fox p-5 bg-white border border-stone-200/80 rounded-2xl flex items-center justify-between shadow-xs">
+          <div>
+            <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider block">Essayages & Prêtes</span>
+            <strong className="text-2xl font-black text-stone-900 mt-1 block">{readyOrFittingCount}</strong>
+            <span className="text-[11px] text-emerald-600 font-medium mt-0.5 block">À livrer prochainement</span>
+          </div>
+          <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+            <CheckCircle className="h-5 w-5" />
+          </div>
+        </div>
+
+        <div className="card-fox p-5 bg-[#FAF5E6] border border-amber-200/80 rounded-2xl flex items-center justify-between shadow-xs">
+          <div>
+            <span className="text-[11px] font-semibold text-amber-800 uppercase tracking-wider block">Solde à percevoir</span>
+            <strong className="text-xl font-black text-[#F05A22] font-mono mt-1 block">{formatFCFA(totalSoldeDu)}</strong>
+            <span className="text-[11px] text-amber-700 font-medium mt-0.5 block">Reste dû des commandes</span>
+          </div>
+          <div className="w-10 h-10 rounded-xl bg-[#F05A22]/10 text-[#F05A22] flex items-center justify-center">
+            <Coins className="h-5 w-5" />
+          </div>
+        </div>
+      </div>
+
       {/* Mobile view tabs selector */}
       <div className="flex lg:hidden bg-white p-1 rounded-2xl border border-stone-200/60 shadow-xs">
         <button
@@ -464,14 +409,16 @@ export default function OrderSection() {
           activeMobileView === 'list' ? 'flex' : 'hidden lg:flex'
         }`}>
         {/* Search, Status Quick Tabs & Creation Button */}
-        <div className="p-5 border-b border-stone-100 bg-white space-y-4">
+        <div className="p-5 border-b border-stone-100 bg-white space-y-3.5">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-extrabold text-[#191716] font-display flex items-center gap-2">
-              <Scissors className="h-4.5 w-4.5 text-[#F05A22]" /> Commandes Atelier
-            </h3>
+            <div>
+              <h3 className="text-sm font-bold text-stone-900 flex items-center gap-2">
+                <Scissors className="h-4.5 w-4.5 text-[#F05A22]" /> Liste des Commandes
+              </h3>
+              <span className="text-[11px] text-stone-500">{filteredOrders.length} résultat{filteredOrders.length > 1 ? 's' : ''}</span>
+            </div>
             <button 
               onClick={() => {
-                // Initialize default values for order creation
                 setClientId(clients[0]?.id || '');
                 if (clients[0]?.id) handleClientChange(clients[0].id);
                 setModeleNom('');
@@ -488,43 +435,44 @@ export default function OrderSection() {
                 setCoutMainOeuvre(0);
                 setIsOrderModalOpen(true);
               }}
-              className="btn-fox-primary !p-2 !rounded-xl"
+              className="btn-fox-primary !py-2 !px-3 text-xs flex items-center gap-1.5"
               title="Nouvelle commande"
             >
-              <Plus className="h-4.5 w-4.5 stroke-[3]" />
+              <Plus className="h-4 w-4 stroke-[3]" />
+              <span>Créer</span>
             </button>
           </div>
 
           <div className="relative">
-            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-stone-400" />
+            <Search className="absolute left-3.5 top-3 h-4 w-4 text-stone-400" />
             <input 
               type="text" 
-              placeholder="Réf, client, modèle..." 
+              placeholder="Réf, client, modèle, tissu..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl py-2.5 pl-10 pr-4 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
+              className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl py-2 pl-9 pr-4 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
             />
           </div>
 
-          {/* Status Tabs Pills */}
+          {/* Status Tabs Pills with live counts */}
           <div className="flex flex-wrap gap-1.5 pt-1">
             {([
-              { key: 'all', label: 'Toutes' },
-              { key: 'devis', label: 'Devis' },
-              { key: 'confirmee', label: 'Confirmées' },
-              { key: 'en_coupe', label: 'Coupe' },
-              { key: 'en_assemblage', label: 'Assemblage' },
-              { key: 'essayage', label: 'Essayages' },
-              { key: 'pret', label: 'Prêtes' },
-              { key: 'livre', label: 'Livrées' }
+              { key: 'all', label: `Toutes (${statusCounts.all})` },
+              { key: 'devis', label: `Devis (${statusCounts.devis})` },
+              { key: 'confirmee', label: `Confirmées (${statusCounts.confirmee})` },
+              { key: 'en_coupe', label: `Coupe (${statusCounts.en_coupe})` },
+              { key: 'en_assemblage', label: `Couture (${statusCounts.en_assemblage})` },
+              { key: 'essayage', label: `Essayage (${statusCounts.essayage})` },
+              { key: 'pret', label: `Prêtes (${statusCounts.pret})` },
+              { key: 'livre', label: `Livrées (${statusCounts.livre})` }
             ] as { key: StatutCommande | 'all'; label: string }[]).map(tab => (
               <button
                 key={tab.key}
                 onClick={() => setStatusFilter(tab.key)}
-                className={`px-3 py-1.5 rounded-full text-[10px] font-semibold transition cursor-pointer ${
+                className={`px-2.5 py-1 rounded-full text-[10px] font-semibold transition cursor-pointer ${
                   statusFilter === tab.key 
                     ? 'bg-[#191716] text-white shadow-xs' 
-                    : 'bg-[#EDE8E0] text-stone-700 hover:bg-stone-300'
+                    : 'bg-[#FBF8F3] text-stone-600 border border-stone-200 hover:bg-stone-200/60'
                 }`}
               >
                 {tab.label}
@@ -539,6 +487,9 @@ export default function OrderSection() {
             filteredOrders.map(order => {
               const client = clients.find(c => c.id === order.clientId);
               const badge = getStatusBadge(order.statut);
+              const initials = client ? `${client.prenom?.[0] || ''}${client.nom?.[0] || ''}`.toUpperCase() : 'FC';
+              const soldeDu = order.soldeDu !== undefined ? order.soldeDu : Math.max(0, order.montantTotal - order.acompteVerse);
+              const isLate = new Date(order.delaiLivraison) < new Date() && order.statut !== 'livre';
               
               return (
                 <div 
@@ -547,41 +498,54 @@ export default function OrderSection() {
                     setSelectedOrderId(order.id);
                     setActiveMobileView('detail');
                   }}
-                  className={`p-4 flex flex-col gap-2 cursor-pointer transition ${
+                  className={`p-4 flex flex-col gap-2.5 cursor-pointer transition ${
                     selectedOrderId === order.id ? 'bg-[#FDF4EE] border-l-4 border-[#F05A22]' : 'hover:bg-stone-50/70'
                   }`}
                 >
-                  <div className="flex justify-between items-start">
-                    <span className="text-xs font-mono font-semibold text-stone-500">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs font-mono font-bold text-stone-800 bg-stone-100 px-2 py-0.5 rounded-md">
                       {order.reference}
                     </span>
-                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${badge.bg}`}>
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${badge.bg}`}>
                       {badge.label}
                     </span>
                   </div>
 
-                  <div>
-                    <h4 className="text-xs font-bold text-stone-900 line-clamp-1">
-                      {order.modeleNom}
-                    </h4>
-                    <p className="text-xs text-stone-600 mt-0.5 flex items-center gap-1.5 font-medium">
-                      <User className="h-3 w-3 text-stone-400" /> {client ? `${client.prenom} ${client.nom}` : 'Client inconnu'}
-                    </p>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-stone-200 text-stone-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                      {initials}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-xs font-bold text-stone-900 truncate">
+                        {order.modeleNom}
+                      </h4>
+                      <p className="text-xs text-stone-500 truncate mt-0.5">
+                        {client ? `${client.prenom} ${client.nom}` : 'Client inconnu'}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="flex justify-between items-center text-xs text-stone-500 mt-1 pt-2 border-t border-stone-200/60 font-medium">
-                    <span className="flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5 text-stone-400" /> {order.delaiLivraison.split('-').reverse().join('/')}
+                  <div className="flex justify-between items-center text-xs pt-2 border-t border-stone-200/60 font-medium">
+                    <span className={`flex items-center gap-1 text-[11px] ${isLate ? 'text-rose-600 font-bold' : 'text-stone-500'}`}>
+                      <Calendar className="h-3 w-3" /> {order.delaiLivraison.split('-').reverse().join('/')}
+                      {isLate && ' (En retard)'}
                     </span>
-                    <strong className="text-stone-900 font-bold font-mono">
-                      {formatFCFA(order.montantTotal)}
-                    </strong>
+                    
+                    {soldeDu > 0 ? (
+                      <span className="text-[11px] font-bold font-mono text-[#F05A22] bg-[#F05A22]/10 px-2 py-0.5 rounded-md">
+                        Solde: {formatFCFA(soldeDu)}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                        ✓ Soldé
+                      </span>
+                    )}
                   </div>
                 </div>
               );
             })
           ) : (
-            <div className="text-center py-12 text-stone-400">
+            <div className="text-center py-16 text-stone-400">
               <Scissors className="h-8 w-8 mx-auto mb-2 text-stone-300" />
               <p className="text-xs font-medium">Aucune commande répertoriée</p>
             </div>
@@ -833,70 +797,33 @@ export default function OrderSection() {
               </div>
             )}
 
-            {/* AI Custom Confection & Styling Guide Section */}
-            <div className="card-fox p-6 space-y-4">
-              <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3 flex items-center gap-2">
-                <Sparkles className="h-4.5 w-4.5 text-[#F05A22]" /> Notice de stylisme & confection assistée par IA
-              </h3>
-
-              {aiAdvice[selectedOrder.id] ? (
-                <div className="bg-[#FBF8F3] p-5 rounded-2xl border border-stone-200/80 space-y-4 relative overflow-hidden">
-                  <div className="flex justify-between items-center border-b border-stone-200 pb-2">
-                    <span className="text-xs font-semibold text-stone-900 flex items-center gap-1.5">
-                      <Sparkles className="h-4 w-4 text-[#F05A22]" /> Recommandation stylistique & technique
-                    </span>
-                    <button
-                      onClick={() => handleFetchAiConfectionAdvice(selectedOrder)}
-                      disabled={loadingAdvice[selectedOrder.id]}
-                      className="text-xs font-semibold text-stone-600 hover:text-[#F05A22] cursor-pointer disabled:opacity-50 transition"
-                    >
-                      {loadingAdvice[selectedOrder.id] ? 'Génération...' : 'Réanalyser'}
-                    </button>
-                  </div>
-                  
-                  {renderFormattedAdvice(aiAdvice[selectedOrder.id])}
-                </div>
-              ) : (
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#FBF8F3] p-5 rounded-2xl border border-stone-200/80">
-                  <div className="space-y-1">
-                    <span className="text-xs font-bold text-stone-900 flex items-center gap-1.5">
-                      <Sparkles className="h-4 w-4 text-[#F05A22]" /> Assistant stylisme & coupe
-                    </span>
-                    <p className="text-xs text-stone-600 max-w-xl leading-relaxed">
-                      Générez une notice sur-mesure pour ce modèle : accessoires recommandés, particularités techniques d'assemblage pour le tissu {selectedOrder.tissuNom}.
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleFetchAiConfectionAdvice(selectedOrder)}
-                    disabled={loadingAdvice[selectedOrder.id]}
-                    className="btn-fox-primary !py-2.5 !px-4 shrink-0"
-                  >
-                    {loadingAdvice[selectedOrder.id] ? (
-                      <>
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Génération...
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="h-4 w-4" /> Créer notice IA
-                      </>
-                    )}
-                  </button>
-                </div>
-              )}
-            </div>
-
             {/* Production steps section */}
-            <div className="card-fox p-6 space-y-6">
-              <h3 className="text-sm font-bold text-stone-900 border-b border-stone-100 pb-3 flex items-center gap-2">
-                <Layers className="h-4.5 w-4.5 text-[#F05A22]" /> Étapes de confection en atelier
-              </h3>
+            {(() => {
+              const totalSteps = selectedOrder.etapesProduction.length;
+              const completedSteps = selectedOrder.etapesProduction.filter(s => s.statut === 'termine').length;
+              const progressPercent = totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
 
-              <div className="space-y-3">
+              return (
+                <div className="card-fox p-6 space-y-5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-3">
+                    <h3 className="text-sm font-bold text-stone-900 flex items-center gap-2">
+                      <Layers className="h-4.5 w-4.5 text-[#F05A22]" /> Étapes de confection en atelier
+                    </h3>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-stone-500 font-medium">Avancement :</span>
+                      <span className="text-xs font-bold text-[#F05A22] font-mono">{completedSteps}/{totalSteps} étapes ({progressPercent}%)</span>
+                    </div>
+                  </div>
+
+                  {/* Progress Bar */}
+                  <div className="w-full bg-stone-100 rounded-full h-2.5 overflow-hidden">
+                    <div 
+                      className="bg-[#F05A22] h-full rounded-full transition-all duration-300"
+                      style={{ width: `${progressPercent}%` }}
+                    />
+                  </div>
+
+                  <div className="space-y-3">
                 {selectedOrder.etapesProduction.map((step, idx) => {
                   const tailor = employes.find(e => e.id === step.responsableId);
                   
@@ -968,6 +895,8 @@ export default function OrderSection() {
                 })}
               </div>
             </div>
+          );
+        })()}
 
             {/* Financial summaries info */}
             <div className="card-fox p-6 space-y-4">
@@ -1068,6 +997,7 @@ export default function OrderSection() {
             <p className="text-xs text-stone-500 mt-1">Sélectionnez une commande dans la liste pour voir les détails.</p>
           </div>
         )}
+      </div>
       </div>
 
       {/* MODAL: CREATE ORDER */}
@@ -1390,7 +1320,6 @@ export default function OrderSection() {
           </div>
         </div>
       )}
-    </div>
     </div>
   );
 }
