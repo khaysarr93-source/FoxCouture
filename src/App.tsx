@@ -243,7 +243,7 @@ function MainAppContent() {
     { id: 'dashboard', label: 'Tableau de Bord', icon: <LayoutDashboard className="h-5 w-5" />, color: 'group-hover:text-amber-500' },
   ];
 
-  if (userRole !== 'couturier') {
+  if (userRole !== 'couturier' && userRole !== 'coupeur') {
     menuItems.push(
       { id: 'pos_caisse', label: 'Caisse & Ventes POS', icon: <Store className="h-5 w-5" />, color: 'group-hover:text-amber-500' }
     );
@@ -251,13 +251,25 @@ function MainAppContent() {
 
   menuItems.push(
     { id: 'clients', label: 'Clients & Mesures', icon: <UserCheck className="h-5 w-5" />, color: 'group-hover:text-emerald-500' },
-    { id: 'commandes', label: 'Commandes Atelier', icon: <Scissors className="h-5 w-5" />, color: 'group-hover:text-rose-500' },
-    { id: 'atelier', label: 'Suivi de Production', icon: <Cpu className="h-5 w-5" />, color: 'group-hover:text-indigo-500' },
+    { id: 'commandes', label: 'Commandes Atelier', icon: <Scissors className="h-5 w-5" />, color: 'group-hover:text-rose-500' }
+  );
+
+  if (userRole !== 'vendeur') {
+    menuItems.push(
+      { id: 'atelier', label: 'Suivi de Production', icon: <Cpu className="h-5 w-5" />, color: 'group-hover:text-indigo-500' }
+    );
+  }
+
+  menuItems.push(
     { id: 'calendrier', label: 'Agenda des Essayages', icon: <Calendar className="h-5 w-5" />, color: 'group-hover:text-amber-500' },
     { id: 'stocks', label: 'Tissus & Fournitures', icon: <Database className="h-5 w-5" />, color: 'group-hover:text-blue-500' }
   );
 
-  if (userRole !== 'couturier') {
+  if (userRole === 'vendeur') {
+    menuItems.push(
+      { id: 'factures', label: 'Règlements & Factures', icon: <FileText className="h-5 w-5" />, color: 'group-hover:text-teal-500' }
+    );
+  } else if (userRole !== 'couturier' && userRole !== 'coupeur') {
     menuItems.push(
       { id: 'stats', label: 'Stats & Analyses 📊', icon: <BarChart2 className="h-5 w-5" />, color: 'group-hover:text-blue-500' },
       { id: 'factures', label: 'Règlements & Factures', icon: <FileText className="h-5 w-5" />, color: 'group-hover:text-teal-500' },

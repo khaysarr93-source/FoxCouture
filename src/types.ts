@@ -142,7 +142,15 @@ export interface Fournisseur {
   adresse: string;
 }
 
-export type RoleEmploye = 'chef_atelier' | 'maitre_tailleur' | 'coupeur' | 'brodeur' | 'couturier' | 'finisseur' | 'repasseur';
+export type RoleEmploye = 
+  | 'chef_atelier' 
+  | 'maitre_tailleur' 
+  | 'coupeur' 
+  | 'brodeur' 
+  | 'couturier' 
+  | 'finisseur' 
+  | 'repasseur' 
+  | 'vendeur';
 
 export interface Employe {
   id: string;
@@ -157,7 +165,7 @@ export interface Employe {
   email?: string;
   motDePasse?: string;
   derniereConnexion?: string;
-  roleSaaS?: 'tenant_admin' | 'couturier' | 'chef_atelier';
+  roleSaaS?: 'tenant_admin' | 'couturier' | 'chef_atelier' | 'vendeur' | 'coupeur';
   accesActif?: boolean;
 }
 

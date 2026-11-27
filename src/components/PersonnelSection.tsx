@@ -45,14 +45,14 @@ export default function PersonnelSection() {
   const [hasSystemAccess, setHasSystemAccess] = useState(false);
   const [email, setEmail] = useState('');
   const [motDePasse, setMotDePasse] = useState('');
-  const [roleSaaS, setRoleSaaS] = useState<'tenant_admin' | 'chef_atelier' | 'couturier'>('couturier');
+  const [roleSaaS, setRoleSaaS] = useState<'tenant_admin' | 'chef_atelier' | 'couturier' | 'vendeur' | 'coupeur'>('couturier');
 
   // Account Modal States
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
   const [selectedEmp, setSelectedEmp] = useState<Employe | null>(null);
   const [accEmail, setAccEmail] = useState('');
   const [accPassword, setAccPassword] = useState('');
-  const [accRoleSaaS, setAccRoleSaaS] = useState<'tenant_admin' | 'chef_atelier' | 'couturier'>('couturier');
+  const [accRoleSaaS, setAccRoleSaaS] = useState<'tenant_admin' | 'chef_atelier' | 'couturier' | 'vendeur' | 'coupeur'>('couturier');
   const [accAccesActif, setAccAccesActif] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -409,11 +409,15 @@ export default function PersonnelSection() {
                         <span className={`px-2 py-0.5 border border-black dark:border-zinc-700 text-[9px] font-black uppercase tracking-widest ${
                           emp.roleSaaS === 'tenant_admin' ? 'bg-amber-100 text-amber-950 dark:bg-amber-950 dark:text-amber-200' :
                           emp.roleSaaS === 'chef_atelier' ? 'bg-indigo-100 text-indigo-950 dark:bg-indigo-950 dark:text-indigo-200' :
+                          emp.roleSaaS === 'vendeur' ? 'bg-emerald-100 text-emerald-950 dark:bg-emerald-950 dark:text-emerald-200' :
+                          emp.roleSaaS === 'coupeur' ? 'bg-blue-100 text-blue-950 dark:bg-blue-950 dark:text-blue-200' :
                           'bg-slate-100 text-slate-950 dark:bg-zinc-800 dark:text-zinc-200'
                         }`}>
                           {emp.roleSaaS === 'tenant_admin' ? 'Admin d\'Atelier' :
                            emp.roleSaaS === 'chef_atelier' ? 'Chef d\'Atelier' :
-                           'Couturier / Lecteur'}
+                           emp.roleSaaS === 'vendeur' ? 'Vendeur / Caissier' :
+                           emp.roleSaaS === 'coupeur' ? 'Coupeur' :
+                           'Couturier / Artisan'}
                         </span>
                       ) : (
                         <span className="text-slate-400 dark:text-zinc-600 font-mono">—</span>
@@ -542,6 +546,7 @@ export default function PersonnelSection() {
                   <option value="couturier">Couturier d'Atelier</option>
                   <option value="coupeur">Coupeur de Patronages</option>
                   <option value="chef_atelier">Chef d'Atelier / Maître Tailleur</option>
+                  <option value="vendeur">Vendeur / Caissier</option>
                   <option value="finisseur">Finisseur / Repasseur</option>
                 </select>
               </div>
@@ -625,9 +630,11 @@ export default function PersonnelSection() {
                         onChange={(e) => setRoleSaaS(e.target.value as any)}
                         className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none focus:ring-0"
                       >
-                        <option value="couturier">Couturier (Lecture seule / tâches)</option>
+                        <option value="couturier">Couturier (Tâches & confection)</option>
+                        <option value="coupeur">Coupeur (Découpe & patronages)</option>
+                        <option value="vendeur">Vendeur / Caissier (POS & Facturation)</option>
                         <option value="chef_atelier">Chef d'Atelier (Gestion atelier)</option>
-                        <option value="tenant_admin">Admin d'Atelier (Accès total)</option>
+                        <option value="tenant_admin">Admin d'Atelier (Propriétaire / Tout voir)</option>
                       </select>
                     </div>
                   </div>
@@ -730,9 +737,11 @@ export default function PersonnelSection() {
                   onChange={(e) => setAccRoleSaaS(e.target.value as any)}
                   className="w-full bg-white dark:bg-zinc-950 text-slate-950 dark:text-white border-2 border-black dark:border-zinc-700 rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none"
                 >
-                  <option value="couturier">Couturier (Tâches + Lecture seule)</option>
+                  <option value="couturier">Couturier (Tâches & confection)</option>
+                  <option value="coupeur">Coupeur (Découpe & patronages)</option>
+                  <option value="vendeur">Vendeur / Caissier (POS & Facturation)</option>
                   <option value="chef_atelier">Chef d'Atelier (Gestion atelier)</option>
-                  <option value="tenant_admin">Admin d'Atelier (Accès total)</option>
+                  <option value="tenant_admin">Admin d'Atelier (Propriétaire / Tout voir)</option>
                 </select>
               </div>
 

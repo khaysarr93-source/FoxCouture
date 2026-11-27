@@ -323,8 +323,10 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
                   <User className={`h-4 w-4 mt-0.5 ${isBlocked ? 'text-rose-400' : emp.roleSaaS === 'chef_atelier' ? 'text-indigo-600' : 'text-slate-600'}`} />
                   <div className="space-y-0.5">
                     <span className="font-black text-slate-900 dark:text-white block flex items-center gap-1.5">
-                      {emp.prenom} {emp.nom} 
-                      <span className="font-mono text-[9px] text-slate-400 font-bold tracking-tight">({emp.roleSaaS === 'chef_atelier' ? 'Chef' : 'Couturier'})</span>
+                      {emp.prenom} {emp.nom}
+                      <span className="font-mono text-[9px] text-slate-400 font-bold tracking-tight">
+                        ({emp.roleSaaS === 'chef_atelier' ? 'Chef' : emp.roleSaaS === 'vendeur' ? 'Vendeur' : emp.roleSaaS === 'coupeur' ? 'Coupeur' : 'Couturier'})
+                      </span>
                       {isBlocked && <span className="text-[8px] bg-rose-600 text-white font-mono px-1 py-0.5 ml-1">BLOQUÉ</span>}
                     </span>
                     <span className="text-[10px] text-slate-500 font-mono block">Email : {emp.email}</span>
