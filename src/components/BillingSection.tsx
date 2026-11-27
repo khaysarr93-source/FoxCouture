@@ -20,8 +20,10 @@ import {
   Smartphone,
   Check,
   TrendingUp,
-  SlidersHorizontal
+  SlidersHorizontal,
+  MessageCircle
 } from 'lucide-react';
+import { buildWhatsAppLink, WhatsAppTemplates } from '../lib/whatsapp';
 
 export default function BillingSection() {
   const { 
@@ -568,6 +570,30 @@ export default function BillingSection() {
                   >
                     <FileText className="h-4 w-4 text-amber-500" /> Ticket Caisse 🎫
                   </button>
+
+                  {invoiceClient && (
+                    <a
+                      href={buildWhatsAppLink(
+                        invoiceClient.telephone,
+                        WhatsAppTemplates.recuCommande({
+                          clientNom: `${invoiceClient.prenom} ${invoiceClient.nom}`,
+                          reference: selectedFacture.numero,
+                          modele: selectedFacture.designationDirecte || (invoiceOrder ? invoiceOrder.modeleNom : 'Prestation Sur-mesure'),
+                          total: selectedFacture.montantTotal,
+                          acompte: selectedFacture.montantTotal - selectedFacture.soldeDu,
+                          solde: selectedFacture.soldeDu,
+                          atelierNom: settings.raisonSociale
+                        })
+                      )}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-4 py-3 bg-emerald-50 text-emerald-800 rounded-none border-2 border-emerald-600 text-xs font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition flex items-center gap-1.5 cursor-pointer"
+                      title="Envoyer le reçu officiel sur WhatsApp"
+                    >
+                      <MessageCircle className="h-4 w-4 text-emerald-600 group-hover:text-white" />
+                      Reçu WhatsApp
+                    </a>
+                  )}
                   
                   {selectedFacture.statut !== 'paye' && (
                     <button 
@@ -702,10 +728,12 @@ export default function BillingSection() {
                   onChange={(e) => setPaymentMethod(e.target.value as ModePaiement)}
                   className="w-full bg-white border-2 border-black rounded-none px-3 py-2 text-xs font-black uppercase tracking-widest focus:outline-none focus:bg-slate-50"
                 >
-                  <option value="mobile_money">WAVE / ORANGE MONEY</option>
-                  <option value="especes">ESPÈCES CASH</option>
-                  <option value="virement">VIREMENT BANCAIRE</option>
-                  <option value="carte">CARTE BANCAIRE</option>
+                  <option value="wave">Wave Sénégal 🌊</option>
+                  <option value="orange_money">Orange Money 🟠</option>
+                  <option value="especes">Espèces (Cash) 💵</option>
+                  <option value="free_money">Free Money 📱</option>
+                  <option value="virement">Virement bancaire 🏦</option>
+                  <option value="carte">Carte bancaire 💳</option>
                 </select>
               </div>
 
@@ -834,10 +862,11 @@ export default function BillingSection() {
                       onChange={(e) => setNewInvoiceAcompteMode(e.target.value as ModePaiement)}
                       className="w-full bg-white border border-black rounded-none px-1 py-1.5 text-[10px] font-black uppercase tracking-widest focus:outline-none"
                     >
-                      <option value="especes">ESPÈCES CASH</option>
-                      <option value="mobile_money">WAVE / OM</option>
-                      <option value="virement">VIREMENT</option>
-                      <option value="carte">CARTE BANCAIRE</option>
+                      <option value="wave">Wave Sénégal 🌊</option>
+                      <option value="orange_money">Orange Money 🟠</option>
+                      <option value="especes">Espèces (Cash) 💵</option>
+                      <option value="virement">Virement bancaire 🏦</option>
+                      <option value="carte">Carte bancaire 💳</option>
                     </select>
                   </div>
                 </div>

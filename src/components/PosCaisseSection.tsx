@@ -40,6 +40,7 @@ import {
   Sparkles,
   Plus
 } from 'lucide-react';
+import { formatPhoneNumberForWhatsApp, buildWhatsAppLink } from '../lib/whatsapp';
 
 interface POSCategory {
   id: string;
@@ -535,10 +536,7 @@ export default function PosCaisseSection() {
       phone = response;
     }
 
-    const cleanPhone = phone.replace(/[^0-9+]/g, '');
-    const finalPhone = cleanPhone.startsWith('+') ? cleanPhone.slice(1) : cleanPhone;
-    
-    const waUrl = `https://wa.me/${finalPhone}?text=${encodeURIComponent(msg)}`;
+    const waUrl = buildWhatsAppLink(phone, msg);
     window.open(waUrl, '_blank');
   };
 
