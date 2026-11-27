@@ -686,60 +686,60 @@ export default function ClientSection() {
   return (
     <div className="space-y-6">
       {/* Mobile view tabs selector */}
-      <div className="flex lg:hidden border-2 border-black bg-white p-1 rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+      <div className="flex lg:hidden bg-white p-1 rounded-2xl border border-stone-200/60 shadow-xs">
         <button
           onClick={() => setActiveMobileView('list')}
-          className={`flex-1 py-2 text-center text-xs font-black uppercase tracking-widest rounded-none transition cursor-pointer ${
-            activeMobileView === 'list' ? 'bg-black text-white' : 'bg-transparent text-slate-700 hover:bg-slate-100'
+          className={`flex-1 py-2 text-center text-xs font-bold rounded-xl transition cursor-pointer ${
+            activeMobileView === 'list' ? 'bg-[#191716] text-white' : 'text-stone-600 hover:bg-stone-50'
           }`}
         >
           Annuaire ({filteredClients.length})
         </button>
         <button
           onClick={() => setActiveMobileView('detail')}
-          className={`flex-1 py-2 text-center text-xs font-black uppercase tracking-widest rounded-none transition cursor-pointer ${
-            activeMobileView === 'detail' ? 'bg-black text-white' : 'bg-transparent text-slate-700 hover:bg-slate-100'
+          className={`flex-1 py-2 text-center text-xs font-bold rounded-xl transition cursor-pointer ${
+            activeMobileView === 'detail' ? 'bg-[#191716] text-white' : 'text-stone-600 hover:bg-stone-50'
           }`}
         >
           Fiche Client {selectedClient ? `(${selectedClient.prenom})` : ''}
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Column 1: Client Directory List */}
-        <div className={`lg:col-span-1 bg-white rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-hidden flex flex-col h-[750px] ${
+        <div className={`lg:col-span-1 bg-white rounded-3xl border border-stone-200/60 shadow-xs overflow-hidden flex flex-col h-[750px] ${
           activeMobileView === 'list' ? 'flex' : 'hidden lg:flex'
         }`}>
         {/* Header Search & Actions */}
-        <div className="p-5 border-b-2 border-black space-y-4 bg-white">
+        <div className="p-5 border-b border-stone-100 space-y-4 bg-white">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-black uppercase tracking-widest text-slate-950 font-display flex items-center gap-2">
-              <UserCheck className="h-5 w-5 text-slate-950" /> Annuaire Clients
+            <h3 className="text-sm font-extrabold text-[#191716] font-display flex items-center gap-2">
+              <UserCheck className="h-4.5 w-4.5 text-[#F05A22]" /> Annuaire Clients
             </h3>
             <button 
               onClick={openNewClientModal}
-              className="p-2 rounded-none bg-atelier-gold text-slate-950 border-2 border-black hover:bg-black hover:text-white transition flex items-center justify-center cursor-pointer"
+              className="btn-fox-primary !p-2 !rounded-xl"
               title="Ajouter un client"
             >
-              <Plus className="h-4.5 w-4.5" />
+              <Plus className="h-4.5 w-4.5 stroke-[3]" />
             </button>
           </div>
           
           {/* Search Box */}
           <div className="relative">
-            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-500" />
+            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-stone-400" />
             <input 
               type="text" 
-              placeholder="RECHERCHER NOM, TÉLÉPHONE..." 
+              placeholder="Rechercher nom, téléphone..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white border-2 border-black rounded-none py-2.5 pl-10 pr-4 text-[10px] font-black uppercase tracking-widest focus:outline-none focus:bg-slate-50"
+              className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl py-2.5 pl-10 pr-4 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
             />
           </div>
         </div>
 
         {/* Directory List Container */}
-        <div className="flex-1 overflow-y-auto divide-y divide-zinc-200">
+        <div className="flex-1 overflow-y-auto divide-y divide-stone-100">
           {filteredClients.length > 0 ? (
             filteredClients.map(client => (
               <div 
@@ -749,27 +749,27 @@ export default function ClientSection() {
                   setActiveMobileView('detail');
                 }}
                 className={`p-4 flex items-center justify-between gap-3 cursor-pointer transition ${
-                  selectedClientId === client.id ? 'bg-atelier-beige border-l-8 border-black' : 'hover:bg-slate-50'
+                  selectedClientId === client.id ? 'bg-[#FFEDE5] border-l-4 border-[#F05A22]' : 'hover:bg-stone-50'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-none border border-black flex items-center justify-center font-black font-display text-xs ${client.avatarColor}`}>
+                  <div className="w-10 h-10 rounded-full bg-[#191716] text-white flex items-center justify-center font-bold text-xs tracking-wider flex-shrink-0 shadow-xs">
                     {client.prenom[0]}{client.nom[0]}
                   </div>
                   <div>
-                    <h4 className="text-xs font-black uppercase tracking-wider text-slate-950">
+                    <h4 className="text-xs font-bold text-[#191716]">
                       {client.prenom} {client.nom}
                     </h4>
-                    <p className="text-[10px] text-slate-500 font-mono mt-0.5">{client.telephone}</p>
+                    <p className="text-[11px] text-stone-500 font-mono mt-0.5">{client.telephone}</p>
                   </div>
                 </div>
-                <ChevronRight className={`h-4 w-4 text-slate-950 transition-transform ${selectedClientId === client.id ? 'translate-x-1' : ''}`} />
+                <ChevronRight className={`h-4 w-4 text-stone-400 transition-transform ${selectedClientId === client.id ? 'translate-x-1 text-[#F05A22]' : ''}`} />
               </div>
             ))
           ) : (
-            <div className="text-center py-12 text-slate-400">
-              <User className="h-10 w-10 mx-auto mb-2 opacity-55" />
-              <p className="text-xs font-black uppercase tracking-widest">Aucun client trouvé</p>
+            <div className="text-center py-12 text-stone-400">
+              <User className="h-10 w-10 mx-auto mb-2 opacity-40" />
+              <p className="text-xs font-semibold">Aucun client trouvé</p>
             </div>
           )}
         </div>
@@ -785,73 +785,74 @@ export default function ClientSection() {
             <div className="block lg:hidden">
               <button
                 onClick={() => setActiveMobileView('list')}
-                className="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-900 border-2 border-black rounded-none text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors"
+                className="w-full py-2.5 bg-white hover:bg-stone-50 text-stone-900 border border-stone-200/80 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shadow-xs transition-colors"
               >
                 ← Retour à l'annuaire des clients
               </button>
             </div>
+
             {/* Client Profile Header Card */}
-            <div className="bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-6">
-              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-6 border-b-2 border-black">
+            <div className="bg-white rounded-3xl p-6 sm:p-7 border border-stone-200/60 shadow-xs space-y-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-6 border-b border-stone-100">
                 <div className="flex items-center gap-4">
-                  <div className={`w-16 h-16 rounded-none border-2 border-black flex items-center justify-center text-xl font-black font-display ${selectedClient.avatarColor}`}>
+                  <div className="w-16 h-16 rounded-full bg-[#191716] text-white flex items-center justify-center text-xl font-extrabold font-display shadow-xs flex-shrink-0">
                     {selectedClient.prenom[0]}{selectedClient.nom[0]}
                   </div>
                   <div>
-                    <h2 className="text-2xl font-black uppercase tracking-tight text-slate-950 font-display">
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-[#191716] tracking-tight font-display">
                       {selectedClient.prenom} {selectedClient.nom}
                     </h2>
-                    <p className="text-xs text-slate-500 font-serif italic mt-1">
+                    <p className="text-xs text-stone-400 font-medium mt-0.5">
                       Client depuis le {selectedClient.dateCreation ? selectedClient.dateCreation.split('-').reverse().join('/') : 'N/A'}
                     </p>
                   </div>
                 </div>
                 
                 {/* Actions buttons */}
-                <div className="flex gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <a
                     href={buildWhatsAppLink(selectedClient.telephone, `Bonjour ${selectedClient.prenom}, nous vous contactons depuis votre atelier ${settings.raisonSociale}.`)}
                     target="_blank"
                     rel="noreferrer"
-                    className="p-2.5 rounded-none border-2 border-emerald-600 text-emerald-800 bg-emerald-50 hover:bg-emerald-600 hover:text-white transition cursor-pointer flex items-center justify-center gap-1.5 font-bold text-xs"
+                    className="px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-[#25D366] hover:bg-[#1EBE5D] transition cursor-pointer flex items-center gap-1.5 shadow-xs"
                     title="Contacter sur WhatsApp"
                   >
-                    <MessageCircle className="h-4.5 w-4.5 text-emerald-600 group-hover:text-white" />
-                    <span className="hidden sm:inline font-sans">WhatsApp</span>
+                    <MessageCircle className="h-4 w-4 fill-white" />
+                    <span>WhatsApp</span>
                   </a>
                   <button 
                     onClick={() => openEditClientModal(selectedClient)}
-                    className="p-2.5 rounded-none border-2 border-black text-slate-950 bg-white hover:bg-black hover:text-white transition cursor-pointer"
+                    className="p-2 rounded-xl border border-stone-200/80 text-stone-700 bg-white hover:bg-stone-50 transition cursor-pointer"
                     title="Modifier le profil"
                   >
-                    <Edit className="h-4.5 w-4.5" />
+                    <Edit className="h-4 w-4" />
                   </button>
                   <button 
                     onClick={printClientMeasurements}
-                    className="p-2.5 rounded-none border-2 border-black text-slate-950 bg-white hover:bg-black hover:text-white transition cursor-pointer"
+                    className="p-2 rounded-xl border border-stone-200/80 text-stone-700 bg-white hover:bg-stone-50 transition cursor-pointer"
                     title="Imprimer la fiche complète"
                   >
-                    <Printer className="h-4.5 w-4.5" />
+                    <Printer className="h-4 w-4" />
                   </button>
                   <button 
                     onClick={() => handleDeleteClient(selectedClient.id)}
-                    className="p-2.5 rounded-none border-2 border-rose-600 text-rose-600 bg-white hover:bg-rose-600 hover:text-white transition cursor-pointer"
+                    className="p-2 rounded-xl border border-rose-200 text-rose-600 bg-rose-50/50 hover:bg-rose-100 transition cursor-pointer"
                     title="Supprimer le client"
                   >
-                    <Trash2 className="h-4.5 w-4.5" />
+                    <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
               </div>
 
               {/* Direct Info list */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 text-sm">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-none border border-black bg-atelier-beige text-slate-950">
-                    <Phone className="h-4 w-4" />
+                  <div className="p-2.5 rounded-xl bg-[#FBF8F3] text-stone-700 border border-stone-200/60">
+                    <Phone className="h-4 w-4 text-[#F05A22]" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Téléphone</span>
-                    <a href={`tel:${selectedClient.telephone}`} className="font-black text-slate-950 font-mono hover:underline">
+                    <span className="text-[10px] uppercase font-bold text-stone-400 block tracking-wider">Téléphone</span>
+                    <a href={`tel:${selectedClient.telephone}`} className="font-bold text-stone-900 font-mono hover:text-[#F05A22]">
                       {selectedClient.telephone}
                     </a>
                   </div>

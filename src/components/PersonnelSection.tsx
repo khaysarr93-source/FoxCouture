@@ -164,53 +164,53 @@ export default function PersonnelSection() {
   return (
     <div className="space-y-6" id="personnel-roster-section">
       {/* Header and main actions */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-zinc-900 p-5 rounded-none border-2 border-black dark:border-zinc-800 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-none">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-stone-200/60 shadow-xs">
         <div>
-          <h2 className="text-sm font-black uppercase tracking-widest text-slate-950 dark:text-white font-display flex items-center gap-2">
-            <Users className="h-5 w-5 text-slate-950 dark:text-atelier-gold" /> Équipe & Gestion des Utilisateurs
+          <h2 className="text-xl font-extrabold text-[#191716] font-display flex items-center gap-2">
+            <Users className="h-5 w-5 text-[#F05A22]" /> Équipe & Gestion des Utilisateurs
           </h2>
-          <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1">Supervisez votre personnel d'atelier et contrôlez leurs droits d'accès à la plateforme</p>
+          <p className="text-xs text-stone-500 font-medium mt-1">Supervisez votre personnel d'atelier et contrôlez leurs droits d'accès à la plateforme</p>
         </div>
 
         <div className="flex gap-2 w-full sm:w-auto">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="w-full sm:w-auto px-4 py-2 bg-atelier-gold text-slate-950 border-2 border-black rounded-none text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white dark:hover:bg-zinc-800 transition flex items-center justify-center gap-1.5 cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+            className="btn-fox-primary text-xs"
           >
-            <UserPlus className="h-4.5 w-4.5" /> Recruter un Tailleur
+            <UserPlus className="h-4 w-4 stroke-[3]" /> Ajouter un Membre
           </button>
         </div>
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-zinc-900 p-4 border-2 border-black dark:border-zinc-800 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-none flex items-center justify-between">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="bg-white p-5 rounded-3xl border border-stone-200/60 shadow-xs flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Effectif Total</span>
-            <span className="text-xl font-black font-mono tracking-tight text-slate-950 dark:text-white">{totalStaff} tailleurs</span>
+            <span className="text-[10px] uppercase font-bold text-stone-400 block tracking-wider">Effectif Total</span>
+            <span className="text-2xl font-extrabold font-display tracking-tight text-[#191716]">{totalStaff}</span>
           </div>
-          <Users className="h-8 w-8 text-slate-300 dark:text-zinc-700" />
+          <Users className="h-7 w-7 text-stone-300" />
         </div>
-        <div className="bg-white dark:bg-zinc-900 p-4 border-2 border-black dark:border-zinc-800 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-none flex items-center justify-between">
+        <div className="bg-white p-5 rounded-3xl border border-stone-200/60 shadow-xs flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Disponibles</span>
-            <span className="text-xl font-black font-mono tracking-tight text-emerald-600">{activeStaff} actifs</span>
+            <span className="text-[10px] uppercase font-bold text-stone-400 block tracking-wider">Disponibles</span>
+            <span className="text-2xl font-extrabold font-display tracking-tight text-emerald-600">{activeStaff}</span>
           </div>
-          <Activity className="h-8 w-8 text-emerald-200 dark:text-emerald-900" />
+          <Activity className="h-7 w-7 text-emerald-300" />
         </div>
-        <div className="bg-white dark:bg-zinc-900 p-4 border-2 border-black dark:border-zinc-800 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-none flex items-center justify-between">
+        <div className="bg-white p-5 rounded-3xl border border-stone-200/60 shadow-xs flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Comptes d'Accès</span>
-            <span className="text-xl font-black font-mono tracking-tight text-indigo-600">{accountsCreated} comptes</span>
+            <span className="text-[10px] uppercase font-bold text-stone-400 block tracking-wider">Comptes d'Accès</span>
+            <span className="text-2xl font-extrabold font-display tracking-tight text-indigo-600">{accountsCreated}</span>
           </div>
-          <Key className="h-8 w-8 text-indigo-200 dark:text-indigo-900" />
+          <Key className="h-7 w-7 text-indigo-300" />
         </div>
-        <div className="bg-white dark:bg-zinc-900 p-4 border-2 border-black dark:border-zinc-800 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-none flex items-center justify-between">
+        <div className="bg-white p-5 rounded-3xl border border-stone-200/60 shadow-xs flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 block">Accès Bloqués</span>
-            <span className="text-xl font-black font-mono tracking-tight text-rose-600">{accountsBlocked} bloqués</span>
+            <span className="text-[10px] uppercase font-bold text-stone-400 block tracking-wider">Accès Bloqués</span>
+            <span className="text-2xl font-extrabold font-display tracking-tight text-rose-600">{accountsBlocked}</span>
           </div>
-          <ShieldAlert className="h-8 w-8 text-rose-200 dark:text-rose-900" />
+          <ShieldAlert className="h-7 w-7 text-rose-300" />
         </div>
       </div>
 

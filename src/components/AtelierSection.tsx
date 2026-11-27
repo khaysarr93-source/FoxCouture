@@ -74,28 +74,28 @@ export default function AtelierSection() {
   return (
     <div className="space-y-6" id="atelier-production-section">
       {/* Upper Panel Filter & Info */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-stone-200/60 shadow-xs">
         <div>
-          <h2 className="text-lg font-black uppercase tracking-tight text-slate-950 font-display flex items-center gap-2">
-            <Cpu className="h-5 w-5 text-atelier-gold-dark" /> Suivi de l'Atelier en Temps Réel
+          <h2 className="text-xl font-extrabold text-[#191716] font-display flex items-center gap-2">
+            <Cpu className="h-5 w-5 text-[#F05A22]" /> Suivi de l'Atelier en Temps Réel
           </h2>
-          <p className="text-xs font-serif italic text-slate-600 mt-1">Gérez le plan de charge de vos couturiers et faites avancer les étapes de coupe et de couture</p>
+          <p className="text-xs text-stone-500 font-medium mt-1">Gérez le plan de charge de vos couturiers et faites avancer les étapes de coupe et de couture</p>
         </div>
 
         {/* Tailor assignment filter */}
         <div className="flex items-center gap-2.5">
-          <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 flex items-center gap-1">
-            <User className="h-4.5 w-4.5 text-black" /> Couturier :
+          <span className="text-xs font-semibold text-stone-600 flex items-center gap-1">
+            <User className="h-4 w-4 text-stone-500" /> Couturier :
           </span>
           <select
             value={tailorFilter}
             onChange={(e) => setTailorFilter(e.target.value)}
-            className="bg-white border-2 border-black text-slate-950 text-xs font-black uppercase tracking-widest rounded-none px-3 py-2 focus:outline-none focus:bg-slate-50"
+            className="bg-[#FBF8F3] border border-stone-200/80 text-stone-900 text-xs font-bold rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
           >
             <option value="all">TOUS LES COUTURIERS</option>
             {employes.filter(e => e.statut === 'actif').map(emp => (
               <option key={emp.id} value={emp.id}>
-                {emp.prenom.toUpperCase()} {emp.nom.toUpperCase()} ({emp.chargeTravail} TÂCHES)
+                {emp.prenom} {emp.nom} ({emp.chargeTravail} tâches)
               </option>
             ))}
           </select>
@@ -103,24 +103,24 @@ export default function AtelierSection() {
       </div>
 
       {/* Kanban Board Container */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
         {columns.map(col => {
           const colOrders = filteredOrders.filter(o => col.matches(o.statut));
 
           return (
-            <div key={col.key} className={`rounded-none p-4 border-2 border-black bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col min-h-[600px]`}>
+            <div key={col.key} className="rounded-3xl p-5 border border-stone-200/60 bg-white shadow-xs flex flex-col min-h-[600px]">
               {/* Column Header */}
-              <div className="flex items-center justify-between mb-4 pb-2 border-b-2 border-black">
-                <span className="text-xs font-black uppercase tracking-widest text-slate-950">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-stone-100">
+                <span className="text-xs font-extrabold text-[#191716] tracking-tight">
                   {col.label}
                 </span>
-                <span className="text-xs font-black bg-atelier-gold text-slate-950 px-2.5 py-0.5 rounded-none border border-black font-mono">
+                <span className="text-xs font-bold bg-[#FFEDE5] text-[#F05A22] px-2.5 py-0.5 rounded-full font-mono">
                   {colOrders.length}
                 </span>
               </div>
 
               {/* Column Cards List */}
-              <div className="space-y-4 flex-1 overflow-y-auto max-h-[580px] pr-1">
+              <div className="space-y-3.5 flex-1 overflow-y-auto max-h-[580px] pr-1">
                 {colOrders.length > 0 ? (
                   colOrders.map(order => {
                     const client = clients.find(c => c.id === order.clientId);
@@ -129,15 +129,15 @@ export default function AtelierSection() {
                     return (
                       <div 
                         key={order.id} 
-                        className="bg-white rounded-none p-4 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] transition-all duration-200 space-y-4 relative group"
+                        className="bg-[#FBF8F3] hover:bg-white rounded-2xl p-4 border border-stone-200/70 shadow-xs hover:shadow-md transition-all duration-200 space-y-3.5 relative group"
                       >
                         {/* Title, Ref */}
                         <div className="flex justify-between items-start gap-2">
                           <div>
-                            <span className="text-[10px] font-mono font-black text-slate-500 block uppercase">
+                            <span className="text-[10px] font-mono font-bold text-stone-400 block uppercase">
                               {order.reference}
                             </span>
-                            <h4 className="text-sm font-black uppercase tracking-tight text-slate-950 font-display mt-0.5">
+                            <h4 className="text-xs font-extrabold text-[#191716] font-display mt-0.5">
                               {order.modeleNom}
                             </h4>
                           </div>

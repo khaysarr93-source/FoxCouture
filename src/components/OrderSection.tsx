@@ -414,35 +414,35 @@ export default function OrderSection() {
   return (
     <div className="space-y-6">
       {/* Mobile view tabs selector */}
-      <div className="flex lg:hidden border-2 border-black bg-white p-1 rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+      <div className="flex lg:hidden bg-white p-1 rounded-2xl border border-stone-200/60 shadow-xs">
         <button
           onClick={() => setActiveMobileView('list')}
-          className={`flex-1 py-2 text-center text-xs font-black uppercase tracking-widest rounded-none transition cursor-pointer ${
-            activeMobileView === 'list' ? 'bg-black text-white' : 'bg-transparent text-slate-700 hover:bg-slate-100'
+          className={`flex-1 py-2 text-center text-xs font-bold rounded-xl transition cursor-pointer ${
+            activeMobileView === 'list' ? 'bg-[#191716] text-white' : 'text-stone-600 hover:bg-stone-50'
           }`}
         >
           Liste ({filteredOrders.length})
         </button>
         <button
           onClick={() => setActiveMobileView('detail')}
-          className={`flex-1 py-2 text-center text-xs font-black uppercase tracking-widest rounded-none transition cursor-pointer ${
-            activeMobileView === 'detail' ? 'bg-black text-white' : 'bg-transparent text-slate-700 hover:bg-slate-100'
+          className={`flex-1 py-2 text-center text-xs font-bold rounded-xl transition cursor-pointer ${
+            activeMobileView === 'detail' ? 'bg-[#191716] text-white' : 'text-stone-600 hover:bg-stone-50'
           }`}
         >
           Détails Commande {selectedOrder ? `(${selectedOrder.reference})` : ''}
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Column 1: Order Listing & Filters */}
-        <div className={`lg:col-span-1 flex flex-col h-[750px] bg-white rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] overflow-hidden ${
+        <div className={`lg:col-span-1 flex flex-col h-[750px] bg-white rounded-3xl border border-stone-200/60 shadow-xs overflow-hidden ${
           activeMobileView === 'list' ? 'flex' : 'hidden lg:flex'
         }`}>
         {/* Search, Status Quick Tabs & Creation Button */}
-        <div className="p-5 border-b-2 border-black bg-slate-50 space-y-4">
+        <div className="p-5 border-b border-stone-100 bg-white space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-black uppercase tracking-tight text-slate-950 font-display flex items-center gap-2">
-              <Scissors className="h-5 w-5 text-black" /> COMMANDES ATELIER
+            <h3 className="text-sm font-extrabold text-[#191716] font-display flex items-center gap-2">
+              <Scissors className="h-4.5 w-4.5 text-[#F05A22]" /> Commandes Atelier
             </h3>
             <button 
               onClick={() => {
@@ -463,21 +463,21 @@ export default function OrderSection() {
                 setCoutMainOeuvre(0);
                 setIsOrderModalOpen(true);
               }}
-              className="p-2.5 bg-atelier-gold text-slate-950 rounded-none border-2 border-black hover:bg-black hover:text-white transition shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center cursor-pointer"
+              className="btn-fox-primary !p-2 !rounded-xl"
               title="Nouvelle commande"
             >
-              <Plus className="h-4.5 w-4.5" />
+              <Plus className="h-4.5 w-4.5 stroke-[3]" />
             </button>
           </div>
 
           <div className="relative">
-            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-black" />
+            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-stone-400" />
             <input 
               type="text" 
-              placeholder="RÉF, CLIENT, MODÈLE..." 
+              placeholder="Réf, client, modèle..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white border-2 border-black rounded-none py-2.5 pl-10 pr-4 text-xs font-black uppercase tracking-widest focus:outline-none"
+              className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl py-2.5 pl-10 pr-4 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
             />
           </div>
 
@@ -496,10 +496,10 @@ export default function OrderSection() {
               <button
                 key={tab.key}
                 onClick={() => setStatusFilter(tab.key)}
-                className={`px-2.5 py-1.5 rounded-none text-[9px] font-black uppercase tracking-widest border cursor-pointer transition ${
+                className={`px-3 py-1.5 rounded-full text-[10px] font-semibold transition cursor-pointer ${
                   statusFilter === tab.key 
-                    ? 'bg-black text-white border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]' 
-                    : 'bg-white text-slate-700 border-black hover:bg-slate-100'
+                    ? 'bg-[#191716] text-white shadow-xs' 
+                    : 'bg-[#EDE8E0] text-stone-700 hover:bg-stone-300'
                 }`}
               >
                 {tab.label}
@@ -509,7 +509,7 @@ export default function OrderSection() {
         </div>
 
         {/* Orders Scrollable List */}
-        <div className="flex-1 overflow-y-auto divide-y-2 divide-black">
+        <div className="flex-1 overflow-y-auto divide-y divide-stone-100">
           {filteredOrders.length > 0 ? (
             filteredOrders.map(order => {
               const client = clients.find(c => c.id === order.clientId);

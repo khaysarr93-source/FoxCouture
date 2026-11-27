@@ -113,55 +113,55 @@ export default function CalendarSection() {
   return (
     <div className="space-y-6">
       {/* Mobile view tabs selector */}
-      <div className="flex lg:hidden border-2 border-black bg-white p-1 rounded-none shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+      <div className="flex lg:hidden bg-white p-1 rounded-2xl border border-stone-200/60 shadow-xs">
         <button
           onClick={() => setActiveMobileView('calendar')}
-          className={`flex-1 py-2 text-center text-xs font-black uppercase tracking-widest rounded-none transition cursor-pointer ${
-            activeMobileView === 'calendar' ? 'bg-black text-white' : 'bg-transparent text-slate-700 hover:bg-slate-100'
+          className={`flex-1 py-2 text-center text-xs font-bold rounded-xl transition cursor-pointer ${
+            activeMobileView === 'calendar' ? 'bg-[#191716] text-white' : 'text-stone-600 hover:bg-stone-50'
           }`}
         >
           Calendrier Mensuel
         </button>
         <button
           onClick={() => setActiveMobileView('details')}
-          className={`flex-1 py-2 text-center text-xs font-black uppercase tracking-widest rounded-none transition cursor-pointer ${
-            activeMobileView === 'details' ? 'bg-black text-white' : 'bg-transparent text-slate-700 hover:bg-slate-100'
+          className={`flex-1 py-2 text-center text-xs font-bold rounded-xl transition cursor-pointer ${
+            activeMobileView === 'details' ? 'bg-[#191716] text-white' : 'text-stone-600 hover:bg-stone-50'
           }`}
         >
           Rendez-vous {selectedDay ? `(Jour ${selectedDay})` : ''}
         </button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8" id="rendezvous-calendar-section">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8" id="rendezvous-calendar-section">
         {/* Column 1 & 2: Monthly Calendar Grid */}
-        <div className={`lg:col-span-2 bg-white rounded-none p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col h-[700px] justify-between ${
+        <div className={`lg:col-span-2 bg-white rounded-3xl p-6 sm:p-7 border border-stone-200/60 shadow-xs flex flex-col h-[700px] justify-between ${
           activeMobileView === 'calendar' ? 'flex' : 'hidden lg:flex'
         }`}>
         <div className="space-y-6">
           {/* Calendar Header with Navigation */}
-          <div className="flex justify-between items-center pb-3 border-b-2 border-black">
+          <div className="flex justify-between items-center pb-4 border-b border-stone-100">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-black text-white rounded-none border-2 border-black">
-                <Calendar className="h-5.5 w-5.5 text-atelier-gold" />
+              <div className="p-3 bg-[#191716] text-white rounded-2xl shadow-xs">
+                <Calendar className="h-5 w-5 text-[#F05A22]" />
               </div>
               <div>
-                <h2 className="text-lg font-black uppercase tracking-tight text-slate-950 font-display">
-                  {monthNames[month].toUpperCase()} {year}
+                <h2 className="text-xl font-extrabold text-[#191716] tracking-tight font-display">
+                  {monthNames[month]} {year}
                 </h2>
-                <p className="text-xs font-serif italic text-slate-600">Planification des essayages et des livraisons de l'atelier</p>
+                <p className="text-xs text-stone-500 font-medium mt-0.5">Planification des essayages et des livraisons de l'atelier</p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
               <button 
                 onClick={handlePrevMonth}
-                className="p-2 border-2 border-black rounded-none hover:bg-black hover:text-white transition cursor-pointer"
+                className="p-2 border border-stone-200/80 rounded-xl hover:bg-stone-50 text-stone-700 transition cursor-pointer"
               >
-                <ChevronLeft className="h-4.5 w-4.5" />
+                <ChevronLeft className="h-4 w-4" />
               </button>
               <button 
                 onClick={() => setCurrentDate(new Date(2026, 6, 5))}
-                className="px-3 py-2 border-2 border-black text-xs font-black uppercase tracking-widest rounded-none hover:bg-black hover:text-white transition cursor-pointer"
+                className="px-3 py-2 border border-stone-200/80 text-xs font-bold rounded-xl hover:bg-stone-50 text-stone-700 transition cursor-pointer"
               >
                 Aujourd'hui
               </button>

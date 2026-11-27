@@ -1,21 +1,45 @@
 {
-  "short_name": "Fox Couture",
-  "name": "Maison Fox Couture - Haute Confection & POS",
+  "short_name": "FoxCouture",
+  "name": "Fox Couture — Gestion d'Atelier & Haute Confection",
+  "description": "Application PWA tout-en-un de gestion d'atelier de couture, commandes, fiches de mesures, caisse et intégration WhatsApp.",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#FBF8F3",
+  "theme_color": "#F05A22",
+  "lang": "fr",
+  "categories": ["business", "productivity", "utilities"],
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "/icons/icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "/icons/icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": "/",
-  "background_color": "#FCF9F5",
-  "theme_color": "#FF7A1A",
-  "display": "standalone",
-  "orientation": "portrait"
+  "shortcuts": [
+    {
+      "name": "Nouvelle commande",
+      "short_name": "Commande",
+      "description": "Créer une nouvelle commande de confection",
+      "url": "/?action=new-order",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Caisse & Vente",
+      "short_name": "Caisse",
+      "description": "Accéder à la caisse tactile de l'atelier",
+      "url": "/?tab=pos_caisse",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
 }

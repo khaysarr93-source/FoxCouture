@@ -145,20 +145,20 @@ export default function StockSection() {
   return (
     <div className="space-y-6" id="stock-supp-section">
       {/* Sub Tabs Controller */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-none border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-        <div className="flex items-center gap-1 bg-white p-1.5 rounded-none border-2 border-black">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 rounded-3xl border border-stone-200/60 shadow-xs">
+        <div className="flex items-center gap-1.5 bg-[#FBF8F3] p-1.5 rounded-2xl border border-stone-200/60">
           <button
             onClick={() => { setActiveSubTab('tissus'); setSearchTerm(''); }}
-            className={`px-4 py-2 text-xs font-black uppercase tracking-widest rounded-none transition cursor-pointer ${
-              activeSubTab === 'tissus' ? 'bg-black text-white border-2 border-black' : 'text-slate-500 hover:text-slate-900'
+            className={`px-4 py-2 text-xs font-bold rounded-xl transition cursor-pointer ${
+              activeSubTab === 'tissus' ? 'bg-[#191716] text-white shadow-xs' : 'text-stone-600 hover:bg-stone-200/50'
             }`}
           >
             Tissus & Fournitures ({tissus.length})
           </button>
           <button
             onClick={() => { setActiveSubTab('fournisseurs'); setSearchTerm(''); }}
-            className={`px-4 py-2 text-xs font-black uppercase tracking-widest rounded-none transition cursor-pointer ${
-              activeSubTab === 'fournisseurs' ? 'bg-black text-white border-2 border-black' : 'text-slate-500 hover:text-slate-900'
+            className={`px-4 py-2 text-xs font-bold rounded-xl transition cursor-pointer ${
+              activeSubTab === 'fournisseurs' ? 'bg-[#191716] text-white shadow-xs' : 'text-stone-600 hover:bg-stone-200/50'
             }`}
           >
             Fournisseurs ({fournisseurs.length})
@@ -168,13 +168,13 @@ export default function StockSection() {
         {/* Search and Action Row */}
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <div className="relative flex-1 sm:flex-initial">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-black" />
+            <Search className="absolute left-3.5 top-2.5 h-4 w-4 text-stone-400" />
             <input 
               type="text"
-              placeholder={activeSubTab === 'tissus' ? 'RECHERCHER TISSU, REF...' : 'RECHERCHER FOURNISSEUR...'}
+              placeholder={activeSubTab === 'tissus' ? 'Rechercher tissu, réf...' : 'Rechercher fournisseur...'}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-white border-2 border-black rounded-none py-2 pl-9 pr-4 text-xs font-black uppercase tracking-widest focus:outline-none"
+              className="w-full bg-[#FBF8F3] border border-stone-200/80 rounded-xl py-2 pl-10 pr-4 text-xs font-medium text-stone-900 focus:outline-none focus:ring-2 focus:ring-[#F05A22]"
             />
           </div>
 
@@ -193,9 +193,9 @@ export default function StockSection() {
                 setUnite('m');
                 setIsTissuModalOpen(true);
               }}
-              className="px-3.5 py-2 bg-atelier-gold text-slate-950 border-2 border-black rounded-none text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition flex items-center gap-1 cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+              className="btn-fox-primary text-xs"
             >
-              <Plus className="h-4 w-4" /> Enregistrer Tissu/Fourniture
+              <Plus className="h-4 w-4 stroke-[3]" /> Nouveau Tissu
             </button>
           ) : (
             <button
