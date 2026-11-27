@@ -1,0 +1,6 @@
+{
+  "name": "FOX COUTURE",
+  "description": "Application de Gestion Professionnelle pour Atelier de Couture et Maison de Tailleur",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

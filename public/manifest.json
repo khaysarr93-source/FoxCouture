@@ -1,0 +1,21 @@
+{
+  "short_name": "Fox Couture",
+  "name": "Maison Fox Couture - Haute Confection & POS",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#FCF9F5",
+  "theme_color": "#FF7A1A",
+  "display": "standalone",
+  "orientation": "portrait"
+}
