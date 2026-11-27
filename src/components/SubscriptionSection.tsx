@@ -33,9 +33,15 @@ export default function SubscriptionSection() {
 
   // Form & modal states
   const [isPayModalOpen, setIsPayModalOpen] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<'essentiel' | 'pro'>('pro');
   const [paymentMoyen, setPaymentMoyen] = useState<MoyenPaiementSaaS>('mobile_money');
   const [paymentPeriod, setPaymentPeriod] = useState<'mensuel' | 'annuel'>('mensuel');
   
+  const TIER_PRICES = {
+    essentiel: { mensuel: 4000, annuel: 40000, nom: 'Essentiel (Tailleur Indépendant)' },
+    pro: { mensuel: 10000, annuel: 100000, nom: 'Pro (Atelier & Confection)' }
+  };
+
   // Dummy payment details
   const [phone, setPhone] = useState('');
   const [cardNumber, setCardNumber] = useState('');
@@ -75,7 +81,8 @@ export default function SubscriptionSection() {
 
   // Calculate price with promo code discount
   const getPlanPrice = () => {
-    const base = paymentPeriod === 'mensuel' ? pricing.mensuel : pricing.annuel;
+    const tierConfig = TIER_PRICES[selectedTier];
+    const base = paymentPeriod === 'mensuel' ? tierConfig.mensuel : tierConfig.annuel;
     if (promoDiscount > 0) {
       return Math.round(base * (1 - promoDiscount));
     }
@@ -370,40 +377,186 @@ L'Atelier Haute Couture sur Nuage.
           <div className="space-y-4">
             <div className="flex items-center gap-2 border-b border-zinc-800 pb-2">
               <Sparkles className="h-5 w-5 text-atelier-gold" />
-              <h3 className="text-xs font-black uppercase tracking-widest text-white">Tarifs Officiels</h3>
+              <h3 className="text-xs font-black uppercase tracking-widest text-white">Formules Atelier (CDC)</h3>
             </div>
             
-            <div className="space-y-4">
-              {/* Mensuel */}
-              <div className="p-3 bg-zinc-950 border border-zinc-800 rounded-none">
+            <div className="space-y-3">
+              {/* Essentiel */}
+              <div 
+                onClick={() => {
+                  setSelectedTier('essentiel');
+                  setIsPayModalOpen(true);
+                }}
+                className={`p-3 border-2 cursor-pointer transition ${selectedTier === 'essentiel' ? 'border-atelier-gold bg-zinc-950' : 'border-zinc-800 bg-zinc-950/60 hover:border-zinc-700'}`}
+              >
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-300">Mensuel</span>
-                  <span className="font-mono text-sm font-black text-white">{pricing.mensuel} FCFA <span className="text-[10px] font-normal text-zinc-400">/mois</span></span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-200">Essentiel</span>
+                  <span className="font-mono text-sm font-black text-white">4 000 FCFA <span className="text-[10px] font-normal text-zinc-400">/mois</span></span>
                 </div>
-                <p className="text-[10px] text-zinc-500 font-serif italic mt-1">Idéal pour démarrer sans engagement.</p>
+                <p className="text-[10px] text-zinc-400 font-serif italic mt-1">Tailleur indépendant, clients illimités & WhatsApp standard.</p>
               </div>
 
-              {/* Annuel */}
-              <div className="p-3 bg-atelier-gold text-slate-950 border border-black rounded-none relative overflow-hidden">
+              {/* Pro */}
+              <div 
+                onClick={() => {
+                  setSelectedTier('pro');
+                  setIsPayModalOpen(true);
+                }}
+                className="p-3 bg-atelier-gold text-slate-950 border-2 border-black rounded-none relative overflow-hidden cursor-pointer hover:bg-yellow-400 transition"
+              >
                 <div className="absolute top-0 right-0 bg-red-600 text-white font-black uppercase text-[8px] px-2 py-0.5 tracking-wider shadow-sm">
-                  POPULAIRE
+                  RECOMMANDÉ
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-black uppercase tracking-wider text-slate-900">Annuel</span>
-                  <span className="font-mono text-sm font-black text-slate-950">{pricing.annuel} FCFA <span className="text-[10px] font-normal text-slate-800">/an</span></span>
+                  <span className="text-xs font-black uppercase tracking-wider text-slate-900">Pro Atelier</span>
+                  <span className="font-mono text-sm font-black text-slate-950">10 000 FCFA <span className="text-[10px] font-normal text-slate-800">/mois</span></span>
                 </div>
-                <p className="text-[10px] text-slate-800 font-serif italic mt-1 flex items-center gap-1">
-                  <TrendingDown className="h-3 w-3" /> Réduction de 10 000 FCFA incluse (-12%).
+                <p className="text-[10px] text-slate-900 font-serif font-bold mt-1 flex items-center gap-1">
+                  Multi-utilisateurs (Chef, Couturier, Coupeur, Vendeur), Caisse & Trésorerie Wave/OM, Alertes stock.
                 </p>
+              </div>
+
+              {/* Entreprise */}
+              <div className="p-3 bg-zinc-950 border border-zinc-800 text-zinc-300">
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-bold uppercase tracking-wider text-zinc-300">Entreprise</span>
+                  <span className="font-mono text-xs font-black text-atelier-gold">Sur Devis</span>
+                </div>
+                <p className="text-[10px] text-zinc-500 font-serif italic mt-1">Réseau multi-boutiques & support WhatsApp dédié 7j/7.</p>
               </div>
             </div>
           </div>
 
           <div className="text-[10px] text-zinc-400 pt-4 font-serif leading-relaxed">
-            Note: Les paiements sont sécurisés et traités virtuellement sur ce prototype. Aucun débit réel n'est effectué.
+            Note: Paiement instantané via Wave, Orange Money ou virement. Aucune carte bancaire obligatoire.
           </div>
         </div>
 
+      </div>
+
+      {/* Grille Comparatif Détaillé CDC Section 9 */}
+      <div className="bg-white p-6 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] space-y-6">
+        <div>
+          <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Cahier des Charges — Section 9</span>
+          <h3 className="text-sm font-black uppercase tracking-tight text-slate-900 mt-0.5">Grille Tarifaire Complète & Services Inclus</h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          
+          {/* 1. Découverte */}
+          <div className="border-2 border-slate-300 p-4 flex flex-col justify-between bg-slate-50">
+            <div className="space-y-3">
+              <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 bg-slate-200 px-2 py-0.5">DÉCOUVERTE</span>
+              <h4 className="text-base font-black text-slate-900">0 FCFA</h4>
+              <p className="text-[11px] text-slate-600 font-serif">Pour tester l'application et démarrer en douceur.</p>
+              <ul className="text-xs space-y-1.5 text-slate-700 pt-2 border-t border-slate-200">
+                <li>✓ Jusqu'à 15 clients</li>
+                <li>✓ Modèles sénégalais de base</li>
+                <li>✓ 1 seul utilisateur</li>
+                <li>✓ Fiches mesures simples</li>
+                <li className="text-slate-400">✗ Multi-comptes équipe</li>
+                <li className="text-slate-400">✗ Caisse & Trésorerie</li>
+              </ul>
+            </div>
+            <div className="pt-4">
+              <span className="w-full block text-center py-2 bg-slate-200 text-slate-600 font-black uppercase text-[10px] tracking-wider">
+                Inclus d'office
+              </span>
+            </div>
+          </div>
+
+          {/* 2. Essentiel */}
+          <div className="border-2 border-slate-900 p-4 flex flex-col justify-between bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+            <div className="space-y-3">
+              <span className="text-[9px] font-black uppercase tracking-widest text-blue-800 bg-blue-100 px-2 py-0.5">SOLO / INDÉPENDANT</span>
+              <div>
+                <h4 className="text-base font-black text-slate-900">4 000 FCFA <span className="text-[10px] font-normal text-slate-500">/mois</span></h4>
+                <span className="text-[10px] text-slate-500 font-mono">ou 40 000 FCFA/an (-2 mois)</span>
+              </div>
+              <p className="text-[11px] text-slate-600 font-serif">Idéal pour le tailleur artisan travaillant seul dans son atelier.</p>
+              <ul className="text-xs space-y-1.5 text-slate-700 pt-2 border-t border-slate-200">
+                <li>✓ Clients & Mesures illimités</li>
+                <li>✓ WhatsApp-First (reçus & avis)</li>
+                <li>✓ Gestion des commandes & devis</li>
+                <li>✓ Alertes essayages</li>
+                <li className="text-slate-400">✗ Gestion d'équipe d'atelier</li>
+                <li className="text-slate-400">✗ Caisse & stocks avancés</li>
+              </ul>
+            </div>
+            <div className="pt-4">
+              <button
+                onClick={() => {
+                  setSelectedTier('essentiel');
+                  setIsPayModalOpen(true);
+                }}
+                className="w-full py-2 bg-black hover:bg-slate-800 text-white font-black uppercase text-[10px] tracking-wider cursor-pointer border border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+              >
+                Choisir Essentiel
+              </button>
+            </div>
+          </div>
+
+          {/* 3. Pro */}
+          <div className="border-2 border-black p-4 flex flex-col justify-between bg-amber-50 relative shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+            <div className="absolute -top-3 right-3 bg-red-600 text-white font-black uppercase text-[8px] px-2 py-0.5 tracking-wider shadow">
+              LE PLUS POPULAIRE
+            </div>
+            <div className="space-y-3">
+              <span className="text-[9px] font-black uppercase tracking-widest text-amber-900 bg-atelier-gold px-2 py-0.5">ATELIER & ÉQUIPE</span>
+              <div>
+                <h4 className="text-base font-black text-slate-900">10 000 FCFA <span className="text-[10px] font-normal text-slate-500">/mois</span></h4>
+                <span className="text-[10px] text-emerald-700 font-mono font-bold">ou 100 000 FCFA/an (-2 mois)</span>
+              </div>
+              <p className="text-[11px] text-slate-700 font-serif font-medium">Pour l'atelier avec couturiers, chef d'atelier et vendeurs.</p>
+              <ul className="text-xs space-y-1.5 text-slate-800 pt-2 border-t border-amber-300">
+                <li>✓ Tout Essentiel inclus</li>
+                <li>✓ <strong>Multi-utilisateurs</strong> (5 rôles)</li>
+                <li>✓ <strong>Caisse Journalière</strong> & Wave/OM</li>
+                <li>✓ <strong>Gestion Stocks</strong> bazin, fils</li>
+                <li>✓ Tableaux de bord & Retards</li>
+                <li>✓ Synchronisation Cloud Supabase</li>
+              </ul>
+            </div>
+            <div className="pt-4">
+              <button
+                onClick={() => {
+                  setSelectedTier('pro');
+                  setIsPayModalOpen(true);
+                }}
+                className="w-full py-2 bg-atelier-gold hover:bg-yellow-400 text-black font-black uppercase text-[10px] tracking-wider cursor-pointer border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+              >
+                Activer Formule Pro ★
+              </button>
+            </div>
+          </div>
+
+          {/* 4. Entreprise */}
+          <div className="border-2 border-slate-900 p-4 flex flex-col justify-between bg-slate-900 text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+            <div className="space-y-3">
+              <span className="text-[9px] font-black uppercase tracking-widest text-zinc-900 bg-zinc-200 px-2 py-0.5">RÉSEAU MULTI-SITES</span>
+              <h4 className="text-base font-black text-atelier-gold">Sur Devis</h4>
+              <p className="text-[11px] text-zinc-300 font-serif">Réseaux d'ateliers, franchises & maisons de haute couture internationales.</p>
+              <ul className="text-xs space-y-1.5 text-zinc-300 pt-2 border-t border-zinc-700">
+                <li>✓ Multi-ateliers isolés</li>
+                <li>✓ Support WhatsApp dédié 7j/7</li>
+                <li>✓ Formation de l'équipe sur place</li>
+                <li>✓ Migration & catalogue sur-mesure</li>
+                <li>✓ SLA & Déploiement personnalisé</li>
+              </ul>
+            </div>
+            <div className="pt-4">
+              <a
+                href="https://wa.me/221770000000?text=Bonjour%20Tech%20Fox%2C%20je%20souhaite%20un%20devis%20pour%20la%20formule%20Entreprise%20FoxCouture"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full block text-center py-2 bg-white hover:bg-zinc-200 text-black font-black uppercase text-[10px] tracking-wider cursor-pointer border border-white"
+              >
+                Demander un Devis WhatsApp
+              </a>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       {/* Transaction History Log */}
@@ -486,7 +639,7 @@ L'Atelier Haute Couture sur Nuage.
                 <CheckCircle className="h-12 w-12 text-emerald-600 mx-auto animate-bounce" />
                 <h4 className="font-black uppercase text-sm text-slate-950">Paiement Validé avec Succès !</h4>
                 <p className="text-xs font-serif text-slate-600 max-w-md mx-auto">
-                  Votre transaction d'un montant de <strong>{paymentPeriod === 'mensuel' ? pricing.mensuel : pricing.annuel} FCFA</strong> a été enregistrée de manière sécurisée sous la référence <strong>{generatedRef}</strong>.
+                  Votre transaction pour la formule <strong>{TIER_PRICES[selectedTier].nom}</strong> ({paymentPeriod === 'mensuel' ? 'Mensuel' : 'Annuel'}) d'un montant de <strong>{getPlanPrice()} FCFA</strong> a été enregistrée avec succès sous la référence <strong>{generatedRef}</strong>.
                   Votre atelier est désormais <strong>ACTIF</strong>.
                 </p>
                 <div className="pt-2">
@@ -505,29 +658,41 @@ L'Atelier Haute Couture sur Nuage.
               <form onSubmit={handleSimulatePayment} className="space-y-4 text-xs font-semibold">
                 
                 {/* Mode and Pricing Selection */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">CHOIX DU PLAN</label>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">FORMULE</label>
                     <select
-                      value={paymentPeriod}
-                      onChange={(e) => setPaymentPeriod(e.target.value as any)}
-                      className="w-full bg-white border-2 border-black p-2.5 rounded-none font-bold"
+                      value={selectedTier}
+                      onChange={(e) => setSelectedTier(e.target.value as any)}
+                      className="w-full bg-white border-2 border-black p-2 rounded-none font-bold"
                     >
-                      <option value="mensuel">Mensuel ({pricing.mensuel} FCFA)</option>
-                      <option value="annuel">Annuel ({pricing.annuel} FCFA)</option>
+                      <option value="essentiel">Essentiel (4k / mois)</option>
+                      <option value="pro">Pro Atelier (10k / mois)</option>
                     </select>
                   </div>
 
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">PÉRIODE</label>
+                    <select
+                      value={paymentPeriod}
+                      onChange={(e) => setPaymentPeriod(e.target.value as any)}
+                      className="w-full bg-white border-2 border-black p-2 rounded-none font-bold"
+                    >
+                      <option value="mensuel">Mensuel ({TIER_PRICES[selectedTier].mensuel} FCFA)</option>
+                      <option value="annuel">Annuel ({TIER_PRICES[selectedTier].annuel} FCFA - 2 mois offerts)</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
                     <label className="text-[10px] font-black uppercase tracking-wider text-slate-900 block">MOYEN DE PAIEMENT</label>
                     <select
                       value={paymentMoyen}
                       onChange={(e) => setPaymentMoyen(e.target.value as any)}
-                      className="w-full bg-white border-2 border-black p-2.5 rounded-none font-bold"
+                      className="w-full bg-white border-2 border-black p-2 rounded-none font-bold"
                     >
-                      <option value="mobile_money">Mobile Money (Wave, Orange, MTN)</option>
-                      <option value="carte">Carte Bancaire (VISA, MasterCard)</option>
-                      <option value="virement">Virement Bancaire (UBA, Ecobank)</option>
+                      <option value="mobile_money">Wave / Orange Money</option>
+                      <option value="carte">Carte Bancaire (VISA / Mastercard)</option>
+                      <option value="virement">Virement Bancaire</option>
                     </select>
                   </div>
                 </div>
@@ -644,7 +809,7 @@ L'Atelier Haute Couture sur Nuage.
                       {promoDiscount > 0 ? (
                         <>
                           <span className="line-through text-slate-400 mr-1.5 font-mono">
-                            {paymentPeriod === 'mensuel' ? pricing.mensuel : pricing.annuel} FCFA
+                            {paymentPeriod === 'mensuel' ? TIER_PRICES[selectedTier].mensuel : TIER_PRICES[selectedTier].annuel} FCFA
                           </span>
                           <strong className="font-mono text-emerald-600 text-sm">
                             {getPlanPrice()} FCFA

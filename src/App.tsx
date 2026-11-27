@@ -57,6 +57,7 @@ import { MobileBottomNav, MobileTab } from './components/mobile/MobileBottomNav'
 import { Smartphone, Monitor } from 'lucide-react';
 import { Commande } from './types';
 import NetworkStatusBadge from './components/NetworkStatusBadge';
+import OnboardingModal from './components/OnboardingModal';
 
 type ActiveTab = 
   | 'dashboard' 
@@ -97,6 +98,12 @@ function MainAppContent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isNotifDropdownOpen, setIsNotifDropdownOpen] = useState(false);
   const [isSettingsDropdownOpen, setIsSettingsDropdownOpen] = useState(false);
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('fox_couture_onboarded') !== 'true';
+    }
+    return false;
+  });
 
   // Active logged-in user session
   const [currentUser, setCurrentUser] = useState<any>(() => {
@@ -519,6 +526,17 @@ function MainAppContent() {
                   Paramètres de l'Atelier ⚙️
                 </button>
 
+                <button
+                  onClick={() => {
+                    setIsOnboardingOpen(true);
+                    setIsSettingsDropdownOpen(false);
+                  }}
+                  className="w-full text-left p-2.5 bg-atelier-gold text-black rounded-none transition flex items-center gap-2 cursor-pointer font-black uppercase tracking-wider border border-black text-[10px] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                >
+                  <Sparkles className="h-4 w-4 text-black" />
+                  Guide d'Accueil Atelier 🚀
+                </button>
+
                 <hr className="border-black my-1" />
 
                 <span className="text-[10px] text-slate-400 uppercase font-black tracking-widest block mb-1">Sauvegarde & Restauration</span>
@@ -895,6 +913,11 @@ function MainAppContent() {
             </motion.div>
           </AnimatePresence>
         </main>
+
+        <OnboardingModal 
+          isOpen={isOnboardingOpen} 
+          onClose={() => setIsOnboardingOpen(false)} 
+        />
 
       </div>
     </div>
